@@ -1,0 +1,33 @@
+Dave The Diver Save Editor — Attribution & Notices
+===================================================
+
+This project is an independent, native macOS (Apple Silicon) save editor for
+the game "Dave the Diver". It is a clean Swift reimplementation, not a code
+fork, but it stands on the shoulders of prior work and credits it gratefully.
+
+Inspiration & prior art
+-----------------------
+* DaveSaveEd — https://github.com/FNGarvin/DaveSaveEd (MIT), by FNGarvin.
+  The original Windows save editor: the feature set (max Gold/Bei/Artisan's
+  Flame/Follower count and ingredients), the ingredient/items reference data,
+  and the macOS/Windows save-path knowledge are derived from or inspired by
+  this project. Thank you.
+
+* Dave the Diver save-format reverse-engineering — WhiteMinds
+  https://github.com/WhiteMinds/dave-diver-expansion (tools/save-codec).
+  The correct char-level (UTF-16 code unit) XOR codec understanding — which
+  lets this editor handle non-ASCII (Chinese/Korean) saves without corruption,
+  unlike byte-level implementations — is based on WhiteMinds' PORTING-NOTES.
+  Thank you.
+
+Non-affiliation
+---------------
+This project and its authors are NOT affiliated with, endorsed by, or
+associated with Mintrocket, Nexon, or any entity related to "Dave the Diver".
+This is an independent, fan-made tool. Use at your own risk; always keep
+backups of your save files.
+
+Third-party components
+----------------------
+* SQLite — public domain. On macOS the system libsqlite3 is linked via the
+  SDK's `import SQLite3` module; no SQLite source is vendored in this repo.
