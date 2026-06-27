@@ -1,9 +1,23 @@
-.DS_Store
+# Swift Package Manager
 .build/
 .swiftpm/
+Package.resolved
+
+# Xcode
 DerivedData/
+xcuserdata/
+*.xcuserstate
 *.xcodeproj/xcuserdata/
 *.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# macOS
+.DS_Store
+
+# Logs / temp
+*.log
+*.bak
+
 .superpowers/
 # Real save vectors for LOCAL validation only — never commit real user saves
 /LocalFixtures/
