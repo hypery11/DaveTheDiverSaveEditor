@@ -1,3 +1,4 @@
+import AppKit
 import Foundation
 import Observation
 import DaveSaveCore
@@ -16,6 +17,8 @@ final class SaveEditorModel {
 
     private(set) var isLoaded = false
     private(set) var currentFileURL: URL?
+    private(set) var detected: SaveCandidate?
+    private(set) var ingredientStatus: String = ""
     var alert: AppAlert?
 
     // MARK: Backing state
@@ -23,6 +26,9 @@ final class SaveEditorModel {
     /// Live, editable document. `nil` until a save loads. Mutating it republishes to
     /// observers, so every `value(_:)` / `displayText(_:)` read re-renders on edit.
     private var document: SaveDocument?
+
+    /// Cache for a lazily-resolved `ReferenceDB.bundled()` when none was injected.
+    private var loadedReferenceDB: ReferenceDB?
 
     /// Currency values captured at load time — the Reset target and diff baseline.
     private var loadedValues: [Currency: Int64] = [:]
@@ -67,6 +73,95 @@ final class SaveEditorModel {
                 revealURL: nil
             )
         }
+    }
+
+    // MARK: - Save discovery
+
+    func detectLatestSave() {
+        detected = SaveLocator.newestSave(fileManager: fileManager, home: home)
+    }
+
+    func loadDetected() {
+        guard let candidate = detected else { return }
+        load(url: candidate.fileURL)
+    }
+
+    func load(url: URL) {
+        do {
+            let data = try Data(contentsOf: url)
+            load(data: data, sourceURL: url)
+        } catch {
+            alert = AppAlert(
+                id: UUID(),
+                title: "Could Not Read Save",
+                message: "Failed to read \(url.lastPathComponent): \(error.localizedDescription)",
+                revealURL: nil
+            )
+        }
+    }
+
+    // MARK: - Ingredients
+
+    private func resolvedReferenceDB() -> ReferenceDB? {
+        if let referenceDB { return referenceDB }
+        if let loadedReferenceDB { return loadedReferenceDB }
+        do {
+            let db = try ReferenceDB.bundled()
+            loadedReferenceDB = db
+            return db
+        } catch {
+            alert = AppAlert(
+                id: UUID(),
+                title: "Reference Data Error",
+                message: "Could not load the bundled ingredient reference database: \(error.localizedDescription)",
+                revealURL: nil
+            )
+            return nil
+        }
+    }
+
+    func maxOwnIngredients() {
+        guard document != nil, let ref = resolvedReferenceDB() else { return }
+        document?.maxOwnedIngredients(using: ref)
+        ingredientStatus = "Maxed owned ingredients."
+    }
+
+    func maxAllIngredients() {
+        guard document != nil, let ref = resolvedReferenceDB() else { return }
+        document?.maxAllIngredients(using: ref)
+        ingredientStatus = "Maxed all ingredients."
+    }
+
+    // MARK: - Write
+
+    @discardableResult
+    func write() -> URL? {
+        guard isLoaded, let url = currentFileURL, let document else { return nil }
+        do {
+            let backupURL = try BackupStore.backup(original: url, bundleID: Self.bundleID, home: home)
+            try BackupStore.writeAtomically(document.encoded(), to: url)
+            alert = AppAlert(
+                id: UUID(),
+                title: "Save Written",
+                message: "Your changes were written to \(url.lastPathComponent). A timestamped backup was saved first.",
+                revealURL: backupURL
+            )
+            return backupURL
+        } catch {
+            alert = AppAlert(
+                id: UUID(),
+                title: "Write Failed",
+                message: "Could not write the save: \(error.localizedDescription)",
+                revealURL: nil
+            )
+            return nil
+        }
+    }
+
+    // MARK: - Finder
+
+    func revealInFinder(_ url: URL) {
+        NSWorkspace.shared.activateFileViewerSelecting([url])
     }
 
     // MARK: Reading
