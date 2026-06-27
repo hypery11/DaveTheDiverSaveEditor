@@ -43,7 +43,7 @@ targets:
         ENABLE_HARDENED_RUNTIME: "NO"
         INFOPLIST_KEY_CFBundleDisplayName: Dave The Diver Save Editor
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
-        INFOPLIST_KEY_NSHumanReadableCopyright: ""
+        INFOPLIST_KEY_NSHumanReadableCopyright: "MIT License."
     scheme:
       testTargets:
         - DaveTheDiverSaveEditorTests

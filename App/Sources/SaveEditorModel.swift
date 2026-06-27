@@ -20,6 +20,9 @@ final class SaveEditorModel {
     private(set) var detected: SaveCandidate?
     private(set) var ingredientStatus: String = ""
     var alert: AppAlert?
+    /// Set to `true` by the ⌘S menu command; ContentView observes this to
+    /// present the preview sheet, then resets it to `false`.
+    var requestWrite: Bool = false
 
     // MARK: Backing state
 
@@ -65,7 +68,9 @@ final class SaveEditorModel {
             self.currentFileURL = sourceURL
             self.isLoaded = true
             self.alert = nil
+            AppLog.io.info("Loaded save \(sourceURL?.lastPathComponent ?? "in-memory"): gold=\(value(.gold) ?? -1) bei=\(value(.bei) ?? -1) flame=\(value(.artisansFlame) ?? -1) followers=\(value(.followerCount) ?? -1)")
         } catch {
+            AppLog.io.error("Failed to load \(sourceURL?.lastPathComponent ?? "in-memory"): \(error.localizedDescription)")
             self.alert = AppAlert(
                 id: UUID(),
                 title: "Couldn't read save",
@@ -79,6 +84,7 @@ final class SaveEditorModel {
 
     func detectLatestSave() {
         detected = SaveLocator.newestSave(fileManager: fileManager, home: home)
+        AppLog.io.info("Detected latest save: \(detected?.fileURL.path ?? "none found")")
     }
 
     func loadDetected() {
@@ -124,12 +130,14 @@ final class SaveEditorModel {
         guard document != nil, let ref = resolvedReferenceDB() else { return }
         document?.maxOwnedIngredients(using: ref)
         ingredientStatus = "Maxed owned ingredients."
+        AppLog.model.info("Max-own ingredients → \(ingredientStatus)")
     }
 
     func maxAllIngredients() {
         guard document != nil, let ref = resolvedReferenceDB() else { return }
         document?.maxAllIngredients(using: ref)
         ingredientStatus = "Maxed all ingredients."
+        AppLog.model.info("Max-all ingredients → \(ingredientStatus)")
     }
 
     // MARK: - Write
@@ -139,7 +147,9 @@ final class SaveEditorModel {
         guard isLoaded, let url = currentFileURL, let document else { return nil }
         do {
             let backupURL = try BackupStore.backup(original: url, bundleID: Self.bundleID, home: home)
+            AppLog.io.notice("Backup written: \(backupURL.path)")
             try BackupStore.writeAtomically(document.encoded(), to: url)
+            AppLog.io.notice("Wrote save: \(url.lastPathComponent)")
             alert = AppAlert(
                 id: UUID(),
                 title: "Save Written",
@@ -148,6 +158,7 @@ final class SaveEditorModel {
             )
             return backupURL
         } catch {
+            AppLog.io.error("Write failed: \(error.localizedDescription)")
             alert = AppAlert(
                 id: UUID(),
                 title: "Write Failed",

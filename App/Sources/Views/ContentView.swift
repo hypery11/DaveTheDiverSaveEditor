@@ -17,7 +17,6 @@ struct ContentView: View {
         }
         .formStyle(.grouped)
         .frame(minWidth: 460, minHeight: 540)
-        .task { model.detectLatestSave() }
         // ── Added by Task 5: write-flow chrome ───────────────────────
         .toolbar {
             ToolbarItemGroup {
@@ -26,7 +25,7 @@ struct ContentView: View {
                 } label: {
                     Label("Load Save File…", systemImage: "folder")
                 }
-                .keyboardShortcut("o", modifiers: .command)
+                // Keyboard shortcut owned by File ▸ Open… menu command (⌘O).
                 .help("Choose a Dave the Diver save file to load.")
 
                 Button {
@@ -34,13 +33,20 @@ struct ContentView: View {
                 } label: {
                     Label("Write Save File", systemImage: "square.and.arrow.down")
                 }
-                .keyboardShortcut("s", modifiers: .command)
+                // Keyboard shortcut owned by File ▸ Save menu command (⌘S).
                 .disabled(!model.hasChanges)
                 .help("Review pending changes and write them to the save file.")
             }
         }
         .sheet(isPresented: $showingPreview) {
             ChangePreviewView(model: model)
+        }
+        // Menu ⌘S sets model.requestWrite; observe here to present the sheet.
+        .onChange(of: model.requestWrite) { _, newValue in
+            if newValue {
+                showingPreview = true
+                model.requestWrite = false
+            }
         }
         .alert(item: $model.alert) { appAlert in
             if let url = appAlert.revealURL {
