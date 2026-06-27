@@ -55,6 +55,22 @@ private let compactFixture =
         #expect(throws: JSONParseError.invalidNumber(0)) { _ = try OrderedJSON.parse("12.") } // bad number
     }
 
+    @Test func deeplyNestedInputThrowsTooDeeplyNested() {
+        // Build a 200-deep nested array; the parser must throw tooDeeplyNested
+        // (at depth 128) rather than overflowing the call stack and crashing.
+        let input = String(repeating: "[", count: 200) + "1" + String(repeating: "]", count: 200)
+        var caught: JSONParseError?
+        do {
+            _ = try OrderedJSON.parse(input)
+        } catch let e as JSONParseError {
+            caught = e
+        } catch {}
+        guard case .tooDeeplyNested = caught else {
+            Issue.record("Expected .tooDeeplyNested, got \(String(describing: caught))")
+            return
+        }
+    }
+
     @Test func realSaveParsesAndReserializesByteIdentical() throws {
         // Optional local fixture (gitignored LocalFixtures/, never committed; skipped in CI if absent).
         let url = URL(fileURLWithPath:

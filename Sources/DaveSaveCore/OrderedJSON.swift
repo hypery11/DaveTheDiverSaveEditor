@@ -33,6 +33,8 @@ public enum JSONParseError: Error, Equatable {
     case unexpectedEnd
     case unexpectedCharacter(Int)
     case invalidNumber(Int)
+    /// Thrown when object/array nesting exceeds the parser's recursion limit.
+    case tooDeeplyNested(Int)
 }
 
 // MARK: - Parsing
@@ -41,9 +43,10 @@ public extension OrderedJSON {
 
     /// Recursive-descent parser that captures verbatim lexemes for scalars and keys.
     /// Skips insignificant whitespace between tokens (a no-op for compact input).
+    /// Throws `JSONParseError.tooDeeplyNested` when nesting exceeds 128 levels.
     static func parse(_ text: String) throws -> OrderedJSON {
         var parser = Parser(text)
-        let value = try parser.parseValue()
+        let value = try parser.parseValue(depth: 0)
         parser.skipWhitespace()
         guard parser.isAtEnd else {
             throw JSONParseError.unexpectedCharacter(parser.position)
@@ -163,6 +166,8 @@ private struct Parser {
     let chars: [Character]
     var pos: Int = 0
 
+    static let maxDepth = 128
+
     init(_ text: String) { chars = Array(text) }
 
     var isAtEnd: Bool { pos >= chars.count }
@@ -177,13 +182,13 @@ private struct Parser {
         }
     }
 
-    mutating func parseValue() throws -> OrderedJSON {
+    mutating func parseValue(depth: Int) throws -> OrderedJSON {
         skipWhitespace()
         guard pos < chars.count else { throw JSONParseError.unexpectedEnd }
         let c = chars[pos]
         switch c {
-        case "{": return try parseObject()
-        case "[": return try parseArray()
+        case "{": return try parseObject(depth: depth)
+        case "[": return try parseArray(depth: depth)
         case "\"": return .scalar(try parseStringLexeme())
         case "t": return .scalar(try parseLiteral("true"))
         case "f": return .scalar(try parseLiteral("false"))
@@ -195,7 +200,8 @@ private struct Parser {
         }
     }
 
-    mutating func parseObject() throws -> OrderedJSON {
+    mutating func parseObject(depth: Int) throws -> OrderedJSON {
+        guard depth < Parser.maxDepth else { throw JSONParseError.tooDeeplyNested(depth) }
         pos += 1 // consume '{'
         var members: [Member] = []
         skipWhitespace()
@@ -212,7 +218,7 @@ private struct Parser {
             guard pos < chars.count else { throw JSONParseError.unexpectedEnd }
             guard chars[pos] == ":" else { throw JSONParseError.unexpectedCharacter(pos) }
             pos += 1 // consume ':'
-            let value = try parseValue()
+            let value = try parseValue(depth: depth + 1)
             members.append(Member(keyLexeme: keyLexeme, value: value))
             skipWhitespace()
             guard pos < chars.count else { throw JSONParseError.unexpectedEnd }
@@ -224,7 +230,8 @@ private struct Parser {
         }
     }
 
-    mutating func parseArray() throws -> OrderedJSON {
+    mutating func parseArray(depth: Int) throws -> OrderedJSON {
+        guard depth < Parser.maxDepth else { throw JSONParseError.tooDeeplyNested(depth) }
         pos += 1 // consume '['
         var elements: [OrderedJSON] = []
         skipWhitespace()
@@ -233,7 +240,7 @@ private struct Parser {
             return .array(elements)
         }
         while true {
-            let value = try parseValue()
+            let value = try parseValue(depth: depth + 1)
             elements.append(value)
             skipWhitespace()
             guard pos < chars.count else { throw JSONParseError.unexpectedEnd }
