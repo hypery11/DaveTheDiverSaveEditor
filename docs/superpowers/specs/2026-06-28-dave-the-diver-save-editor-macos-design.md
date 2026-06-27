@@ -187,7 +187,7 @@ Parse/serialize round-trips **corrupt** the save: **key order** must be preserve
 ```swift
 public struct SaveDocument {
     public static func load(_ data: Data) throws -> SaveDocument
-    public func encoded() throws -> Data
+    public func encoded() -> Data
 
     public var gold: Int64 { get }          ; public mutating func setGold(_ v: Int64)          // clamp
     public var bei: Int64 { get }           ; public mutating func setBei(_ v: Int64)           // clamp
