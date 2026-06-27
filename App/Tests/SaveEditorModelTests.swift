@@ -93,4 +93,22 @@ struct SaveEditorModelTests {
         #expect(model.alert != nil)
         #expect(model.value(.gold) == nil)
     }
+
+    @Test func applyTextRejectsNegativeFollowerCount() {
+        let model = loadedModel()
+        model.applyText(.followerCount, "-5")
+        #expect(model.value(.followerCount) == 123)
+        #expect(model.hasChanges == false)
+    }
+
+    @Test func secondLoadClearsIngredientStatus() throws {
+        let db = try ReferenceDB.bundled()
+        let model = SaveEditorModel(referenceDB: db)
+        model.load(data: SaveCodec.encode(Self.fixtureJSON), sourceURL: nil)
+        model.maxAllIngredients()
+        #expect(model.ingredientStatus != "")
+        // A second load must clear the stale status
+        model.load(data: SaveCodec.encode(Self.fixtureJSON), sourceURL: nil)
+        #expect(model.ingredientStatus == "")
+    }
 }

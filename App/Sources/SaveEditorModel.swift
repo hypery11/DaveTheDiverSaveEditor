@@ -68,6 +68,7 @@ final class SaveEditorModel {
             self.currentFileURL = sourceURL
             self.isLoaded = true
             self.alert = nil
+            self.ingredientStatus = ""
             AppLog.io.info("Loaded save \(sourceURL?.lastPathComponent ?? "in-memory"): gold=\(value(.gold) ?? -1) bei=\(value(.bei) ?? -1) flame=\(value(.artisansFlame) ?? -1) followers=\(value(.followerCount) ?? -1)")
         } catch {
             AppLog.io.error("Failed to load \(sourceURL?.lastPathComponent ?? "in-memory"): \(error.localizedDescription)")
@@ -145,9 +146,10 @@ final class SaveEditorModel {
     @discardableResult
     func write() -> URL? {
         guard isLoaded, let url = currentFileURL, let document else { return nil }
+        var backupURL: URL? = nil
         do {
-            let backupURL = try BackupStore.backup(original: url, bundleID: Self.bundleID, home: home)
-            AppLog.io.notice("Backup written: \(backupURL.path)")
+            backupURL = try BackupStore.backup(original: url, bundleID: Self.bundleID, home: home)
+            AppLog.io.notice("Backup written: \(backupURL!.path)")
             try BackupStore.writeAtomically(document.encoded(), to: url)
             AppLog.io.notice("Wrote save: \(url.lastPathComponent)")
             alert = AppAlert(
@@ -163,7 +165,7 @@ final class SaveEditorModel {
                 id: UUID(),
                 title: "Write Failed",
                 message: "Could not write the save: \(error.localizedDescription)",
-                revealURL: nil
+                revealURL: backupURL
             )
             return nil
         }
@@ -199,7 +201,7 @@ final class SaveEditorModel {
     /// Parse `text` as an `Int64` and write it via the matching setter. Empty or
     /// non-numeric input is a deliberate no-op (the field keeps its prior value).
     func applyText(_ currency: Currency, _ text: String) {
-        guard let value = Int64(text) else { return }
+        guard let value = Int64(text), value >= 0 else { return }
         apply(currency, value)
     }
 

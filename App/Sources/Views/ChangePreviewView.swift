@@ -54,7 +54,7 @@ struct ChangePreviewView: View {
             Label(Self.safetyNote, systemImage: "exclamationmark.triangle.fill")
                 .labelStyle(.titleAndIcon)
                 .font(.callout)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.orange)
                 .padding(.horizontal, 20)
                 .padding(.vertical, 12)
 

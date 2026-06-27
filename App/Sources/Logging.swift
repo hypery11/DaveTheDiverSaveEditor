@@ -61,8 +61,8 @@ final class FileLogSink: @unchecked Sendable {
         guard enabled else { fileURL = nil; return }
         try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         let url = directory.appendingPathComponent("session_\(Self.fileStamp(Date())).log")
-        FileManager.default.createFile(atPath: url.path, contents: nil)
-        fileURL = url
+        let created = FileManager.default.createFile(atPath: url.path(percentEncoded: false), contents: nil)
+        fileURL = created ? url : nil
     }
 
     func write(_ line: String) {
