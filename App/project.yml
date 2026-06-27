@@ -1,0 +1,64 @@
+name: DaveTheDiverSaveEditor
+
+options:
+  bundleIdPrefix: app.davethediver
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    ARCHS: arm64
+    ONLY_ACTIVE_ARCH: "YES"
+    CODE_SIGN_STYLE: Manual
+    CODE_SIGN_IDENTITY: "-"
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGNING_REQUIRED: "YES"
+    CODE_SIGNING_ALLOWED: "YES"
+
+packages:
+  DaveSaveCore:
+    path: ..
+
+targets:
+  DaveTheDiverSaveEditor:
+    type: application
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: Sources
+    dependencies:
+      - package: DaveSaveCore
+        product: DaveSaveCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.davethediver.saveeditor
+        PRODUCT_NAME: DaveTheDiverSaveEditor
+        GENERATE_INFOPLIST_FILE: "YES"
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        CODE_SIGN_ENTITLEMENTS: DaveTheDiverSaveEditor.entitlements
+        ENABLE_HARDENED_RUNTIME: "NO"
+        INFOPLIST_KEY_CFBundleDisplayName: Dave The Diver Save Editor
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
+        INFOPLIST_KEY_NSHumanReadableCopyright: ""
+    scheme:
+      testTargets:
+        - DaveTheDiverSaveEditorTests
+
+  DaveTheDiverSaveEditorTests:
+    type: bundle.unit-test
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: Tests
+    dependencies:
+      - target: DaveTheDiverSaveEditor
+      - package: DaveSaveCore
+        product: DaveSaveCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.davethediver.saveeditor.tests
+        GENERATE_INFOPLIST_FILE: "YES"
