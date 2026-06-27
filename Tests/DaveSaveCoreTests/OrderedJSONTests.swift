@@ -48,10 +48,11 @@ private let compactFixture =
     }
 
     @Test func malformedInputsThrowTypedErrors() {
-        #expect(throws: JSONParseError.self) { try OrderedJSON.parse("") }
-        #expect(throws: JSONParseError.self) { try OrderedJSON.parse("{\"a\":}") }
-        #expect(throws: JSONParseError.self) { try OrderedJSON.parse("{}x") } // trailing garbage
-        #expect(throws: JSONParseError.self) { try OrderedJSON.parse("12.") } // bad number
+        #expect(throws: JSONParseError.unexpectedEnd) { _ = try OrderedJSON.parse("") }
+        #expect(throws: JSONParseError.unexpectedEnd) { _ = try OrderedJSON.parse("tru") }
+        #expect(throws: JSONParseError.unexpectedCharacter(5)) { _ = try OrderedJSON.parse("{\"a\":}") }
+        #expect(throws: JSONParseError.unexpectedCharacter(2)) { _ = try OrderedJSON.parse("{}x") } // trailing garbage
+        #expect(throws: JSONParseError.invalidNumber(0)) { _ = try OrderedJSON.parse("12.") } // bad number
     }
 
     @Test func realSaveParsesAndReserializesByteIdentical() throws {

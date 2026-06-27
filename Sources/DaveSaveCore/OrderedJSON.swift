@@ -124,8 +124,8 @@ extension OrderedJSON {
             case "f":  result.append("\u{0C}"); i += 2
             case "u":
                 guard let hi = parseHex4(i + 2) else {
-                    // Malformed \u — keep the escape char literally and move on.
-                    result.append(esc); i += 2; continue
+                    // Malformed \u — keep the backslash and escape char literally and move on.
+                    result.append("\\"); result.append(esc); i += 2; continue
                 }
                 if hi >= 0xD800 && hi <= 0xDBFF {
                     // High surrogate: try to pair with a following \uXXXX low surrogate.
@@ -298,7 +298,7 @@ private struct Parser {
 
     mutating func parseLiteral(_ literal: String) throws -> String {
         let lit = Array(literal)
-        guard pos + lit.count <= chars.count else { throw JSONParseError.unexpectedCharacter(pos) }
+        guard pos + lit.count <= chars.count else { throw JSONParseError.unexpectedEnd }
         for k in 0..<lit.count where chars[pos + k] != lit[k] {
             throw JSONParseError.unexpectedCharacter(pos)
         }
