@@ -7,6 +7,12 @@ import Foundation
 /// once per UTF-16 code unit. Both directions are pure and perform no I/O;
 /// by construction `encode(decode(x)) == x` byte-for-byte for any save the
 /// game itself produced (valid UTF-8), and CJK content survives losslessly.
+///
+/// - Note: This codec assumes **BMP-only** content (Unicode code points U+0000
+///   through U+FFFF, no supplementary/astral characters or surrogate pairs).
+///   Dave the Diver saves contain only BMP characters, so this constraint holds
+///   in practice. XOR-ing a surrogate half (U+D800–U+DFFF) would produce an
+///   invalid code unit and yield U+FFFD on re-decode.
 public enum SaveCodec {
     /// XOR key code units: `Array("GameData".utf16)`
     /// == [0x47, 0x61, 0x6D, 0x65, 0x44, 0x61, 0x74, 0x61].

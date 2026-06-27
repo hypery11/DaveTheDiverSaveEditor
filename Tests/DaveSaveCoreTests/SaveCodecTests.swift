@@ -29,6 +29,16 @@ import Foundation
         #expect(SaveCodec.decode(sav) == plaintext)
     }
 
+    // (d) Discriminating test: verifies that encode produces per-UTF-16-code-unit
+    //     XOR bytes, not byte-level XOR bytes.
+    //     白 = U+767D (UTF-16 code unit 0x767D). key16[0] = 'G' = 0x47.
+    //     0x767D ^ 0x0047 = 0x763A (U+763A), whose UTF-8 encoding is [0xE7, 0x98, 0xBA].
+    //     A byte-level XOR would produce [0xA0, 0xF8, 0xD0] and fail this test.
+    @Test func encodeCJKProducesCodeUnitXorBytesNotByteXor() {
+        #expect(SaveCodec.encode("白") == Data([0xE7, 0x98, 0xBA]))
+        #expect(SaveCodec.decode(Data([0xE7, 0x98, 0xBA])) == "白")
+    }
+
     // (c) CJK round-trip with ZERO U+FFFD, on a farm animal whose id is NOT
     //     11090001 (the exact case upstream silently corrupts).
     @Test func cjkRoundTripHasNoReplacementChar() {
