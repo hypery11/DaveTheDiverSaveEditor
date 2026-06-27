@@ -19,7 +19,13 @@ public enum ReferenceDBError: Error, Equatable {
     case missingBundleResource
 }
 
-public final class ReferenceDB {
+// SAFETY: @unchecked Sendable is sound here because:
+//   1. The SQLite handle is opened SQLITE_OPEN_READONLY — no writes are possible.
+//   2. Apple's system SQLite defaults to serialized threading mode (SQLITE_THREADSAFE=1),
+//      so concurrent calls from multiple threads are internally serialised.
+//   3. The only mutable state (stmt) is allocated, stepped, and finalised within
+//      each method call — it is never stored on self, so there is no shared mutable state.
+public final class ReferenceDB: @unchecked Sendable {
     private let db: OpaquePointer
 
     /// Opens the database read-only (`SQLITE_OPEN_READONLY`); throws if the file
