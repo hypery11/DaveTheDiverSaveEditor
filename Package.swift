@@ -7,7 +7,8 @@ let package = Package(
         .macOS(.v14)
     ],
     products: [
-        .library(name: "DaveSaveCore", targets: ["DaveSaveCore"])
+        .library(name: "DaveSaveCore", targets: ["DaveSaveCore"]),
+        .executable(name: "dtdcli", targets: ["dtdcli"])
     ],
     targets: [
         .target(
@@ -20,6 +21,10 @@ let package = Package(
                 // later `import SQLite3` in ReferenceDB resolves with no edit here.
                 .linkedLibrary("sqlite3")
             ]
+        ),
+        .executableTarget(
+            name: "dtdcli",
+            dependencies: ["DaveSaveCore"]
         ),
         .testTarget(
             name: "DaveSaveCoreTests",
