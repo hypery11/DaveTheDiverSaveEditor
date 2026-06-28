@@ -5,7 +5,8 @@ enum TestSupportError: Error { case cannotCreate(Int32); case exec(String) }
 
 /// Builds a minimal `reference.sqlite`-shaped database at `url`.
 /// Rows mirror real game data so they double as documentation:
-///   ItemDataID 1020201 -> MaxCount 9999 (tier 6666), DLCType 1 (Sea People)
+///   ItemDataID 1020201 -> MaxCount 9999 (tier 6666), DLCType 1 (DREDGE aberration; perishable -> never maxed)
+///   ItemDataID 1021006 -> MaxCount 9999 (tier 6666), DLCType 0 (base; the normal "maxed to 6666" fixture)
 ///   ItemDataID 1021011 -> MaxCount 99   (tier 66),   DLCType 0 (base)
 ///   ItemDataID 1025901 -> MaxCount 1    (tier skip), DLCType 0 (base)
 ///   ItemDataID 1027019 -> MaxCount 9999 (tier 6666), DLCType 5 (Godzilla)
@@ -31,6 +32,7 @@ func makeTinyReferenceDB(at url: URL) throws {
         Type INTEGER NOT NULL
     );
     INSERT INTO Items VALUES (1010201, 1020201, 9999, 1);
+    INSERT INTO Items VALUES (1011006, 1021006, 9999, 0);
     INSERT INTO Items VALUES (1011701, 1021011, 99,   0);
     INSERT INTO Items VALUES (1018901, 1025901, 1,    0);
     INSERT INTO Items VALUES (1017019, 1027019, 9999, 5);
@@ -38,6 +40,7 @@ func makeTinyReferenceDB(at url: URL) throws {
     INSERT INTO Ingredients VALUES (1021011, 0);
     INSERT INTO Ingredients VALUES (1025901, 0);
     INSERT INTO Ingredients VALUES (1027019, 0);
+    INSERT INTO Ingredients VALUES (1021006, 0);
     """
     var errMsg: UnsafeMutablePointer<CChar>?
     guard sqlite3_exec(handle, sql, nil, nil, &errMsg) == SQLITE_OK else {
