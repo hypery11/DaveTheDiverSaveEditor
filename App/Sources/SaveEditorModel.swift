@@ -19,11 +19,14 @@ final class SaveEditorModel {
     private(set) var currentFileURL: URL?
     private(set) var detected: SaveCandidate?
     private(set) var ingredientStatus: String = ""
-    /// Set by any edit that `pendingChanges()` does not track (research point and the
-    /// bulk material/ingredient operations). Without this, a material-only edit would
-    /// leave the Write button disabled, since `pendingChanges()` only diffs the four
-    /// currency paths. Reset to `false` on every load.
-    private(set) var isDirty = false
+    /// Latches `true` when a bulk ingredient/material op runs. Those ops mutate many
+    /// nested fields the model never snapshots, so their effect cannot be diffed or
+    /// reversed through the UI — a one-way latch is the honest representation, and it
+    /// keeps the Write button live after a material-only edit (which `pendingChanges()`
+    /// does not track). Currency and research-point edits are NOT latched here; they are
+    /// diffed against the load-time snapshot in `hasChanges`, so a Reset can clear them.
+    /// Reset to `false` on every load.
+    private(set) var bulkEdited = false
     var alert: AppAlert?
     /// Set to `true` by the ⌘S menu command; ContentView observes this to
     /// present the preview sheet, then resets it to `false`.
@@ -75,7 +78,7 @@ final class SaveEditorModel {
             self.isLoaded = true
             self.alert = nil
             self.ingredientStatus = ""
-            self.isDirty = false
+            self.bulkEdited = false
             AppLog.io.info("Loaded save \(sourceURL?.lastPathComponent ?? "in-memory"): gold=\(value(.gold) ?? -1) bei=\(value(.bei) ?? -1) flame=\(value(.artisansFlame) ?? -1) followers=\(value(.followerCount) ?? -1)")
         } catch {
             AppLog.io.error("Failed to load \(sourceURL?.lastPathComponent ?? "in-memory"): \(error.localizedDescription)")
@@ -137,7 +140,7 @@ final class SaveEditorModel {
     func maxOwnIngredients() {
         guard document != nil, let ref = resolvedReferenceDB() else { return }
         document?.maxOwnedIngredients(using: ref)
-        isDirty = true
+        bulkEdited = true
         ingredientStatus = "Maxed owned ingredients."
         AppLog.model.info("Max-own ingredients → \(ingredientStatus)")
     }
@@ -145,7 +148,7 @@ final class SaveEditorModel {
     func maxAllIngredients() {
         guard document != nil, let ref = resolvedReferenceDB() else { return }
         document?.maxAllIngredients(using: ref)
-        isDirty = true
+        bulkEdited = true
         ingredientStatus = "Maxed all ingredients."
         AppLog.model.info("Max-all ingredients → \(ingredientStatus)")
     }
@@ -157,7 +160,7 @@ final class SaveEditorModel {
     func maxBranchIngredients() {
         guard document != nil, let ref = resolvedReferenceDB() else { return }
         document?.maxBranchIngredients(using: ref)
-        isDirty = true
+        bulkEdited = true
         ingredientStatus = "Maxed branch (second store) ingredients."
         AppLog.model.info("Max-branch ingredients → \(ingredientStatus)")
     }
@@ -166,7 +169,7 @@ final class SaveEditorModel {
     func maxInventoryItems() {
         guard document != nil, let ref = resolvedReferenceDB() else { return }
         let changed = document?.maxInventoryItems(using: ref) ?? 0
-        isDirty = true
+        bulkEdited = true
         ingredientStatus = "Maxed inventory items (\(changed) slots)."
         AppLog.model.info("Max inventory → \(ingredientStatus)")
     }
@@ -175,7 +178,7 @@ final class SaveEditorModel {
     func maxMermanInventory() {
         guard document != nil else { return }
         let changed = document?.maxMermanInventory() ?? 0
-        isDirty = true
+        bulkEdited = true
         ingredientStatus = "Maxed merman village inventory (\(changed) slots)."
         AppLog.model.info("Max merman → \(ingredientStatus)")
     }
@@ -257,10 +260,17 @@ final class SaveEditorModel {
 
     // MARK: Change preview
 
-    /// `true` when the current document differs from its load-time snapshot. Covers both
-    /// the currency diff (`pendingChanges()`) and edits that diff does not track —
-    /// research point and the bulk material/ingredient operations (`isDirty`).
-    var hasChanges: Bool { isDirty || !pendingChanges().isEmpty }
+    /// `true` when the current document differs from its load-time snapshot. Three
+    /// sources, each independently reversible to "no change":
+    /// - the four currencies, diffed by `pendingChanges()`;
+    /// - research point, diffed against its load-time snapshot (so Reset clears it);
+    /// - bulk ingredient/material ops, which latch `bulkEdited` (not individually
+    ///   reversible, so they stay dirty until the next load).
+    var hasChanges: Bool {
+        bulkEdited
+            || !pendingChanges().isEmpty
+            || value(.researchPoint) != loadedValue(.researchPoint)
+    }
 
     /// Per-field `old -> new` diff over the four currency paths.
     func pendingChanges() -> [FieldChange] {
@@ -281,9 +291,8 @@ final class SaveEditorModel {
         case .researchPoint: document.setResearchPoint(value)
         }
         self.document = document
-        // The four real currencies are tracked by `pendingChanges()`; research point is
-        // not, so it must mark dirty itself to keep the Write button live.
-        if currency == .researchPoint { isDirty = true }
+        // No dirty latch here: currencies are diffed by `pendingChanges()` and research
+        // point by `hasChanges`, so an edit followed by Reset correctly reads as clean.
     }
 
     private static func read(_ currency: Currency, from document: SaveDocument) -> Int64 {
