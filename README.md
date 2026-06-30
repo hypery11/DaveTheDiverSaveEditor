@@ -20,7 +20,9 @@ characters on a real Chinese save where this editor produces zero).
 - View and edit Gold, Bei, Artisan's Flame, Follower Count, and Research Point (exact value **or** one-click Max, with Reset).
 - Max owned ingredients / max all ingredients (DLC-aware), plus **branch (second sushi store) stock** — each ingredient carries a separate main-store and branch count.
 - Max general inventory items (materials / crafting parts) and the Sea People (merman) village inventory.
+- Max **farm seeds / produce** and **craft materials** — the latter stocks the fish parts and DREDGE research parts/bones that weapon crafting needs (these, unlike the raw aberration fish, are safe to stock). Plus a power-user "add item by id:count" override.
 - Perishable **aberration fish** (the DREDGE collab catch) are deliberately skipped by the bulk "max" actions — the game discards stockpiled aberrations on load, so maxing them would wipe your real catch.
+- **Won't let you clobber a live save:** writing is blocked while Dave the Diver is running or the save file is open, with a clear prompt to quit the game first.
 - Auto-detect your macOS save, read-only viewer, change-preview-before-write, automatic timestamped backups.
 - A headless companion CLI (`dtdcli`) over the same engine for power users and scripting.
 

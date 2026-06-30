@@ -18,8 +18,11 @@ Beyond the v1 set (Gold/Bei/Artisan's Flame/Follower + ingredient max), the foll
 | **Branch (2nd store) ingredient stock** | `maxBranchIngredients(using:)` | `Ingredients.<>.branchCount` | See §2.2 — the critical `count` vs `branchCount` finding. |
 | **Fish encyclopedia** | `addCaughtFish(fishID:grade:)` | `CaughtFish.<fishID>` = `{fishID,grade,isNew}` | Add/complete encyclopedia entries (the *collection*, distinct from the perishable fish *stock*). |
 | **Direct ingredient count** | `setIngredientCount(id:count:)` | `Ingredients.<id>.count` | Low-level override (bypasses tier/DLC/aberration rules). |
+| **Farm seeds / produce** | `maxFarmStorage(to:)` | `Farm.Storage[].Count` | Home-farm seed shop "持有量". Array of `{ID, Count}`; `ID == 0` are empty slots (skipped). Soybean = ID 11070003. |
+| **Craft materials** | `maxCraftMaterials(using:)` | `InventoryItemSlot.<>.totalCount` | ItemType-6 (fish parts, DREDGE research parts/bones). See §2.5 — TID-keyed and non-perishable. Raises owned + injects missing, DLC-gated. |
+| **Direct inventory item** | `setInventoryItem(itemID:count:)` | `InventoryItemSlot.<>` | Set existing slot or inject a new `{GUID,index,itemID,totalCount,isNew}`. |
 
-The tier map (shared with v1) stays: `MaxCount ≥9999→6666, ≥999→666, ≥99→66, else skip`.
+The tier map (shared with v1) stays: `MaxCount ≥9999→6666, ≥999→666, ≥99→66, else skip`. Seeds fill to 9999, craft materials to 999.
 
 ---
 
@@ -40,7 +43,13 @@ Maxing only `count` leaves the **branch material screen unfilled**. `maxBranchIn
 The #1 "my edit didn't work" cause: on launch Steam Cloud overwrites the locally-edited save with the old cloud copy. Always: quit game → Steam → Properties → General → uncheck "Keep game saves in the Steam Cloud" → edit → launch. (Documented in the README.)
 
 ### 2.4 Saving while the game runs is unsafe; the title screen flickers a lock
-The game must be **fully quit** before writing — not just at the title screen, where it intermittently opens the save file to render the "Continue" preview (caught via `lsof`). Writes use `BackupStore.writeAtomically` (temp + atomic rename), so a transient OS/Spotlight touch is harmless, but an actively-running game will overwrite the edit on its next save.
+The game must be **fully quit** before writing — not just at the title screen, where it intermittently opens the save file to render the "Continue" preview (caught via `lsof`). Writes use `BackupStore.writeAtomically` (temp + atomic rename), so a transient OS/Spotlight touch is harmless, but an actively-running game will overwrite the edit on its next save. **This is now enforced in code** — see §6.
+
+### 2.5 Craft materials are TID-keyed and NOT perishable (unlike raw aberration fish)
+Weapon-craft materials (研究零件 Research Parts, 半透明中華鱘的脊椎骨 / fish bones, eyes, strings) are `ItemType 6` in the reference DB. Two non-obvious facts:
+- Their `Items.ItemDataID` is `-1`; the save's `InventoryItemSlot.itemID` uses the **`Items.TID`** instead (e.g. Research Part = `1014980`, Translucent Sturgeon Bone = `1018082`). So matching/injecting must use TID, not ItemDataID.
+- Although DLCType-1 (DREDGE) like the aberration fish, these **disassembled materials persist across nights** — confirmed by the player carrying sibling DREDGE parts (`1018081` Gazing Shark Eye, `1018083` Bloodskin Shark String) for sessions. Only the **raw aberration fish** (ItemType 4, in `Ingredients`) are discarded. So injecting craft materials is safe; injecting raw aberration fish is not (§2.1).
+The raw fish ↔ material link: aberration fish `Dredge_Translucent_Sturgeon` is ingredient `1023077` / `fishID 2011220`; disassembling it yields bone `1018082`.
 
 ---
 
@@ -58,8 +67,8 @@ Grepping `SA_<id>_<name>.prefab` yields the full fish roster (≈218 named fish,
 ## 4. The `dtdcli` companion tool
 
 A small headless CLI (`Sources/dtdcli`) over the same `DaveSaveCore` engine, used to apply/verify edits on real saves and as a power-user tool. `dtdcli batch <save> <ops…>` where ops include:
-`gold=N bei=N flame=N follower=N research=N maxown maxall maxbranch maxinv maxmerman addfish=ID:GRADE seting=ID:COUNT`.
-Every write makes a timestamped backup first.
+`gold=N bei=N flame=N follower=N research=N maxown maxall maxbranch maxinv maxmerman maxseeds maxcraft addfish=ID:GRADE seting=ID:COUNT setinv=ID:COUNT`.
+Also `dtdcli dump <save> [out.json]` decodes a save to plain JSON for inspection (read-only). Every write makes a timestamped backup first and is gated by the §6 safety guard (override with `DTD_FORCE=1`, e.g. when writing to a copy).
 
 ---
 
@@ -71,4 +80,21 @@ Every write makes a timestamped backup first.
 
 ---
 
-*The aberration/branch findings above are the kind of thing only real-save + in-game testing surfaces. Keep that loop: edit → disable cloud → quit fully → load → verify.*
+## 6. Pre-write safety guard (`SaveGuard`)
+
+The §2.3/§2.4 "my edit didn't work / got reverted" failures are now prevented in code. `SaveGuard` (DaveSaveCore, Foundation-only so the app and `dtdcli` share it) checks two things before any write:
+
+- **Game running** — scans `ps -axo comm=` for a process whose executable path is under Steam's `steamapps` and mentions "dave". Matching the executable *path* (not arguments) keeps the editor's own tools from self-matching. The match is a pure, unit-tested predicate (`matchesGameProcess(in:)`).
+- **File open** — `lsof -t -- <path>`; non-empty ⇒ another process holds it.
+
+The app refuses the write and shows a *"Can't Write Yet"* alert (telling the user to ⌘Q the game); the CLI refuses unless `DTD_FORCE=1`. The model takes the check as an injectable closure (default = always-safe) so tests/previews never spawn subprocesses and don't depend on whether the game happens to be running; the app's composition root injects the real `SaveGuard.check`. (Steam Cloud, §2.3, is a separate revert vector the guard can't see — keep it disabled.)
+
+---
+
+## 7. Status & what's next
+
+Done (engine + CLI + GUI, validated on the real save): currencies, research point, ingredients (own/all/branch), inventory, merman village, **farm seeds**, **craft materials** (weapon crafting unblocked), per-item overrides, and the **safety guard**. Still open: fish-encyclopedia completion GUI (`addCaughtFish` needs an in-game registration check), and RE of staff/weapon-tree/recipe fields (use the §3 catalog technique + a mid/late-game save).
+
+---
+
+*The aberration/branch/craft-material findings above are the kind of thing only real-save + in-game testing surfaces. Keep that loop: edit → disable cloud → quit fully → load → verify.*
