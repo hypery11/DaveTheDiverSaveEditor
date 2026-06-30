@@ -309,6 +309,15 @@ final class SaveEditorModel {
         apply(currency, value)
     }
 
+    /// Add `delta` to a value, clamped at 0 (and re-clamped to the setter's upper
+    /// bound). Routes through the same `apply` path as exact entry, so dirty-tracking
+    /// and engine clamps are unchanged. Powers the ±10/±100/±1000 buttons.
+    func adjust(_ currency: Currency, by delta: Int64) {
+        guard let current = value(currency) else { return }
+        let next = max(0, current &+ delta)   // overflow-safe; setter re-clamps the top
+        apply(currency, next)
+    }
+
     // MARK: Change preview
 
     /// `true` when the current document differs from its load-time snapshot. Three
