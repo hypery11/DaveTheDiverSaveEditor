@@ -27,9 +27,11 @@ struct AdvancedDetail: View {
             Text("Set or inject a specific item by id and count (power-user).")
                 .font(.subheadline).foregroundStyle(Theme.Color.textSecondary)
             HStack(spacing: Theme.Spacing.sm) {
-                TextField("Item ID", text: $itemIDText).frame(width: 130)
-                TextField("Count", text: $countText).frame(width: 100)
+                TextField("Item ID", text: $itemIDText).frame(width: Theme.Spacing.advancedIDFieldWidth)
+                TextField("Count", text: $countText).frame(width: Theme.Spacing.advancedCountFieldWidth)
                 Button("Add Item") { if let id, let count { model.addInventoryItem(itemID: id, count: count) } }
+                    .buttonStyle(.bordered)
+                    .tint(EditorCategory.advanced.accent)
                     .disabled(id == nil || count == nil)
             }
             .textFieldStyle(.roundedBorder).monospacedDigit()

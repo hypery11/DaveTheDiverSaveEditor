@@ -12,7 +12,7 @@ struct DeltaStrip: View {
             ForEach(steps.reversed(), id: \.self) { s in
                 button(-s, tint: Theme.Color.error)
             }
-            Divider().frame(height: 18)
+            Divider()
             ForEach(steps, id: \.self) { s in
                 button(s, tint: Theme.Color.success)
             }

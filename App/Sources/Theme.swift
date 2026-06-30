@@ -22,7 +22,12 @@ extension Color {
 /// Swift mirror of DESIGN.md. Views reference Theme.* only — no inline magic values.
 enum Theme {
     enum Spacing { static let xs: CGFloat = 4, sm: CGFloat = 8, md: CGFloat = 12
-                   static let lg: CGFloat = 16, xl: CGFloat = 24, xxl: CGFloat = 32 }
+                   static let lg: CGFloat = 16, xl: CGFloat = 24, xxl: CGFloat = 32
+                   // Component-width tokens (not part of the density scale)
+                   static let exactFieldWidth: CGFloat = 150
+                   static let statusDotSize: CGFloat = 7
+                   static let advancedIDFieldWidth: CGFloat = 130
+                   static let advancedCountFieldWidth: CGFloat = 100 }
     enum Radius { static let control: CGFloat = 8, card: CGFloat = 12 }
 
     enum Color {
@@ -32,11 +37,11 @@ enum Theme {
         static let separator     = SwiftUI.Color(light: .init(hex: 0xE7DECB), dark: .init(hex: 0x323A41))
         static let textPrimary   = SwiftUI.Color(light: .init(hex: 0x1F2A2E), dark: .init(hex: 0xF0F4F3))
         static let textSecondary = SwiftUI.Color(light: .init(hex: 0x5C6B70), dark: .init(hex: 0x9DB0B3))
-        static let ocean         = SwiftUI.Color(light: .init(hex: 0x0E5C63), dark: .init(hex: 0x3FB6BE))
+        static let ocean         = SwiftUI.Color(light: .init(hex: 0x1A8A94), dark: .init(hex: 0x3FB6BE))
         static let coral         = SwiftUI.Color(light: .init(hex: 0xFF7A59), dark: .init(hex: 0xFF8C6E))
         static let gold          = SwiftUI.Color(light: .init(hex: 0xF2B705), dark: .init(hex: 0xF7C72E))
-        static let leaf          = SwiftUI.Color(hex: 0x5BA85A)
-        static let slate         = SwiftUI.Color(hex: 0x7A8B92)
+        static let leaf          = SwiftUI.Color(light: .init(hex: 0x5BA85A), dark: .init(hex: 0x7EBF7D))
+        static let slate         = SwiftUI.Color(light: .init(hex: 0x7A8B92), dark: .init(hex: 0xA0B2B8))
         static let success       = SwiftUI.Color(hex: 0x3FB27F)
         static let warning       = SwiftUI.Color(hex: 0xF2B705)
         static let error         = SwiftUI.Color(hex: 0xE5544B)

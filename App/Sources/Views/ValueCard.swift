@@ -8,6 +8,8 @@ struct ValueCard: View {
     let currency: Currency
     let accent: Color
 
+    @State private var bounce = false
+
     var body: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.md) {
             Label(currency.label, systemImage: currency.systemImage)
@@ -18,7 +20,12 @@ struct ValueCard: View {
                 .font(Theme.valueFont)
                 .foregroundStyle(Theme.Color.textPrimary)
                 .contentTransition(.numericText())
-                .animation(Theme.valueSpring, value: model.value(currency))
+                .scaleEffect(bounce ? 1.06 : 1.0, anchor: .leading)
+                .animation(Theme.valueSpring, value: bounce)
+                .onChange(of: model.value(currency)) { _, _ in
+                    bounce = true
+                    Task { try? await Task.sleep(nanoseconds: 350_000_000); bounce = false }
+                }
 
             DeltaStrip(model: model, currency: currency)
 
@@ -28,9 +35,12 @@ struct ValueCard: View {
                     set: { model.applyText(currency, $0) }))
                     .textFieldStyle(.roundedBorder)
                     .monospacedDigit()
-                    .frame(width: 150)
+                    .frame(width: Theme.Spacing.exactFieldWidth)
                 Button("Max") { model.maximize(currency) }
+                    .buttonStyle(.bordered)
+                    .tint(Theme.Color.coral)
                 Button("Reset") { model.reset(currency) }
+                    .buttonStyle(.bordered)
             }
         }
         .padding(Theme.Spacing.lg)

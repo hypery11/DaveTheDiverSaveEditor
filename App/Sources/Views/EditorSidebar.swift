@@ -33,9 +33,13 @@ struct EditorSidebar: View {
                 Button(action: onLoad) { Label("Load", systemImage: "folder") }
                 Spacer()
                 Button(action: onSave) {
-                    Label("Save", systemImage: "square.and.arrow.down")
-                    if model.hasChanges {
-                        Circle().fill(Theme.Color.coral).frame(width: 7, height: 7)
+                    HStack(spacing: Theme.Spacing.xs) {
+                        Label("Save", systemImage: "square.and.arrow.down")
+                        if model.hasChanges {
+                            Circle().fill(Theme.Color.coral)
+                                .frame(width: Theme.Spacing.statusDotSize,
+                                       height: Theme.Spacing.statusDotSize)
+                        }
                     }
                 }
                 .disabled(!model.isLoaded || !model.hasChanges)

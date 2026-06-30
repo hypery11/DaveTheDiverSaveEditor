@@ -35,11 +35,11 @@ Express as Asset-Catalog colors with light/dark variants (or `Color(light:dark:)
 | `separator` | `#E7DECB` | `#323A41` | hairlines |
 | `textPrimary` | `#1F2A2E` | `#F0F4F3` | primary text |
 | `textSecondary` | `#5C6B70` | `#9DB0B3` | secondary text |
-| `ocean` (brand base) | `#0E5C63` | `#3FB6BE` | primary brand, links, focus |
+| `ocean` (brand base) | `#1A8A94` | `#3FB6BE` | primary brand, links, focus |
 | `coral` (accent) | `#FF7A59` | `#FF8C6E` | primary accent / Max button |
 | `gold` | `#F2B705` | `#F7C72E` | economy accent |
 
-**Per-category accent:** Economy = `gold`, Restaurant = `coral`, Farm = `leaf` `#5BA85A`, Inventory = `ocean` `#0E5C63` (light) / `#3FB6BE` (dark), Advanced = `slate` `#7A8B92`. (Each maps to a `Theme.Color` token of the same name; the design-review pass may brighten the inventory teal if it reads too muted next to the others.)
+**Per-category accent:** Economy = `gold`, Restaurant = `coral`, Farm = `leaf` `#5BA85A`, Inventory = `ocean` `#1A8A94` (light) / `#3FB6BE` (dark), Advanced = `slate` `#7A8B92`. (Each maps to a `Theme.Color` token of the same name.)
 
 **Semantic / control:** success `#3FB27F`, warning `#F2B705`, error `#E5544B`, info `#2E9CCA`.
 - **Delta buttons:** `+10/+100/+1000` tinted toward `success` green; `−10/−100/−1000` tinted toward `error` red (subtle `.tint`, not full fills).

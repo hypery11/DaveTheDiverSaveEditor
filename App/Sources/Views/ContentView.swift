@@ -15,20 +15,41 @@ struct ContentView: View {
                           onSave: { showingPreview = true })
                 .navigationSplitViewColumnWidth(min: 200, ideal: 220, max: 260)
         } detail: {
-            ScrollView {
-                VStack(spacing: Theme.Spacing.lg) {
-                    switch selection ?? .economy {
-                    case .economy:    EconomyDetail(model: model)
-                    case .restaurant: RestaurantDetail(model: model)
-                    case .farm:       FarmDetail(model: model)
-                    case .inventory:  InventoryDetail(model: model)
-                    case .advanced:   AdvancedDetail(model: model)
+            ZStack {
+                ScrollView {
+                    VStack(spacing: Theme.Spacing.lg) {
+                        switch selection ?? .economy {
+                        case .economy:    EconomyDetail(model: model)
+                        case .restaurant: RestaurantDetail(model: model)
+                        case .farm:       FarmDetail(model: model)
+                        case .inventory:  InventoryDetail(model: model)
+                        case .advanced:   AdvancedDetail(model: model)
+                        }
                     }
+                    .padding(Theme.Spacing.xl)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .padding(Theme.Spacing.xl)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Theme.Color.bg)
+
+                if !model.isLoaded {
+                    VStack(spacing: Theme.Spacing.lg) {
+                        Image(systemName: "doc.badge.plus")
+                            .font(.system(size: 48))
+                            .foregroundStyle(Theme.Color.ocean)
+                        Text("No save loaded")
+                            .font(Theme.cardTitleFont)
+                            .foregroundStyle(Theme.Color.textPrimary)
+                        Text("Use Load to open a Dave the Diver save file.")
+                            .font(.subheadline)
+                            .foregroundStyle(Theme.Color.textSecondary)
+                        Button("Load Save…", action: loadSaveFile)
+                            .buttonStyle(.borderedProminent)
+                            .tint(Theme.Color.ocean)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Theme.Color.bg)
+                }
             }
-            .background(Theme.Color.bg)
             .navigationTitle((selection ?? .economy).label)
         }
         .frame(minWidth: 760, minHeight: 560)
@@ -46,8 +67,8 @@ struct ContentView: View {
             presenting: model.alert
         ) { appAlert in
             if let url = appAlert.revealURL {
-                Button("Reveal Backup in Finder") { model.revealInFinder(url) }
                 Button("OK") {}
+                Button("Reveal Backup in Finder") { model.revealInFinder(url) }
             } else {
                 Button("OK") {}
             }
