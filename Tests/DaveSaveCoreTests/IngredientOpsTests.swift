@@ -87,4 +87,16 @@ import Testing
         #expect(decoded.contains("FarmAnimal"))
         #expect(!decoded.contains("\u{FFFD}"))             // ZERO replacement chars
     }
+
+    @Test func maxBranchRaisesBranchCountAndSkipsAberration() throws {
+        let (db, url) = try freshDB()
+        defer { try? FileManager.default.removeItem(at: url) }
+        // 1021006 = normal (DLCType 0, tier 6666); 1020201 = perishable aberration (DLCType 1).
+        let json = #"{"Ingredients":{"1021006":{"ingredientsID":1021006,"count":6666,"branchCount":5},"1020201":{"ingredientsID":1020201,"count":0,"branchCount":7}}}"#
+        var doc = try loadDoc(json)
+        doc.maxBranchIngredients(using: db)
+        let out = SaveCodec.decode(doc.encoded())
+        #expect(out.contains(#""ingredientsID":1021006,"count":6666,"branchCount":6666"#)) // branch raised
+        #expect(out.contains(#""ingredientsID":1020201,"count":0,"branchCount":7"#))        // aberration untouched
+    }
 }

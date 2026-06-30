@@ -82,4 +82,23 @@ public extension SaveDocument {
             }
         }
     }
+
+    /// Each ingredient carries TWO stock counts: `count` (the main store) and
+    /// `branchCount` (the branch / second sushi restaurant). `maxOwnedIngredients`
+    /// only raises `count`; this raises `branchCount` to the same tier target so the
+    /// branch is stocked too. Skips perishable aberration fish, same as the others.
+    mutating func maxBranchIngredients(using ref: ReferenceDB) {
+        let aberrations = Self.aberrationIDs(in: ref)
+        guard case .object(let members)? = root.value(at: ["Ingredients"]) else { return }
+        for member in members {
+            let key = member.key
+            guard case .scalar(let idLexeme)? = member.value.value(at: ["ingredientsID"]),
+                  let itemDataID = Int(idLexeme),
+                  !aberrations.contains(itemDataID),
+                  let maxCount = ref.maxCount(itemDataID: itemDataID) else { continue }
+            let target = Self.tierTarget(forMaxCount: maxCount)
+            guard target > 0 else { continue }
+            _ = root.setScalar(at: ["Ingredients", key, "branchCount"], lexeme: String(target))
+        }
+    }
 }

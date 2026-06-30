@@ -75,6 +75,7 @@ case "batch":
     for a in args.dropFirst(3) {
         if a == "maxown" { doc.maxOwnedIngredients(using: db()); print("  + max own ingredients") }
         else if a == "maxall" { doc.maxAllIngredients(using: db()); print("  + max all ingredients") }
+        else if a == "maxbranch" { doc.maxBranchIngredients(using: db()); print("  + max branch (second store) ingredient counts") }
         else if a == "maxinv" { let n = doc.maxInventoryItems(using: db()); print("  + max inventory items (\(n) slots)") }
         else if a == "maxmerman" { let n = doc.maxMermanInventory(); print("  + max merman village inventory (\(n) slots)") }
         else if a.hasPrefix("gold="), let v = Int64(a.dropFirst(5)) { doc.setGold(v) }
@@ -82,6 +83,17 @@ case "batch":
         else if a.hasPrefix("flame="), let v = Int64(a.dropFirst(6)) { doc.setArtisansFlame(v) }
         else if a.hasPrefix("follower="), let v = Int64(a.dropFirst(9)) { doc.setFollowerCount(v) }
         else if a.hasPrefix("research="), let v = Int64(a.dropFirst(9)) { doc.setResearchPoint(v) }
+        else if a.hasPrefix("addfish=") {
+            let parts = a.dropFirst(8).split(separator: ":").map(String.init)
+            guard let id = Int(parts.first ?? "") else { die("bad addfish op: \(a)") }
+            let g = parts.count > 1 ? (Int(parts[1]) ?? 3) : 3
+            doc.addCaughtFish(fishID: id, grade: g); print("  + caught fish \(id) (grade \(g))")
+        }
+        else if a.hasPrefix("seting=") {
+            let parts = a.dropFirst(7).split(separator: ":").map(String.init)
+            guard parts.count == 2, let id = Int(parts[0]), let c = Int(parts[1]) else { die("bad seting op: \(a)") }
+            doc.setIngredientCount(id: id, count: c); print("  + set ingredient \(id) = \(c)")
+        }
         else { die("unknown batch op: \(a)") }
     }
     writeBack(doc)
