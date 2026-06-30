@@ -1,9 +1,11 @@
 import Foundation
 
-/// The four player-economy values the editor can change. `rawValue` doubles as the
+/// The player-economy values the editor can change. `rawValue` doubles as the
 /// stable `id` and as the dictionary key the model uses for its load-time snapshot.
+/// Research Point is a spendable resource that behaves exactly like a currency
+/// (single value + clamp + "Set to Max"), so it rides the same row machinery.
 enum Currency: String, CaseIterable, Identifiable {
-    case gold, bei, artisansFlame, followerCount
+    case gold, bei, artisansFlame, followerCount, researchPoint
 
     var id: String { rawValue }
 
@@ -14,6 +16,7 @@ enum Currency: String, CaseIterable, Identifiable {
         case .bei:           return "Bei"
         case .artisansFlame: return "Artisan's Flame"
         case .followerCount: return "Follower Count"
+        case .researchPoint: return "Research Point"
         }
     }
 
@@ -26,6 +29,7 @@ enum Currency: String, CaseIterable, Identifiable {
         case .bei:           return 999_999_999
         case .artisansFlame: return 999_999
         case .followerCount: return 99_999
+        case .researchPoint: return 999_999_999
         }
     }
 }

@@ -5,7 +5,7 @@ struct CurrencySection: View {
     let model: SaveEditorModel
 
     var body: some View {
-        Section("Currencies") {
+        Section("Currencies & Resources") {
             ForEach(Currency.allCases) { currency in
                 CurrencyRow(model: model, currency: currency)
             }
