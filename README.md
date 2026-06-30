@@ -15,11 +15,14 @@ This project brings a real, native, trustworthy editor to the Mac — and fixes 
 the upstream byte-level codec corrupts saves that contain non-ASCII names (it produced 121 garbage
 characters on a real Chinese save where this editor produces zero).
 
-## Planned v1 features
+## Features
 
-- View and edit Gold, Bei, Artisan's Flame, and Follower Count (exact value **or** one-click Max, with Reset).
-- Max owned ingredients / max all ingredients (DLC-aware).
-- Auto-detect your macOS save, read-only viewer, change-preview-before-write, automatic backups.
+- View and edit Gold, Bei, Artisan's Flame, Follower Count, and Research Point (exact value **or** one-click Max, with Reset).
+- Max owned ingredients / max all ingredients (DLC-aware), plus **branch (second sushi store) stock** — each ingredient carries a separate main-store and branch count.
+- Max general inventory items (materials / crafting parts) and the Sea People (merman) village inventory.
+- Perishable **aberration fish** (the DREDGE collab catch) are deliberately skipped by the bulk "max" actions — the game discards stockpiled aberrations on load, so maxing them would wipe your real catch.
+- Auto-detect your macOS save, read-only viewer, change-preview-before-write, automatic timestamped backups.
+- A headless companion CLI (`dtdcli`) over the same engine for power users and scripting.
 
 ## How to use — and the #1 gotcha (read this!)
 
