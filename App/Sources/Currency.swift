@@ -20,6 +20,17 @@ enum Currency: String, CaseIterable, Identifiable {
         }
     }
 
+    /// SF Symbol shown on the value card.
+    var systemImage: String {
+        switch self {
+        case .gold:          return "dollarsign.circle.fill"
+        case .bei:           return "fish.fill"
+        case .artisansFlame: return "flame.fill"
+        case .followerCount: return "person.2.fill"
+        case .researchPoint: return "flask.fill"
+        }
+    }
+
     /// Value applied by the per-currency "Set to Max" button. This is the *button*
     /// preset, not the engine clamp: gold/bei present the full 999,999,999 clamp,
     /// flame's button stops at 999,999, and follower (unclamped) at 99,999.
