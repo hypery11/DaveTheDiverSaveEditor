@@ -20,22 +20,27 @@ func makeTinyReferenceDB(at url: URL) throws {
         throw TestSupportError.cannotCreate(rc)
     }
     defer { sqlite3_close(handle) }
+    // ItemType mirrors the real DB: 4 = ingredient/fish, 6 = craft material (fish parts,
+    // DREDGE research parts/bones — keyed in the save by Items.TID, ItemDataID is -1).
     let sql = """
     CREATE TABLE Items (
         TID INTEGER PRIMARY KEY,
         ItemDataID INTEGER NOT NULL,
         MaxCount INTEGER NOT NULL,
-        DLCType INTEGER NOT NULL
+        DLCType INTEGER NOT NULL,
+        ItemType INTEGER NOT NULL
     );
     CREATE TABLE Ingredients (
         TID INTEGER PRIMARY KEY,
         Type INTEGER NOT NULL
     );
-    INSERT INTO Items VALUES (1010201, 1020201, 9999, 1);
-    INSERT INTO Items VALUES (1011006, 1021006, 9999, 0);
-    INSERT INTO Items VALUES (1011701, 1021011, 99,   0);
-    INSERT INTO Items VALUES (1018901, 1025901, 1,    0);
-    INSERT INTO Items VALUES (1017019, 1027019, 9999, 5);
+    INSERT INTO Items VALUES (1010201, 1020201, 9999, 1, 4);
+    INSERT INTO Items VALUES (1011006, 1021006, 9999, 0, 4);
+    INSERT INTO Items VALUES (1011701, 1021011, 99,   0, 4);
+    INSERT INTO Items VALUES (1018901, 1025901, 1,    0, 4);
+    INSERT INTO Items VALUES (1017019, 1027019, 9999, 5, 4);
+    INSERT INTO Items VALUES (1014980, -1,      9999, 1, 6);  -- DREDGE research part (DLC-gated)
+    INSERT INTO Items VALUES (1018090, -1,      9999, 0, 6);  -- base craft material (always)
     INSERT INTO Ingredients VALUES (1020201, 0);
     INSERT INTO Ingredients VALUES (1021011, 0);
     INSERT INTO Ingredients VALUES (1025901, 0);

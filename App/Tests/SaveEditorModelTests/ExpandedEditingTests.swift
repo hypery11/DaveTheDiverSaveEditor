@@ -108,4 +108,69 @@ import DaveSaveCore
         #expect(model.pendingChanges().isEmpty)   // no currency moved
         #expect(model.hasChanges)                  // …but Write is enabled
     }
+
+    // MARK: Seeds, craft materials, and the add-item override
+
+    @Test func maxSeedsRaisesStorageAndDirties() throws {
+        let json = #"{"Farm":{"Storage":[{"ID":11070003,"Count":89,"Value":0,"Name":null,"IsNew":false}]}}"#
+        let model = SaveEditorModel(referenceDB: try ReferenceDB.bundled())
+        model.load(data: SaveCodec.encode(json), sourceURL: nil)
+        model.maxSeeds()
+        #expect(model.ingredientStatus == "Maxed farm seeds / produce (1 stacks).")
+        #expect(model.hasChanges)
+    }
+
+    @Test func maxCraftMaterialsInjectsAndDirties() throws {
+        // Bundled DB has DREDGE craft materials; DLC installed so they inject.
+        let json = #"{"GameInfo":{"installedDLCs":[14252001]},"InventoryItemSlot":{}}"#
+        let model = SaveEditorModel(referenceDB: try ReferenceDB.bundled())
+        model.load(data: SaveCodec.encode(json), sourceURL: nil)
+        model.maxCraftMaterials()
+        #expect(model.ingredientStatus.hasPrefix("Maxed craft materials"))
+        #expect(model.hasChanges)
+        #expect(model.alert == nil)
+    }
+
+    @Test func addInventoryItemSetsStatusAndDirties() throws {
+        let json = #"{"InventoryItemSlot":{}}"#
+        let model = SaveEditorModel(referenceDB: try ReferenceDB.bundled())
+        model.load(data: SaveCodec.encode(json), sourceURL: nil)
+        model.addInventoryItem(itemID: 1014980, count: 99)
+        #expect(model.ingredientStatus == "Set item 1014980 = 99.")
+        #expect(model.hasChanges)
+    }
+
+    @Test func addInventoryItemWithoutContainerReportsAndStaysClean() throws {
+        let model = SaveEditorModel(referenceDB: try ReferenceDB.bundled())
+        model.load(data: SaveCodec.encode(#"{"PlayerInfo":{"m_Gold":1}}"#), sourceURL: nil)
+        model.addInventoryItem(itemID: 1014980, count: 99)
+        #expect(model.ingredientStatus.contains("no inventory container"))
+        #expect(model.hasChanges == false)
+    }
+
+    // MARK: Pre-write safety guard
+
+    /// When the safety check reports the game is running, `write()` must refuse, surface
+    /// an alert, and leave the file byte-for-byte unchanged.
+    @Test func writeIsBlockedWhenGuardReportsUnsafe() throws {
+        let home = FileManager.default.temporaryDirectory
+            .appendingPathComponent("dtdguard-\(UUID().uuidString)", isDirectory: true)
+        try FileManager.default.createDirectory(at: home, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: home) }
+        let fileURL = home.appendingPathComponent("GameSave_0_GD.sav", isDirectory: false)
+        let original = SaveCodec.encode(Self.fixtureJSON)
+        try original.write(to: fileURL)
+
+        let model = SaveEditorModel(
+            referenceDB: try ReferenceDB.bundled(),
+            home: home,
+            safetyCheck: { _ in SaveGuard.Status(gameRunning: true, fileOpen: false) }
+        )
+        model.load(url: fileURL)
+        model.maxMermanInventory()                 // make it dirty so write has something to do
+        let result = model.write()
+        #expect(result == nil)                      // blocked
+        #expect(model.alert?.title == "Can't Write Yet")
+        #expect(try Data(contentsOf: fileURL) == original)   // file untouched
+    }
 }

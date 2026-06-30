@@ -14,6 +14,18 @@ public struct IngredientRow: Equatable {
     }
 }
 
+/// A craftable material (ItemType 6: fish parts, DREDGE research parts / bones / eyes …).
+/// `id` is `Items.TID` — the value the save's `InventoryItemSlot.itemID` uses for these
+/// (their `ItemDataID` is -1). `dlcType` gates injection by installed DLC.
+public struct CraftMaterialRow: Equatable {
+    public let id: Int
+    public let dlcType: Int
+    public init(id: Int, dlcType: Int) {
+        self.id = id
+        self.dlcType = dlcType
+    }
+}
+
 public enum ReferenceDBError: Error, Equatable {
     case cannotOpen(code: Int32)
     case missingBundleResource
@@ -76,6 +88,25 @@ public final class ReferenceDB: @unchecked Sendable {
                 parentID: Int(sqlite3_column_int64(stmt, 1)),
                 maxCount: Int(sqlite3_column_int64(stmt, 2)),
                 dlcType: Int(sqlite3_column_int64(stmt, 3))
+            ))
+        }
+        return rows
+    }
+
+    /// `SELECT TID, DLCType FROM Items WHERE ItemType = 6` — the craft materials
+    /// (fish parts, DREDGE research parts / bones). Unlike raw aberration fish these
+    /// are NOT perishable, so they are safe to inject and stock.
+    public func craftMaterials() -> [CraftMaterialRow] {
+        var rows: [CraftMaterialRow] = []
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, "SELECT TID, DLCType FROM Items WHERE ItemType = 6;", -1, &stmt, nil) == SQLITE_OK else {
+            return rows
+        }
+        defer { sqlite3_finalize(stmt) }
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            rows.append(CraftMaterialRow(
+                id: Int(sqlite3_column_int64(stmt, 0)),
+                dlcType: Int(sqlite3_column_int64(stmt, 1))
             ))
         }
         return rows

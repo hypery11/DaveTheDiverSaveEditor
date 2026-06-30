@@ -12,7 +12,8 @@ struct DaveTheDiverSaveEditorApp: App {
         _model = State(initialValue: SaveEditorModel(
             referenceDB: referenceDB,
             fileManager: .default,
-            home: nil
+            home: nil,
+            safetyCheck: { SaveGuard.check(saveURL: $0) }
         ))
         AppLog.app.info(
             "Launched \(AppInfo.name) v\(AppInfo.version) (\(AppInfo.build)); "

@@ -50,12 +50,19 @@ final class SaveEditorModel {
     private let fileManager: FileManager
     private let home: URL?
 
+    /// Pre-write safety check (game-running / file-open). Defaults to always-safe so
+    /// tests and SwiftUI previews never spawn `ps`/`lsof`; the app's composition root
+    /// injects the real `SaveGuard.check`.
+    private let safetyCheck: (URL) -> SaveGuard.Status
+
     init(referenceDB: ReferenceDB? = nil,
          fileManager: FileManager = .default,
-         home: URL? = nil) {
+         home: URL? = nil,
+         safetyCheck: @escaping (URL) -> SaveGuard.Status = { _ in .safe }) {
         self.referenceDB = referenceDB
         self.fileManager = fileManager
         self.home = home
+        self.safetyCheck = safetyCheck
     }
 
     // MARK: Loading
@@ -183,11 +190,55 @@ final class SaveEditorModel {
         AppLog.model.info("Max merman → \(ingredientStatus)")
     }
 
+    /// Fill the home farm's seed / produce storage (skips empty slots). Reports stacks.
+    func maxSeeds() {
+        guard document != nil else { return }
+        let changed = document?.maxFarmStorage() ?? 0
+        bulkEdited = true
+        ingredientStatus = "Maxed farm seeds / produce (\(changed) stacks)."
+        AppLog.model.info("Max seeds → \(ingredientStatus)")
+    }
+
+    /// Stock every craft material (fish parts, DREDGE research parts / bones) the
+    /// installed DLCs allow — raising owned stacks and injecting missing ones so weapon
+    /// crafting is unblocked. These are non-perishable, unlike raw aberration fish.
+    func maxCraftMaterials() {
+        guard document != nil, let ref = resolvedReferenceDB() else { return }
+        let changed = document?.maxCraftMaterials(using: ref) ?? 0
+        bulkEdited = true
+        ingredientStatus = "Maxed craft materials (\(changed) slots)."
+        AppLog.model.info("Max craft materials → \(ingredientStatus)")
+    }
+
+    /// Add or set a specific inventory item by id and count (power-user override). Sets a
+    /// status describing the outcome; a missing `InventoryItemSlot` container is reported.
+    func addInventoryItem(itemID: Int, count: Int) {
+        guard document != nil else { return }
+        let ok = document?.setInventoryItem(itemID: itemID, count: count) ?? false
+        if ok { bulkEdited = true }
+        ingredientStatus = ok
+            ? "Set item \(itemID) = \(count)."
+            : "Couldn't set item \(itemID) (no inventory container)."
+        AppLog.model.info("Set inventory item → \(ingredientStatus)")
+    }
+
     // MARK: - Write
 
     @discardableResult
     func write() -> URL? {
         guard isLoaded, let url = currentFileURL, let document else { return nil }
+        // Refuse to write while the game is running or the file is held open — a running
+        // game would overwrite the edit on its next save.
+        if let reason = safetyCheck(url).blockReason {
+            AppLog.io.error("Write blocked by safety check: \(reason)")
+            alert = AppAlert(
+                id: UUID(),
+                title: "Can't Write Yet",
+                message: reason,
+                revealURL: nil
+            )
+            return nil
+        }
         var backupURL: URL? = nil
         do {
             backupURL = try BackupStore.backup(original: url, bundleID: Self.bundleID, home: home)

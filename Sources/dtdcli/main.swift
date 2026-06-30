@@ -36,6 +36,12 @@ func show(_ d: SaveDocument) {
 }
 
 func writeBack(_ d: SaveDocument) {
+    // Safety: refuse to write while the game is running or the file is held open.
+    // Override with DTD_FORCE=1 (e.g. when writing to a copy for testing).
+    if ProcessInfo.processInfo.environment["DTD_FORCE"] == nil,
+       let reason = SaveGuard.check(saveURL: url).blockReason {
+        die("refusing to write: \(reason)\n(set DTD_FORCE=1 to override)")
+    }
     do {
         let backup = try BackupStore.backup(original: url, bundleID: bundleID)
         let out = d.encoded()
@@ -60,6 +66,13 @@ show(doc)
 switch cmd {
 case "read":
     break
+case "dump":
+    // Decode the save to plain JSON for inspection. Read-only: never writes the save.
+    let outPath = args.count >= 4 ? args[3] : url.path + ".json"
+    let json = SaveCodec.decode(raw)
+    do { try Data(json.utf8).write(to: URL(fileURLWithPath: outPath)) }
+    catch { die("dump write failed: \(error)") }
+    print("dumped \(json.count) chars to \(outPath)")
 case "set-gold":     doc.setGold(intArg());          writeBack(doc)
 case "set-bei":      doc.setBei(intArg());           writeBack(doc)
 case "set-flame":    doc.setArtisansFlame(intArg());  writeBack(doc)
@@ -78,6 +91,13 @@ case "batch":
         else if a == "maxbranch" { doc.maxBranchIngredients(using: db()); print("  + max branch (second store) ingredient counts") }
         else if a == "maxinv" { let n = doc.maxInventoryItems(using: db()); print("  + max inventory items (\(n) slots)") }
         else if a == "maxmerman" { let n = doc.maxMermanInventory(); print("  + max merman village inventory (\(n) slots)") }
+        else if a == "maxseeds" { let n = doc.maxFarmStorage(); print("  + max farm seed/produce storage (\(n) stacks)") }
+        else if a == "maxcraft" { let n = doc.maxCraftMaterials(using: db()); print("  + max craft materials (\(n) slots raised/injected)") }
+        else if a.hasPrefix("setinv=") {
+            let parts = a.dropFirst(7).split(separator: ":").map(String.init)
+            guard parts.count == 2, let id = Int(parts[0]), let c = Int(parts[1]) else { die("bad setinv op: \(a)") }
+            let ok = doc.setInventoryItem(itemID: id, count: c); print("  + set inventory item \(id) = \(c) (\(ok ? "ok" : "no container"))")
+        }
         else if a.hasPrefix("gold="), let v = Int64(a.dropFirst(5)) { doc.setGold(v) }
         else if a.hasPrefix("bei="), let v = Int64(a.dropFirst(4)) { doc.setBei(v) }
         else if a.hasPrefix("flame="), let v = Int64(a.dropFirst(6)) { doc.setArtisansFlame(v) }
