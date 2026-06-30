@@ -17,7 +17,8 @@ public extension SaveDocument {
             for entry in dlcs { if case .scalar(let l) = entry, let id = Int(l) { installed.insert(id) } }
         }
         let wanted = ref.craftMaterials().filter { row in
-            guard let needed = Self.craftDLCTypeToID[row.dlcType] else { return true }  // DLCType 0
+            if row.dlcType == 0 { return true }                                          // base content: always
+            guard let needed = Self.craftDLCTypeToID[row.dlcType] else { return false }  // unknown DLC: deny
             return installed.contains(needed)
         }
 
@@ -51,14 +52,14 @@ public extension SaveDocument {
     @discardableResult
     mutating func setInventoryItem(itemID: Int, count: Int) -> Bool {
         guard case .object(let members)? = root.value(at: ["InventoryItemSlot"]) else { return false }
+        // Single pass: return on a match (index unneeded then); otherwise track the next
+        // free index for the injection that follows.
         var nextIndex = 0
-        for m in members {
-            if case .scalar(let ixl)? = m.value.value(at: ["index"]), let ix = Int(ixl), ix + 1 > nextIndex { nextIndex = ix + 1 }
-        }
         for m in members {
             if case .scalar(let idl)? = m.value.value(at: ["itemID"]), Int(idl) == itemID {
                 return root.setScalar(at: ["InventoryItemSlot", m.key, "totalCount"], lexeme: String(count))
             }
+            if case .scalar(let ixl)? = m.value.value(at: ["index"]), let ix = Int(ixl), ix + 1 > nextIndex { nextIndex = ix + 1 }
         }
         return injectInventorySlot(itemID: itemID, count: count, index: nextIndex)
     }
