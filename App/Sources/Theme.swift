@@ -1,0 +1,49 @@
+// App/Sources/Theme.swift
+import SwiftUI
+
+extension Color {
+    /// Build a Color from a 0xRRGGBB literal.
+    init(hex: UInt) {
+        self.init(.sRGB,
+                  red: Double((hex >> 16) & 0xFF) / 255,
+                  green: Double((hex >> 8) & 0xFF) / 255,
+                  blue: Double(hex & 0xFF) / 255,
+                  opacity: 1)
+    }
+    /// Resolve to `light` or `dark` based on the current macOS appearance.
+    init(light: Color, dark: Color) {
+        self.init(nsColor: NSColor(name: nil) { appearance in
+            let isDark = appearance.bestMatch(from: [.aqua, .darkAqua]) == .darkAqua
+            return NSColor(isDark ? dark : light)
+        })
+    }
+}
+
+/// Swift mirror of DESIGN.md. Views reference Theme.* only — no inline magic values.
+enum Theme {
+    enum Spacing { static let xs: CGFloat = 4, sm: CGFloat = 8, md: CGFloat = 12
+                   static let lg: CGFloat = 16, xl: CGFloat = 24, xxl: CGFloat = 32 }
+    enum Radius { static let control: CGFloat = 8, card: CGFloat = 12 }
+
+    enum Color {
+        static let bg            = SwiftUI.Color(light: .init(hex: 0xFBF6EC), dark: .init(hex: 0x14181B))
+        static let surface       = SwiftUI.Color(light: .init(hex: 0xFFFFFF), dark: .init(hex: 0x1E2429))
+        static let surface2      = SwiftUI.Color(light: .init(hex: 0xF3ECDD), dark: .init(hex: 0x262D33))
+        static let separator     = SwiftUI.Color(light: .init(hex: 0xE7DECB), dark: .init(hex: 0x323A41))
+        static let textPrimary   = SwiftUI.Color(light: .init(hex: 0x1F2A2E), dark: .init(hex: 0xF0F4F3))
+        static let textSecondary = SwiftUI.Color(light: .init(hex: 0x5C6B70), dark: .init(hex: 0x9DB0B3))
+        static let ocean         = SwiftUI.Color(light: .init(hex: 0x0E5C63), dark: .init(hex: 0x3FB6BE))
+        static let coral         = SwiftUI.Color(light: .init(hex: 0xFF7A59), dark: .init(hex: 0xFF8C6E))
+        static let gold          = SwiftUI.Color(light: .init(hex: 0xF2B705), dark: .init(hex: 0xF7C72E))
+        static let leaf          = SwiftUI.Color(hex: 0x5BA85A)
+        static let slate         = SwiftUI.Color(hex: 0x7A8B92)
+        static let success       = SwiftUI.Color(hex: 0x3FB27F)
+        static let warning       = SwiftUI.Color(hex: 0xF2B705)
+        static let error         = SwiftUI.Color(hex: 0xE5544B)
+        static let info          = SwiftUI.Color(hex: 0x2E9CCA)
+    }
+
+    static let valueFont     = Font.system(size: 34, weight: .semibold, design: .rounded).monospacedDigit()
+    static let cardTitleFont = Font.system(.headline, design: .rounded)
+    static let valueSpring    = Animation.spring(response: 0.3, dampingFraction: 0.72)
+}
