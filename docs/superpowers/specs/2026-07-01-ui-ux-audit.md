@@ -41,3 +41,16 @@ Unlock-all recipes, fish-encyclopedia completion, relationships, a read-mostly *
 
 ---
 **Suggested order:** #1 (bug) → #2–#5 (visual legibility + load flow, all cheap) → #8–#10 (card polish + field editing) → #6/#13/#14 (accessibility) → #16–#17 (IA restructure, larger). Each fix can be verified via the snapshot loop before moving on.
+
+---
+
+## Resolution — 2026-07-02 (all findings addressed)
+
+Every finding above was fixed, verified via the snapshot loop, and covered by the test suite (Core 73 + App 47 green). Commits: `9bcab46` (batch 1: #1 save bug, #2/#3 legibility, #4 value-once, #8 elevation, #9 width, #14/#20 delta) · `24424bc` (#5/#12/#15/#23/#24 load flow) · `b7aa5d2` (#16 Farm-fold, #18 notes, #19 Bei/Follower, #25 scaled font) · `eda7787` (#11/#17 per-item browse + name search) · `b29e083` (#7 bulk undo) · `9ec5daf` (#15 toolbar + Max Everything) · `5b9d751` (#21 dark gold).
+
+- **Critical #1–#7:** all fixed. #7 delivered via `appliedBulkOps` in the preview + an **Undo last edit** button (mutateBulk snapshot stack) — the "per-card checkmark" was judged lower value than undo and left as the shared status line.
+- **Important #8–#19:** all fixed. #15 toolbar added (Open / Max Everything / Save) and the sidebar footer retired.
+- **Minor #20–#26:** #20/#21/#22/#23/#24/#25 fixed. #26 (delta hit-targets) left as-is — the buttons measure ~40×28pt in the captures, adequately tappable.
+- **Roadmap:** added **Max Everything** (one-click, one undo step). Deferred (need game-data RE or have distinct UX): unlock-all-recipes, fish-encyclopedia completion GUI, relationships, a raw JSON view. `Progression` vs `Economy` split left as a future call (Follower Count now carries a "progression stat" caption instead).
+
+Bonus fixes surfaced while implementing: item ids no longer render with thousand-separators (`Text(verbatim:)`); the value field can now be cleared/retyped (commit-on-submit); ⌘S/Save still routes through the preview + SaveGuard.
