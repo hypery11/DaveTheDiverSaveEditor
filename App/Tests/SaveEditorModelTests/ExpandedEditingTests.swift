@@ -41,6 +41,14 @@ import DaveSaveCore
         #expect(model.hasChanges)            // diffed against the load-time snapshot
     }
 
+    @Test func researchPointChangeShowsInPreviewDiff() throws {
+        let model = try loadedModel()
+        #expect(model.pendingChanges().isEmpty)
+        model.applyText(.researchPoint, "5000")
+        // The write preview lists research point too (so it never renders blank).
+        #expect(model.pendingChanges().contains { $0.path == "PlayerInfo.m_researchPoint" && $0.newValue == "5000" })
+    }
+
     @Test func maximizeResearchPointClampsToButtonValue() throws {
         let model = try loadedModel()
         model.maximize(.researchPoint)

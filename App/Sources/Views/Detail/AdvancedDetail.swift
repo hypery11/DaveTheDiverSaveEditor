@@ -28,10 +28,11 @@ struct AdvancedDetail: View {
     @State private var query = ""
     @State private var picked: ItemMatch? = nil
     @State private var countText = ""
+    @State private var results: [ItemMatch] = []   // memoized; recomputed on query change
 
-    private var results: [ItemMatch] {
+    private func computeResults() -> [ItemMatch] {
         let q = query.trimmingCharacters(in: .whitespaces)
-        guard picked == nil, !q.isEmpty else { return [] }
+        guard !q.isEmpty else { return [] }
         var out: [ItemMatch] = []
         if let raw = Int(q), raw > 0 { out.append(ItemMatch(id: raw, name: model.itemName(for: raw))) }
         out.append(contentsOf: model.searchItems(q).filter { m in !out.contains(where: { $0.id == m.id }) })
@@ -70,6 +71,7 @@ struct AdvancedDetail: View {
             } else {
                 TextField("Search item name or ID…", text: $query)
                     .textFieldStyle(.roundedBorder)
+                    .onChange(of: query) { _, _ in results = computeResults() }
                 let matches = results
                 if matches.isEmpty {
                     if !query.trimmingCharacters(in: .whitespaces).isEmpty {

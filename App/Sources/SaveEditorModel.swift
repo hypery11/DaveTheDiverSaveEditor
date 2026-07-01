@@ -246,15 +246,18 @@ final class SaveEditorModel {
     /// One-click convenience: run every safe bulk fill at once (one undo step).
     func maxEverything() {
         mutateBulk { doc, ref in
+            var parts: [String] = []
             if let ref {
                 doc.maxAllIngredients(using: ref)
                 doc.maxBranchIngredients(using: ref)
                 _ = doc.maxInventoryItems(using: ref)
                 _ = doc.maxCraftMaterials(using: ref)
+                parts += ["ingredients", "branch", "inventory", "craft"]
             }
             _ = doc.maxMermanInventory()
             _ = doc.maxFarmStorage()
-            return "Maxed everything (ingredients, branch, inventory, craft, village, seeds)."
+            parts += ["village", "seeds"]
+            return "Maxed everything (" + parts.joined(separator: ", ") + ")."
         }
     }
 
@@ -410,9 +413,14 @@ final class SaveEditorModel {
             || value(.researchPoint) != loadedValue(.researchPoint)
     }
 
-    /// Per-field `old -> new` diff over the four currency paths.
+    /// Per-field `old -> new` diff over the currency paths + research point (so the
+    /// write preview never renders blank when only research point changed).
     func pendingChanges() -> [FieldChange] {
-        document?.pendingChanges() ?? []
+        var changes = document?.pendingChanges() ?? []
+        if let now = value(.researchPoint), let base = loadedValue(.researchPoint), now != base {
+            changes.append(FieldChange(path: "PlayerInfo.m_researchPoint", oldValue: String(base), newValue: String(now)))
+        }
+        return changes
     }
 
     // MARK: Private helpers
