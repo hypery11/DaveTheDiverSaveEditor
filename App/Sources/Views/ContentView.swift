@@ -7,6 +7,8 @@ struct ContentView: View {
     @Bindable var model: SaveEditorModel
     @State private var selection: EditorCategory? = ContentView.snapshotCategory ?? .economy
     @State private var showingPreview = false
+    /// When set, a load is pending confirmation because there are unsaved changes.
+    @State private var confirmLoad: (() -> Void)? = nil
 
     /// Snapshot/UI-test seams (no effect on normal launches):
     /// `--args -snapshot-category <raw>` preselects a category; `-snapshot-appearance dark|light`
@@ -29,7 +31,7 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             EditorSidebar(selection: $selection, model: model,
-                          onLoad: loadSaveFile,
+                          onLoad: { guardedLoad(loadSaveFile) },
                           onSave: { showingPreview = true })
                 .navigationSplitViewColumnWidth(min: 200, ideal: 220, max: 260)
         } detail: {
@@ -58,18 +60,29 @@ struct ContentView: View {
                         Text("No save loaded")
                             .font(Theme.cardTitleFont)
                             .foregroundStyle(Theme.Color.textPrimary)
-                        Text("Use Load to open a Dave the Diver save file.")
-                            .font(.subheadline)
-                            .foregroundStyle(Theme.Color.textSecondary)
-                        Button("Load Save…", action: loadSaveFile)
-                            .buttonStyle(.borderedProminent)
-                            .tint(Theme.Color.ocean)
+                        if let detected = model.detected {
+                            Text("Found your latest save.")
+                                .font(.subheadline).foregroundStyle(Theme.Color.textSecondary)
+                            Button("Open \(detected.fileURL.lastPathComponent)") {
+                                guardedLoad(model.loadDetected)
+                            }
+                            .buttonStyle(.borderedProminent).tint(Theme.Color.ocean)
+                            Button("Choose Another…") { guardedLoad(loadSaveFile) }
+                                .buttonStyle(.bordered)
+                        } else {
+                            Text("Open a Dave the Diver save file to begin.")
+                                .font(.subheadline).foregroundStyle(Theme.Color.textSecondary)
+                            Button("Open Save…") { guardedLoad(loadSaveFile) }
+                                .buttonStyle(.borderedProminent).tint(Theme.Color.ocean)
+                        }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Theme.Color.bg)
                 }
             }
-            .navigationTitle((selection ?? .economy).label)
+            .navigationTitle(model.isLoaded ? (model.currentFileURL?.lastPathComponent ?? "Save Editor")
+                                             : "Dave the Diver Save Editor")
+            .navigationSubtitle(model.isLoaded ? (selection ?? .economy).label : "")
         }
         .frame(minWidth: 760, minHeight: 560)
         .preferredColorScheme(Self.snapshotColorScheme)
@@ -87,14 +100,30 @@ struct ContentView: View {
             presenting: model.alert
         ) { appAlert in
             if let url = appAlert.revealURL {
-                Button("OK") {}
+                Button("OK", role: .cancel) {}
                 Button("Reveal Backup in Finder") { model.revealInFinder(url) }
             } else {
-                Button("OK") {}
+                Button("OK", role: .cancel) {}
             }
         } message: { appAlert in
             Text(appAlert.message)
         }
+        .confirmationDialog(
+            "Discard unsaved changes?",
+            isPresented: Binding(get: { confirmLoad != nil },
+                                 set: { if !$0 { confirmLoad = nil } }),
+            presenting: confirmLoad
+        ) { action in
+            Button("Discard & Open", role: .destructive) { action(); confirmLoad = nil }
+            Button("Cancel", role: .cancel) { confirmLoad = nil }
+        } message: { _ in
+            Text("Your edits to this save haven't been written. Opening another save will discard them.")
+        }
+    }
+
+    /// Run `perform` immediately, or ask to discard first when there are unsaved edits.
+    private func guardedLoad(_ perform: @escaping () -> Void) {
+        if model.hasChanges { confirmLoad = perform } else { perform() }
     }
 
     private func loadSaveFile() {
