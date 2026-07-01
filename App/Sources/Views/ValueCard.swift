@@ -10,13 +10,20 @@ struct ValueCard: View {
 
     @State private var bounce = false
 
+    /// The big display groups digits (3,074,847) for readability; the edit field
+    /// below keeps the raw digits so it stays parseable.
+    private var groupedValue: String {
+        guard let v = model.value(currency) else { return "—" }
+        return v.formatted(.number.grouping(.automatic))
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.md) {
             Label(currency.label, systemImage: currency.systemImage)
                 .font(Theme.cardTitleFont)
                 .foregroundStyle(accent)
 
-            Text(model.displayText(currency).isEmpty ? "—" : model.displayText(currency))
+            Text(groupedValue)
                 .font(Theme.valueFont)
                 .foregroundStyle(Theme.Color.textPrimary)
                 .contentTransition(.numericText())

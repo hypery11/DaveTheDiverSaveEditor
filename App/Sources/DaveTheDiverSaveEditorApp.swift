@@ -25,7 +25,16 @@ struct DaveTheDiverSaveEditorApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(model: model)
-                .onAppear { model.detectLatestSave() }
+                .onAppear {
+                    // Snapshot/UI-test seam: `--args -snapshot-fixture <path>` preloads a
+                    // save so an automated capture sees populated cards (no keystrokes).
+                    let args = ProcessInfo.processInfo.arguments
+                    if let i = args.firstIndex(of: "-snapshot-fixture"), i + 1 < args.count {
+                        model.load(url: URL(fileURLWithPath: args[i + 1]))
+                    } else {
+                        model.detectLatestSave()
+                    }
+                }
         }
         .windowResizability(.contentSize)
         .commands {
