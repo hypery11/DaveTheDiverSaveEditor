@@ -90,6 +90,7 @@ final class SaveEditorModel {
             self.ingredientStatus = ""
             self.bulkEdited = false
             self.appliedBulkOps = []
+            self.bulkUndoStack = []
             AppLog.io.info("Loaded save \(sourceURL?.lastPathComponent ?? "in-memory"): gold=\(value(.gold) ?? -1) bei=\(value(.bei) ?? -1) flame=\(value(.artisansFlame) ?? -1) followers=\(value(.followerCount) ?? -1)")
         } catch {
             AppLog.io.error("Failed to load \(sourceURL?.lastPathComponent ?? "in-memory"): \(error.localizedDescription)")
@@ -148,6 +149,31 @@ final class SaveEditorModel {
         }
     }
 
+    /// Pre-op document snapshots so bulk edits are reversible without reloading (which
+    /// would also throw away currency edits). Grows in lock-step with `appliedBulkOps`.
+    private var bulkUndoStack: [SaveDocument] = []
+    var canUndoBulk: Bool { !bulkUndoStack.isEmpty }
+
+    /// Snapshot the doc, run `body` (returns a status string, or nil to abort with no
+    /// change), write back, record it, and push the snapshot for undo.
+    private func mutateBulk(_ body: (inout SaveDocument, ReferenceDB?) -> String?) {
+        guard var doc = document else { return }
+        let snapshot = doc
+        guard let status = body(&doc, resolvedReferenceDB()) else { return }
+        document = doc
+        bulkUndoStack.append(snapshot)
+        recordBulk(status)
+    }
+
+    /// Revert the most recent bulk edit.
+    func undoLastBulk() {
+        guard let prev = bulkUndoStack.popLast() else { return }
+        document = prev
+        if !appliedBulkOps.isEmpty { appliedBulkOps.removeLast() }
+        bulkEdited = !bulkUndoStack.isEmpty
+        ingredientStatus = "Undid last bulk action."
+    }
+
     /// Record a bulk op's result: marks dirty, sets the shared status, and logs it in
     /// `appliedBulkOps` so the write preview can show what will be written.
     private func recordBulk(_ status: String) {
@@ -158,15 +184,19 @@ final class SaveEditorModel {
     }
 
     func maxOwnIngredients() {
-        guard document != nil, let ref = resolvedReferenceDB() else { return }
-        document?.maxOwnedIngredients(using: ref)
-        recordBulk("Maxed owned ingredients (skips perishable aberration fish).")
+        mutateBulk { doc, ref in
+            guard let ref else { return nil }
+            doc.maxOwnedIngredients(using: ref)
+            return "Maxed owned ingredients (skips perishable aberration fish)."
+        }
     }
 
     func maxAllIngredients() {
-        guard document != nil, let ref = resolvedReferenceDB() else { return }
-        document?.maxAllIngredients(using: ref)
-        recordBulk("Maxed all ingredients (skips perishable aberration fish).")
+        mutateBulk { doc, ref in
+            guard let ref else { return nil }
+            doc.maxAllIngredients(using: ref)
+            return "Maxed all ingredients (skips perishable aberration fish)."
+        }
     }
 
     // MARK: - Materials (second store, general inventory, merman village)
@@ -174,52 +204,58 @@ final class SaveEditorModel {
     /// Raise every ingredient's branch (second sushi store) stock. Aberration fish are
     /// skipped by the engine — they are perishable and discarded on load.
     func maxBranchIngredients() {
-        guard document != nil, let ref = resolvedReferenceDB() else { return }
-        document?.maxBranchIngredients(using: ref)
-        recordBulk("Maxed branch (2nd store) ingredients (skips aberration fish).")
+        mutateBulk { doc, ref in
+            guard let ref else { return nil }
+            doc.maxBranchIngredients(using: ref)
+            return "Maxed branch (2nd store) ingredients (skips aberration fish)."
+        }
     }
 
     /// Max general inventory items (materials / crafting parts). Reports the slot count.
     func maxInventoryItems() {
-        guard document != nil, let ref = resolvedReferenceDB() else { return }
-        let changed = document?.maxInventoryItems(using: ref) ?? 0
-        recordBulk("Maxed inventory items (\(changed) slots).")
+        mutateBulk { doc, ref in
+            guard let ref else { return nil }
+            return "Maxed inventory items (\(doc.maxInventoryItems(using: ref)) slots)."
+        }
     }
 
     /// Max the Sea People (merman) village inventory. Reports the slot count.
     func maxMermanInventory() {
-        guard document != nil else { return }
-        let changed = document?.maxMermanInventory() ?? 0
-        recordBulk("Maxed merman village inventory (\(changed) slots).")
+        mutateBulk { doc, _ in
+            "Maxed merman village inventory (\(doc.maxMermanInventory()) slots)."
+        }
     }
 
     /// Fill the home farm's seed / produce storage (skips empty slots). Reports stacks.
     func maxSeeds() {
-        guard document != nil else { return }
-        let changed = document?.maxFarmStorage() ?? 0
-        recordBulk("Maxed farm seeds / produce (\(changed) stacks).")
+        mutateBulk { doc, _ in
+            "Maxed farm seeds / produce (\(doc.maxFarmStorage()) stacks)."
+        }
     }
 
     /// Stock every craft material (fish parts, DREDGE research parts / bones) the
     /// installed DLCs allow — raising owned stacks and injecting missing ones so weapon
     /// crafting is unblocked. These are non-perishable, unlike raw aberration fish.
     func maxCraftMaterials() {
-        guard document != nil, let ref = resolvedReferenceDB() else { return }
-        let changed = document?.maxCraftMaterials(using: ref) ?? 0
-        recordBulk("Maxed craft materials (\(changed) slots).")
+        mutateBulk { doc, ref in
+            guard let ref else { return nil }
+            return "Maxed craft materials (\(doc.maxCraftMaterials(using: ref)) slots)."
+        }
     }
 
     /// Add or set a specific inventory item by id and count. Resolves the item's name for
-    /// feedback; a missing `InventoryItemSlot` container is reported.
+    /// feedback; a missing `InventoryItemSlot` container is reported (and not undoable).
     func addInventoryItem(itemID: Int, count: Int) {
-        guard document != nil else { return }
-        let ok = document?.setInventoryItem(itemID: itemID, count: count) ?? false
-        if ok {
-            let name = resolvedReferenceDB()?.itemName(id: itemID) ?? "item"
-            recordBulk("Set \(name) (\(itemID)) → \(count).")
-        } else {
+        guard let original = document else { return }
+        var doc = original
+        guard doc.setInventoryItem(itemID: itemID, count: count) else {
             ingredientStatus = "Couldn't set item \(itemID) (no inventory container)."
+            return
         }
+        document = doc
+        bulkUndoStack.append(original)
+        let name = resolvedReferenceDB()?.itemName(id: itemID) ?? "item"
+        recordBulk("Set \(name) (\(itemID)) → \(count).")
     }
 
     // MARK: - Per-item browse / search

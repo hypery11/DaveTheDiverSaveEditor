@@ -2,13 +2,21 @@
 import SwiftUI
 import DaveSaveCore
 
-/// Shared status line used by the bulk-action detail panes.
+/// Shared status line (+ Undo) used by the bulk-action detail panes.
 struct StatusFooter: View {
-    let text: String
+    let model: SaveEditorModel
     var body: some View {
-        if !text.isEmpty {
-            Text(text).font(.callout).foregroundStyle(Theme.Color.textSecondary)
-                .frame(maxWidth: .infinity, alignment: .leading)
+        if !model.ingredientStatus.isEmpty || model.canUndoBulk {
+            HStack(spacing: Theme.Spacing.md) {
+                Text(model.ingredientStatus)
+                    .font(.callout).foregroundStyle(Theme.Color.textSecondary)
+                Spacer()
+                if model.canUndoBulk {
+                    Button("Undo last edit", systemImage: "arrow.uturn.backward") { model.undoLastBulk() }
+                        .buttonStyle(.bordered).controlSize(.small)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }
@@ -88,7 +96,7 @@ struct AdvancedDetail: View {
                 }
             }
 
-            StatusFooter(text: model.ingredientStatus)
+            StatusFooter(model: model)
         }
         .cardSurface()
         .disabled(!model.isLoaded)

@@ -17,7 +17,7 @@ struct InventoryDetail: View {
         ActionCard(title: "Max Farm Seeds", systemImage: "leaf.fill",
                    description: "Fill every owned seed / produce stack in the home farm.",
                    accent: Theme.Color.leaf, buttonTitle: "Max Seeds", isEnabled: model.isLoaded) { model.maxSeeds() }
-        StatusFooter(text: model.ingredientStatus)
+        StatusFooter(model: model)
         ItemBrowser(model: model)
     }
 }

@@ -173,4 +173,17 @@ import DaveSaveCore
         #expect(model.alert?.title == "Can't Write Yet")
         #expect(try Data(contentsOf: fileURL) == original)   // file untouched
     }
+
+    // MARK: Bulk undo
+
+    @Test func undoRevertsLastBulkAndClears() throws {
+        let model = try loadedModel()
+        #expect(model.canUndoBulk == false)
+        model.maxMermanInventory()
+        #expect(model.canUndoBulk)
+        #expect(model.hasChanges)
+        model.undoLastBulk()
+        #expect(model.canUndoBulk == false)
+        #expect(model.hasChanges == false)   // reverted to the clean load state
+    }
 }

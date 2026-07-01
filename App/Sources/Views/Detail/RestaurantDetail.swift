@@ -14,6 +14,6 @@ struct RestaurantDetail: View {
         ActionCard(title: "Max Branch Store", systemImage: "building.2.fill",
                    description: "Stock the second store's separate branch counts — run alongside Max Owned.",
                    accent: accent, buttonTitle: "Max Branch", isEnabled: model.isLoaded) { model.maxBranchIngredients() }
-        StatusFooter(text: model.ingredientStatus)
+        StatusFooter(model: model)
     }
 }
