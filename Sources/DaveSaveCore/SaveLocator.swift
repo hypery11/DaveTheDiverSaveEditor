@@ -32,11 +32,12 @@ public enum SaveLocator {
     }
 
     /// For each existing root, scan the root itself plus every immediate all-ASCII-digit
-    /// subfolder; match `GameSave*_GD.sav` / `m_*.sav`; return the globally-newest file
-    /// (by `contentModificationDate`) along with the directory it was found in.
-    public static func newestSave(fileManager: FileManager = .default, home: URL? = nil) -> SaveCandidate? {
+    /// subfolder; match `GameSave*_GD.sav` / `m_*.sav`; return EVERY matching file
+    /// (with the directory it was found in), sorted newest `contentModificationDate`
+    /// first. Powers the save-slot picker.
+    public static func allSaves(fileManager: FileManager = .default, home: URL? = nil) -> [SaveCandidate] {
         let resolvedHome = home ?? fileManager.homeDirectoryForCurrentUser
-        var best: SaveCandidate?
+        var found: [SaveCandidate] = []
 
         for root in candidateRoots(home: resolvedHome) {
             guard isDirectory(root, fileManager: fileManager) else { continue }
@@ -50,13 +51,16 @@ public enum SaveLocator {
             for dir in scanDirs {
                 for file in saveFiles(in: dir, fileManager: fileManager) {
                     guard let modified = modificationDate(of: file) else { continue }
-                    if best == nil || modified > best!.modified {
-                        best = SaveCandidate(fileURL: file, directoryURL: dir, modified: modified)
-                    }
+                    found.append(SaveCandidate(fileURL: file, directoryURL: dir, modified: modified))
                 }
             }
         }
-        return best
+        return found.sorted { $0.modified > $1.modified }
+    }
+
+    /// The globally-newest matching save (the first of `allSaves`), or `nil`.
+    public static func newestSave(fileManager: FileManager = .default, home: URL? = nil) -> SaveCandidate? {
+        allSaves(fileManager: fileManager, home: home).first
     }
 
     // MARK: - Matching helpers

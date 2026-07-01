@@ -5,7 +5,7 @@ import Foundation
 /// Research Point is a spendable resource that behaves exactly like a currency
 /// (single value + clamp + "Set to Max"), so it rides the same row machinery.
 enum Currency: String, CaseIterable, Identifiable {
-    case gold, bei, artisansFlame, followerCount, researchPoint
+    case gold, bei, artisansFlame, followerCount, researchPoint, trustPoint, fakePoint
 
     var id: String { rawValue }
 
@@ -17,6 +17,8 @@ enum Currency: String, CaseIterable, Identifiable {
         case .artisansFlame: return "Artisan's Flame"
         case .followerCount: return "Follower Count"
         case .researchPoint: return "Research Point"
+        case .trustPoint:    return "Trust Point"
+        case .fakePoint:     return "Fake Point"
         }
     }
 
@@ -28,6 +30,8 @@ enum Currency: String, CaseIterable, Identifiable {
         case .artisansFlame: return "flame.fill"
         case .followerCount: return "person.2.fill"
         case .researchPoint: return "flask.fill"
+        case .trustPoint:    return "checkmark.seal.fill"
+        case .fakePoint:     return "theatermasks.fill"
         }
     }
 
@@ -39,6 +43,8 @@ enum Currency: String, CaseIterable, Identifiable {
         case .artisansFlame: return "Weapon-upgrade currency"
         case .followerCount: return "Cooksta followers — a progression stat"
         case .researchPoint: return "Spent on research & recipes"
+        case .trustPoint:    return "PlayerInfo.m_trustPoint — villager trust points"
+        case .fakePoint:     return "PlayerInfo.m_FakePoint — fake / counterfeit points"
         }
     }
 
@@ -52,6 +58,8 @@ enum Currency: String, CaseIterable, Identifiable {
         case .artisansFlame: return 999_999
         case .followerCount: return 99_999
         case .researchPoint: return 999_999_999
+        case .trustPoint:    return 999_999
+        case .fakePoint:     return 999_999
         }
     }
 }

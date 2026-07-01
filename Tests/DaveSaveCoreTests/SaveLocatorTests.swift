@@ -61,6 +61,21 @@ struct SaveLocatorTests {
         #expect(candidate?.fileURL.path == newest.path)
     }
 
+    @Test func allSavesReturnsEveryMatchNewestFirst() throws {
+        let home = uniqueHome()
+        defer { try? FileManager.default.removeItem(at: home) }
+        let steam = SaveLocator.candidateRoots(home: home)[0]
+        try writeFile(steam.appendingPathComponent("m_old.sav"), modified: Date(timeIntervalSince1970: 1_000))
+        let idFolder = steam.appendingPathComponent("76561198000000000", isDirectory: true)
+        try writeFile(idFolder.appendingPathComponent("GameSave0_GD.sav"), modified: Date(timeIntervalSince1970: 5_000))
+        try writeFile(idFolder.appendingPathComponent("GameSave1_GD.sav"), modified: Date(timeIntervalSince1970: 3_000))
+        try writeFile(idFolder.appendingPathComponent("notes.sav"), modified: Date(timeIntervalSince1970: 9_000)) // non-match, ignored
+
+        let all = SaveLocator.allSaves(home: home)
+        #expect(all.map { $0.fileURL.lastPathComponent } == ["GameSave0_GD.sav", "GameSave1_GD.sav", "m_old.sav"])
+        #expect(SaveLocator.newestSave(home: home)?.fileURL.lastPathComponent == "GameSave0_GD.sav") // still the first
+    }
+
     @Test func newestSaveMatchesManualSaveInFallbackRoot() throws {
         let home = uniqueHome()
         defer { try? FileManager.default.removeItem(at: home) }

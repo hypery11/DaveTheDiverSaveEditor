@@ -14,7 +14,7 @@ import DaveSaveCore
     /// A save touching every expanded surface. `1021006` is a confirmed non-aberration
     /// tier-6666 ingredient in the bundled reference DB, so the branch op truly raises it.
     private static let fixtureJSON = #"""
-    {"PlayerInfo":{"m_Gold":100,"m_Bei":5,"m_ChefFlame":1,"m_researchPoint":42},"SNSInfo":{"m_Follow_Count":7},"Ingredients":{"1021006":{"ingredientsID":1021006,"count":10,"branchCount":2}},"InventoryItemSlot":{"0":{"itemID":9999999,"totalCount":3}},"MermanVillInventory":{"0":{"count":5}}}
+    {"PlayerInfo":{"m_Gold":100,"m_Bei":5,"m_ChefFlame":1,"m_researchPoint":42,"m_trustPoint":100,"m_FakePoint":100},"SNSInfo":{"m_Follow_Count":7},"Ingredients":{"1021006":{"ingredientsID":1021006,"count":10,"branchCount":2}},"InventoryItemSlot":{"0":{"itemID":9999999,"totalCount":3}},"MermanVillInventory":{"0":{"count":5}}}
     """#
 
     /// In-memory model (explicit bundled DB) for the state-machine tests.
@@ -65,6 +65,23 @@ import DaveSaveCore
         model.reset(.researchPoint)
         #expect(model.value(.researchPoint) == 42)
         #expect(model.hasChanges == false)
+    }
+
+    // MARK: Trust / Fake points (ride the currency machinery via currencyPaths)
+
+    @Test func trustAndFakePointsLoadEditDiffReset() throws {
+        let model = try loadedModel()
+        #expect(model.value(.trustPoint) == 100)
+        #expect(model.value(.fakePoint) == 100)
+
+        model.applyText(.trustPoint, "9999")
+        #expect(model.value(.trustPoint) == 9999)
+        #expect(model.hasChanges)                                        // diffed via currencyPaths
+        #expect(model.pendingChanges().contains { $0.path == "PlayerInfo.m_trustPoint" && $0.newValue == "9999" })
+
+        model.reset(.trustPoint)
+        #expect(model.value(.trustPoint) == 100)
+        #expect(model.hasChanges == false)                               // reset clears it
     }
 
     // MARK: Material bulk ops — status + dirty wiring (real mutations)

@@ -1,5 +1,6 @@
 // App/Sources/Views/ContentView.swift
 import SwiftUI
+import DaveSaveCore
 
 /// Root editor screen. A single scrolling table (no tabs): sections with pinned
 /// headers + divider rows. Everything — currencies, bulk actions, and the item
@@ -8,6 +9,7 @@ struct ContentView: View {
     @Bindable var model: SaveEditorModel
     @State private var showingPreview = false
     @State private var showingRaw = false
+    @State private var showingBackups = false
     @State private var confirmLoad: (() -> Void)? = nil
     @State private var itemQuery = ""
 
@@ -134,14 +136,34 @@ struct ContentView: View {
                                             : "Dave the Diver Save Editor")
             .toolbar {
                 ToolbarItemGroup(placement: .primaryAction) {
-                    Button("Open…", systemImage: "folder") { guardedLoad(loadSaveFile) }
+                    Menu {
+                        let saves = model.availableSaves()
+                        if saves.isEmpty {
+                            Text("No save slots detected")
+                        } else {
+                            Section("Save slots") {
+                                ForEach(saves, id: \.fileURL) { s in
+                                    Button(slotLabel(s)) { guardedLoad { model.load(url: s.fileURL) } }
+                                }
+                            }
+                        }
+                        Divider()
+                        Button("Open File…") { guardedLoad(loadSaveFile) }
+                    } label: {
+                        Label("Open", systemImage: "folder")
+                    }
+
                     Button("Max Everything", systemImage: "wand.and.stars") { model.maxEverything() }
                         .disabled(!model.isLoaded)
-                    if model.canUndoBulk {
-                        Button("Undo", systemImage: "arrow.uturn.backward") { model.undoLastBulk() }
+
+                    Menu {
+                        Button("Raw JSON…", systemImage: "curlybraces") { showingRaw = true }
+                        Button("Restore from Backup…", systemImage: "clock.arrow.circlepath") { showingBackups = true }
+                    } label: {
+                        Label("More", systemImage: "ellipsis.circle")
                     }
-                    Button("Raw JSON", systemImage: "curlybraces") { showingRaw = true }
-                        .disabled(!model.isLoaded)
+                    .disabled(!model.isLoaded)
+
                     Button("Save", systemImage: "square.and.arrow.up") { showingPreview = true }
                         .disabled(!model.isLoaded || !model.hasChanges)
                 }
@@ -151,6 +173,7 @@ struct ContentView: View {
         .preferredColorScheme(Self.snapshotColorScheme)
         .sheet(isPresented: $showingPreview) { ChangePreviewView(model: model) }
         .sheet(isPresented: $showingRaw) { RawJSONView(model: model) }
+        .sheet(isPresented: $showingBackups) { BackupRestoreView(model: model) }
         .onChange(of: model.requestWrite) { _, newValue in
             if newValue { showingPreview = true; model.requestWrite = false }
         }
@@ -223,5 +246,9 @@ struct ContentView: View {
         if let url = FileDialogs.openSaveFile(startDirectory: model.detected?.directoryURL) {
             model.load(url: url)
         }
+    }
+
+    private func slotLabel(_ s: SaveCandidate) -> String {
+        "\(s.fileURL.lastPathComponent)  ·  \(s.modified.formatted(.relative(presentation: .named)))"
     }
 }

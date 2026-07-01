@@ -83,6 +83,8 @@ final class SaveEditorModel {
                 .artisansFlame: document.artisansFlame,
                 .followerCount: document.followerCount,
                 .researchPoint: document.researchPoint,
+                .trustPoint:    document.trustPoint,
+                .fakePoint:     document.fakePoint,
             ]
             self.currentFileURL = sourceURL
             self.isLoaded = true
@@ -113,6 +115,11 @@ final class SaveEditorModel {
     func loadDetected() {
         guard let candidate = detected else { return }
         load(url: candidate.fileURL)
+    }
+
+    /// Every save slot found on disk (newest first) — for the slot picker.
+    func availableSaves() -> [SaveCandidate] {
+        SaveLocator.allSaves(fileManager: fileManager, home: home)
     }
 
     func load(url: URL) {
@@ -351,6 +358,48 @@ final class SaveEditorModel {
         }
     }
 
+    // MARK: - Backups
+
+    /// Timestamped backups for the currently-loaded save (newest first). Scoped to this
+    /// save by the `<stem>_` filename prefix so a multi-slot Backups folder never offers
+    /// another slot's backups for restore.
+    func availableBackups() -> [URL] {
+        guard let url = currentFileURL else { return [] }
+        let stem = url.deletingPathExtension().lastPathComponent + "_"
+        return BackupStore.listBackups(bundleID: Self.bundleID, home: home)
+            .filter { $0.lastPathComponent.hasPrefix(stem) }
+    }
+
+    /// Overwrite the live save with a chosen backup. Mirrors `write()`'s safety flow:
+    /// it refuses while the game is running / the file is open, and backs up the CURRENT
+    /// save first so a mistaken restore is itself reversible, then reloads so the UI
+    /// reflects the restored values.
+    func restore(from backupURL: URL) {
+        guard isLoaded, let url = currentFileURL else { return }
+        if let reason = safetyCheck(url).blockReason {
+            AppLog.io.error("Restore blocked by safety check: \(reason)")
+            alert = AppAlert(id: UUID(), title: "Can't Restore Yet", message: reason, revealURL: nil)
+            return
+        }
+        do {
+            let safetyBackup = try BackupStore.backup(original: url, bundleID: Self.bundleID, home: home)
+            let data = try Data(contentsOf: backupURL)
+            try BackupStore.writeAtomically(data, to: url)
+            AppLog.io.notice("Restored backup \(backupURL.lastPathComponent) onto \(url.lastPathComponent)")
+            load(data: data, sourceURL: url)   // reload so values / dirty-state are fresh
+            alert = AppAlert(
+                id: UUID(),
+                title: "Backup Restored",
+                message: "Restored \(backupURL.lastPathComponent). Your previous state was backed up first.",
+                revealURL: safetyBackup
+            )
+        } catch {
+            AppLog.io.error("Restore failed: \(error.localizedDescription)")
+            alert = AppAlert(id: UUID(), title: "Restore Failed",
+                             message: "Could not restore the backup: \(error.localizedDescription)", revealURL: nil)
+        }
+    }
+
     // MARK: - Finder
 
     func revealInFinder(_ url: URL) {
@@ -441,6 +490,8 @@ final class SaveEditorModel {
         case .artisansFlame: document.setArtisansFlame(value)
         case .followerCount: document.setFollowerCount(value)
         case .researchPoint: document.setResearchPoint(value)
+        case .trustPoint:    document.setTrustPoint(value)
+        case .fakePoint:     document.setFakePoint(value)
         }
         self.document = document
         // No dirty latch here: currencies are diffed by `pendingChanges()` and research
@@ -454,6 +505,8 @@ final class SaveEditorModel {
         case .artisansFlame: return document.artisansFlame
         case .followerCount: return document.followerCount
         case .researchPoint: return document.researchPoint
+        case .trustPoint:    return document.trustPoint
+        case .fakePoint:     return document.fakePoint
         }
     }
 }

@@ -39,13 +39,17 @@ public struct SaveDocument {
     static let beiPath:      [String] = ["PlayerInfo", "m_Bei"]
     static let flamePath:    [String] = ["PlayerInfo", "m_ChefFlame"]
     static let followerPath: [String] = ["SNSInfo", "m_Follow_Count"]
+    static let trustPath:    [String] = ["PlayerInfo", "m_trustPoint"]   // lowercase t
+    static let fakePath:     [String] = ["PlayerInfo", "m_FakePoint"]    // uppercase F
 
     /// Dotted display path paired with its lookup path, in preview order.
     static let currencyPaths: [(dotted: String, path: [String])] = [
-        ("PlayerInfo.m_Gold",      goldPath),
-        ("PlayerInfo.m_Bei",       beiPath),
-        ("PlayerInfo.m_ChefFlame", flamePath),
-        ("SNSInfo.m_Follow_Count", followerPath),
+        ("PlayerInfo.m_Gold",       goldPath),
+        ("PlayerInfo.m_Bei",        beiPath),
+        ("PlayerInfo.m_ChefFlame",  flamePath),
+        ("SNSInfo.m_Follow_Count",  followerPath),
+        ("PlayerInfo.m_trustPoint", trustPath),
+        ("PlayerInfo.m_FakePoint",  fakePath),
     ]
 
     // MARK: Load / encode
@@ -95,6 +99,8 @@ public struct SaveDocument {
     public var bei: Int64           { intValue(at: Self.beiPath) }
     public var artisansFlame: Int64 { intValue(at: Self.flamePath) }
     public var followerCount: Int64 { intValue(at: Self.followerPath) }
+    public var trustPoint: Int64    { intValue(at: Self.trustPath) }
+    public var fakePoint: Int64     { intValue(at: Self.fakePath) }
 
     // MARK: Currency setters
 
@@ -112,6 +118,14 @@ public struct SaveDocument {
 
     public mutating func setFollowerCount(_ v: Int64) {
         setInt(v, at: Self.followerPath)   // unclamped (matches upstream)
+    }
+
+    public mutating func setTrustPoint(_ v: Int64) {
+        setInt(min(v, Self.currencyClamp), at: Self.trustPath)
+    }
+
+    public mutating func setFakePoint(_ v: Int64) {
+        setInt(min(v, Self.currencyClamp), at: Self.fakePath)
     }
 
     // MARK: Pending-change diff (preview)

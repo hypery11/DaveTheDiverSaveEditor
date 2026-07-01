@@ -89,6 +89,27 @@ struct SaveDocumentTests {
                                         newValue: "999999999")])
     }
 
+    @Test("trust/fake points: read, clamp, round-trip, and appear in pendingChanges")
+    func trustAndFakePoints() throws {
+        var doc = try SaveDocument.load(SaveCodec.encode(
+            #"{"PlayerInfo":{"m_Gold":1,"m_trustPoint":100,"m_FakePoint":100}}"#))
+        #expect(doc.trustPoint == 100)
+        #expect(doc.fakePoint == 100)
+
+        doc.setTrustPoint(500)
+        doc.setFakePoint(10_000_000_000)             // clamps to the currency cap
+        #expect(doc.trustPoint == 500)
+        #expect(doc.fakePoint == 999_999_999)
+
+        let reloaded = try SaveDocument.load(doc.encoded())
+        #expect(reloaded.trustPoint == 500)
+        #expect(reloaded.fakePoint == 999_999_999)
+
+        let changes = doc.pendingChanges()
+        #expect(changes.contains { $0.path == "PlayerInfo.m_trustPoint" && $0.newValue == "500" })
+        #expect(changes.contains { $0.path == "PlayerInfo.m_FakePoint" && $0.newValue == "999999999" })
+    }
+
     @Test("real save: load/encode round-trips byte-identical, edits persist")
     func realSaveLoadEncodeRoundTripsAndEdits() throws {
         let url = URL(fileURLWithPath:
