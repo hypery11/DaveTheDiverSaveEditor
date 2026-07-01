@@ -5,8 +5,26 @@ import SwiftUI
 /// cards. Owns no save/file logic — only composes views and the write-flow chrome.
 struct ContentView: View {
     @Bindable var model: SaveEditorModel
-    @State private var selection: EditorCategory? = .economy
+    @State private var selection: EditorCategory? = ContentView.snapshotCategory ?? .economy
     @State private var showingPreview = false
+
+    /// Snapshot/UI-test seams (no effect on normal launches):
+    /// `--args -snapshot-category <raw>` preselects a category; `-snapshot-appearance dark|light`
+    /// forces the color scheme — so an automated capture can grab any pane in either mode.
+    private static var snapshotCategory: EditorCategory? {
+        let a = ProcessInfo.processInfo.arguments
+        guard let i = a.firstIndex(of: "-snapshot-category"), i + 1 < a.count else { return nil }
+        return EditorCategory(rawValue: a[i + 1])
+    }
+    private static var snapshotColorScheme: ColorScheme? {
+        let a = ProcessInfo.processInfo.arguments
+        guard let i = a.firstIndex(of: "-snapshot-appearance"), i + 1 < a.count else { return nil }
+        switch a[i + 1] {
+        case "dark":  return .dark
+        case "light": return .light
+        default:      return nil
+        }
+    }
 
     var body: some View {
         NavigationSplitView {
@@ -53,6 +71,7 @@ struct ContentView: View {
             .navigationTitle((selection ?? .economy).label)
         }
         .frame(minWidth: 760, minHeight: 560)
+        .preferredColorScheme(Self.snapshotColorScheme)
         .sheet(isPresented: $showingPreview) { ChangePreviewView(model: model) }
         // Menu ⌘S sets model.requestWrite; observe here to present the sheet.
         .onChange(of: model.requestWrite) { _, newValue in
