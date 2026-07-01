@@ -44,8 +44,9 @@ struct ContentView: View {
                         case .advanced:   AdvancedDetail(model: model)
                         }
                     }
+                    .frame(maxWidth: Theme.contentMaxWidth, alignment: .leading)
                     .padding(Theme.Spacing.xl)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(maxWidth: .infinity)   // center the card column in wide windows
                 }
                 .background(Theme.Color.bg)
 

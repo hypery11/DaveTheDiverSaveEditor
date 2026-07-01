@@ -24,12 +24,7 @@ struct ActionCard: View {
             Spacer(minLength: Theme.Spacing.md)
             Button(buttonTitle, action: action).buttonStyle(.borderedProminent).tint(accent)
         }
-        .padding(Theme.Spacing.lg)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Theme.Color.surface, in: RoundedRectangle(cornerRadius: Theme.Radius.card))
-        .overlay {
-            RoundedRectangle(cornerRadius: Theme.Radius.card).strokeBorder(Theme.Color.separator)
-        }
+        .cardSurface()
         .disabled(!isEnabled)
     }
 }

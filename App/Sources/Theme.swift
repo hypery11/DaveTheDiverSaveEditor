@@ -46,9 +46,36 @@ enum Theme {
         static let warning       = SwiftUI.Color(hex: 0xF2B705)
         static let error         = SwiftUI.Color(hex: 0xE5544B)
         static let info          = SwiftUI.Color(hex: 0x2E9CCA)
+        // Text-safe accent variants for small labels on tinted fills (WCAG on surface).
+        static let successText   = SwiftUI.Color(light: .init(hex: 0x2E8B5E), dark: .init(hex: 0x5FD39E))
+        static let errorText     = SwiftUI.Color(light: .init(hex: 0xC4362E), dark: .init(hex: 0xF08A82))
     }
 
     static let valueFont     = Font.system(size: 34, weight: .semibold, design: .rounded).monospacedDigit()
     static let cardTitleFont = Font.system(.headline, design: .rounded)
     static let valueSpring    = Animation.spring(response: 0.3, dampingFraction: 0.72)
+    /// Max reading measure for the detail card column (keeps cards from stretching).
+    static let contentMaxWidth: CGFloat = 640
+}
+
+/// Shared card chrome (padding + surface + corner). Per DESIGN.md elevation: light gets
+/// a soft shadow, dark gets a hairline border (no shadow). Used by every card.
+struct CardSurface: ViewModifier {
+    @Environment(\.colorScheme) private var scheme
+    func body(content: Content) -> some View {
+        content
+            .padding(Theme.Spacing.lg)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Theme.Color.surface, in: RoundedRectangle(cornerRadius: Theme.Radius.card))
+            .overlay {
+                if scheme == .dark {
+                    RoundedRectangle(cornerRadius: Theme.Radius.card).strokeBorder(Theme.Color.separator)
+                }
+            }
+            .shadow(color: scheme == .dark ? .clear : .black.opacity(0.08), radius: 8, y: 1)
+    }
+}
+
+extension View {
+    func cardSurface() -> some View { modifier(CardSurface()) }
 }

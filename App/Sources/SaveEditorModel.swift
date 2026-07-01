@@ -27,6 +27,9 @@ final class SaveEditorModel {
     /// diffed against the load-time snapshot in `hasChanges`, so a Reset can clear them.
     /// Reset to `false` on every load.
     private(set) var bulkEdited = false
+    /// Human-readable log of bulk ops applied since load (for the write preview, which
+    /// can't diff them). Cleared on load.
+    private(set) var appliedBulkOps: [String] = []
     var alert: AppAlert?
     /// Set to `true` by the ⌘S menu command; ContentView observes this to
     /// present the preview sheet, then resets it to `false`.
@@ -86,6 +89,7 @@ final class SaveEditorModel {
             self.alert = nil
             self.ingredientStatus = ""
             self.bulkEdited = false
+            self.appliedBulkOps = []
             AppLog.io.info("Loaded save \(sourceURL?.lastPathComponent ?? "in-memory"): gold=\(value(.gold) ?? -1) bei=\(value(.bei) ?? -1) flame=\(value(.artisansFlame) ?? -1) followers=\(value(.followerCount) ?? -1)")
         } catch {
             AppLog.io.error("Failed to load \(sourceURL?.lastPathComponent ?? "in-memory"): \(error.localizedDescription)")
@@ -144,20 +148,25 @@ final class SaveEditorModel {
         }
     }
 
+    /// Record a bulk op's result: marks dirty, sets the shared status, and logs it in
+    /// `appliedBulkOps` so the write preview can show what will be written.
+    private func recordBulk(_ status: String) {
+        bulkEdited = true
+        ingredientStatus = status
+        appliedBulkOps.append(status)
+        AppLog.model.info("bulk → \(status)")
+    }
+
     func maxOwnIngredients() {
         guard document != nil, let ref = resolvedReferenceDB() else { return }
         document?.maxOwnedIngredients(using: ref)
-        bulkEdited = true
-        ingredientStatus = "Maxed owned ingredients."
-        AppLog.model.info("Max-own ingredients → \(ingredientStatus)")
+        recordBulk("Maxed owned ingredients (skips perishable aberration fish).")
     }
 
     func maxAllIngredients() {
         guard document != nil, let ref = resolvedReferenceDB() else { return }
         document?.maxAllIngredients(using: ref)
-        bulkEdited = true
-        ingredientStatus = "Maxed all ingredients."
-        AppLog.model.info("Max-all ingredients → \(ingredientStatus)")
+        recordBulk("Maxed all ingredients (skips perishable aberration fish).")
     }
 
     // MARK: - Materials (second store, general inventory, merman village)
@@ -167,36 +176,28 @@ final class SaveEditorModel {
     func maxBranchIngredients() {
         guard document != nil, let ref = resolvedReferenceDB() else { return }
         document?.maxBranchIngredients(using: ref)
-        bulkEdited = true
-        ingredientStatus = "Maxed branch (second store) ingredients."
-        AppLog.model.info("Max-branch ingredients → \(ingredientStatus)")
+        recordBulk("Maxed branch (2nd store) ingredients (skips aberration fish).")
     }
 
     /// Max general inventory items (materials / crafting parts). Reports the slot count.
     func maxInventoryItems() {
         guard document != nil, let ref = resolvedReferenceDB() else { return }
         let changed = document?.maxInventoryItems(using: ref) ?? 0
-        bulkEdited = true
-        ingredientStatus = "Maxed inventory items (\(changed) slots)."
-        AppLog.model.info("Max inventory → \(ingredientStatus)")
+        recordBulk("Maxed inventory items (\(changed) slots).")
     }
 
     /// Max the Sea People (merman) village inventory. Reports the slot count.
     func maxMermanInventory() {
         guard document != nil else { return }
         let changed = document?.maxMermanInventory() ?? 0
-        bulkEdited = true
-        ingredientStatus = "Maxed merman village inventory (\(changed) slots)."
-        AppLog.model.info("Max merman → \(ingredientStatus)")
+        recordBulk("Maxed merman village inventory (\(changed) slots).")
     }
 
     /// Fill the home farm's seed / produce storage (skips empty slots). Reports stacks.
     func maxSeeds() {
         guard document != nil else { return }
         let changed = document?.maxFarmStorage() ?? 0
-        bulkEdited = true
-        ingredientStatus = "Maxed farm seeds / produce (\(changed) stacks)."
-        AppLog.model.info("Max seeds → \(ingredientStatus)")
+        recordBulk("Maxed farm seeds / produce (\(changed) stacks).")
     }
 
     /// Stock every craft material (fish parts, DREDGE research parts / bones) the
@@ -205,9 +206,7 @@ final class SaveEditorModel {
     func maxCraftMaterials() {
         guard document != nil, let ref = resolvedReferenceDB() else { return }
         let changed = document?.maxCraftMaterials(using: ref) ?? 0
-        bulkEdited = true
-        ingredientStatus = "Maxed craft materials (\(changed) slots)."
-        AppLog.model.info("Max craft materials → \(ingredientStatus)")
+        recordBulk("Maxed craft materials (\(changed) slots).")
     }
 
     /// Add or set a specific inventory item by id and count (power-user override). Sets a
@@ -215,11 +214,11 @@ final class SaveEditorModel {
     func addInventoryItem(itemID: Int, count: Int) {
         guard document != nil else { return }
         let ok = document?.setInventoryItem(itemID: itemID, count: count) ?? false
-        if ok { bulkEdited = true }
-        ingredientStatus = ok
-            ? "Set item \(itemID) = \(count)."
-            : "Couldn't set item \(itemID) (no inventory container)."
-        AppLog.model.info("Set inventory item → \(ingredientStatus)")
+        if ok {
+            recordBulk("Set item \(itemID) = \(count).")
+        } else {
+            ingredientStatus = "Couldn't set item \(itemID) (no inventory container)."
+        }
     }
 
     // MARK: - Write

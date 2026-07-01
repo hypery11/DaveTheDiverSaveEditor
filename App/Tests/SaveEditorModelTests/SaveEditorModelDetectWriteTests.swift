@@ -122,7 +122,7 @@ import DaveSaveCore
         m.load(url: fileURL)
 
         m.maxAllIngredients()
-        #expect(m.ingredientStatus == "Maxed all ingredients.")
+        #expect(m.ingredientStatus == "Maxed all ingredients (skips perishable aberration fish).")
         #expect(m.alert == nil)                 // bundled reference DB resolved without error
 
         // The injection reached the live document and survives encode->write->decode.
@@ -138,7 +138,7 @@ import DaveSaveCore
         m.load(data: saveData(includeIngredients: true), sourceURL: nil)
 
         m.maxOwnIngredients()
-        #expect(m.ingredientStatus == "Maxed owned ingredients.")
+        #expect(m.ingredientStatus == "Maxed owned ingredients (skips perishable aberration fish).")
         #expect(m.alert == nil)
     }
 }

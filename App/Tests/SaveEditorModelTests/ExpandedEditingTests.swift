@@ -88,7 +88,7 @@ import DaveSaveCore
         let model = SaveEditorModel(referenceDB: try ReferenceDB.bundled(), home: home)
         model.load(url: fileURL)
         model.maxBranchIngredients()
-        #expect(model.ingredientStatus == "Maxed branch (second store) ingredients.")
+        #expect(model.ingredientStatus == "Maxed branch (2nd store) ingredients (skips aberration fish).")
         #expect(model.hasChanges)
         #expect(model.write() != nil)
 

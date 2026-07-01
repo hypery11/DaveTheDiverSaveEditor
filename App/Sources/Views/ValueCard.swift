@@ -1,35 +1,49 @@
 // App/Sources/Views/ValueCard.swift
 import SwiftUI
 
-/// One editable value: icon + label, a big rounded value that springs on change,
-/// the DeltaStrip, and an exact field + Max + Reset.
+/// One editable value. The big rounded number IS the edit control: it shows grouped
+/// digits (3,074,847) at rest and raw digits while focused, committing on Return/blur.
+/// Below it: the ±DeltaStrip and Max / Reset. The number springs on any change.
 struct ValueCard: View {
     let model: SaveEditorModel
     let currency: Currency
     let accent: Color
 
+    @State private var draft = ""
     @State private var bounce = false
+    @FocusState private var editing: Bool
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    /// The big display groups digits (3,074,847) for readability; the edit field
-    /// below keeps the raw digits so it stays parseable.
     private var groupedValue: String {
-        guard let v = model.value(currency) else { return "—" }
-        return v.formatted(.number.grouping(.automatic))
+        model.value(currency).map { $0.formatted(.number.grouping(.automatic)) } ?? "—"
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Label(currency.label, systemImage: currency.systemImage)
-                .font(Theme.cardTitleFont)
-                .foregroundStyle(accent)
+            Label {
+                Text(currency.label).foregroundStyle(Theme.Color.textPrimary)
+            } icon: {
+                Image(systemName: currency.systemImage).foregroundStyle(accent)
+            }
+            .font(Theme.cardTitleFont)
 
-            Text(groupedValue)
+            TextField("", text: $draft)
+                .focused($editing)
+                .textFieldStyle(.plain)
                 .font(Theme.valueFont)
                 .foregroundStyle(Theme.Color.textPrimary)
-                .contentTransition(.numericText())
-                .scaleEffect(bounce ? 1.06 : 1.0, anchor: .leading)
-                .animation(Theme.valueSpring, value: bounce)
+                .scaleEffect(!reduceMotion && bounce ? 1.06 : 1.0, anchor: .leading)
+                .animation(reduceMotion ? nil : Theme.valueSpring, value: bounce)
+                .accessibilityLabel("\(currency.label) value")
+                .onAppear { draft = groupedValue }
+                .onSubmit { commit() }
+                .onChange(of: editing) { _, nowEditing in
+                    if nowEditing { draft = model.displayText(currency) }  // raw digits to edit
+                    else { commit() }
+                }
                 .onChange(of: model.value(currency)) { _, _ in
+                    if !editing { draft = groupedValue }
+                    guard !reduceMotion else { return }
                     bounce = true
                     Task { try? await Task.sleep(nanoseconds: 350_000_000); bounce = false }
                 }
@@ -37,25 +51,24 @@ struct ValueCard: View {
             DeltaStrip(model: model, currency: currency)
 
             HStack(spacing: Theme.Spacing.sm) {
-                TextField("Value", text: Binding(
-                    get: { model.displayText(currency) },
-                    set: { model.applyText(currency, $0) }))
-                    .textFieldStyle(.roundedBorder)
-                    .monospacedDigit()
-                    .frame(width: Theme.Spacing.exactFieldWidth)
                 Button("Max") { model.maximize(currency) }
                     .buttonStyle(.bordered)
                     .tint(Theme.Color.coral)
+                    .accessibilityLabel("Set \(currency.label) to maximum")
                 Button("Reset") { model.reset(currency) }
                     .buttonStyle(.bordered)
+                    .accessibilityLabel("Reset \(currency.label)")
+                Spacer()
             }
         }
-        .padding(Theme.Spacing.lg)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Theme.Color.surface, in: RoundedRectangle(cornerRadius: Theme.Radius.card))
-        .overlay {
-            RoundedRectangle(cornerRadius: Theme.Radius.card).strokeBorder(Theme.Color.separator)
-        }
+        .cardSurface()
         .disabled(!model.isLoaded)
+    }
+
+    /// Push the draft into the model (applyText clamps + ignores junk), then reflect the
+    /// committed value back as grouped digits.
+    private func commit() {
+        model.applyText(currency, draft)
+        draft = groupedValue
     }
 }

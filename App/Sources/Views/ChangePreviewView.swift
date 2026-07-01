@@ -19,6 +19,7 @@ struct ChangePreviewView: View {
 
     var body: some View {
         let changes = model.pendingChanges()
+        let bulkOps = model.appliedBulkOps
 
         VStack(alignment: .leading, spacing: 0) {
             Text("Review Changes")
@@ -26,27 +27,41 @@ struct ChangePreviewView: View {
                 .padding([.top, .horizontal], 20)
                 .padding(.bottom, 12)
 
-            if changes.isEmpty {
+            if !model.hasChanges {
                 Text("No changes to write.")
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, minHeight: 120)
                     .padding(.horizontal, 20)
             } else {
-                List(changes, id: \.path) { change in
-                    HStack(alignment: .firstTextBaseline, spacing: 8) {
-                        Text(change.path)
-                            .font(.callout.monospaced())
-                            .foregroundStyle(.secondary)
-                        Spacer(minLength: 12)
-                        Text(change.oldValue.isEmpty ? "—" : change.oldValue)
-                            .font(.callout.monospaced())
-                        Image(systemName: "arrow.right")
-                            .imageScale(.small)
-                            .foregroundStyle(.secondary)
-                        Text(change.newValue)
-                            .font(.callout.monospaced().weight(.semibold))
+                List {
+                    if !changes.isEmpty {
+                        Section("Values") {
+                            ForEach(changes, id: \.path) { change in
+                                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                                    Text(change.path)
+                                        .font(.callout.monospaced())
+                                        .foregroundStyle(.secondary)
+                                    Spacer(minLength: 12)
+                                    Text(change.oldValue.isEmpty ? "—" : change.oldValue)
+                                        .font(.callout.monospaced())
+                                    Image(systemName: "arrow.right")
+                                        .imageScale(.small)
+                                        .foregroundStyle(.secondary)
+                                    Text(change.newValue)
+                                        .font(.callout.monospaced().weight(.semibold))
+                                }
+                                .padding(.vertical, 2)
+                            }
+                        }
                     }
-                    .padding(.vertical, 2)
+                    if !bulkOps.isEmpty {
+                        Section("Bulk edits") {
+                            ForEach(Array(bulkOps.enumerated()), id: \.offset) { _, op in
+                                Label(op, systemImage: "wand.and.stars")
+                                    .font(.callout)
+                            }
+                        }
+                    }
                 }
                 .frame(minHeight: 160)
             }
@@ -69,7 +84,7 @@ struct ChangePreviewView: View {
                     dismiss()
                 }
                 .keyboardShortcut(.defaultAction)
-                .disabled(changes.isEmpty)
+                .disabled(!model.hasChanges)
             }
             .padding(20)
         }

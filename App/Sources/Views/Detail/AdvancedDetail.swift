@@ -20,16 +20,26 @@ struct AdvancedDetail: View {
     private var id: Int? { Int(itemIDText).flatMap { $0 > 0 ? $0 : nil } }
     private var count: Int? { Int(countText).flatMap { $0 >= 0 ? $0 : nil } }
 
+    private func add() {
+        if let id, let count { model.addInventoryItem(itemID: id, count: count) }
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Label("Add Inventory Item", systemImage: "plus.square.on.square")
-                .font(Theme.cardTitleFont).foregroundStyle(EditorCategory.advanced.accent)
+            Label {
+                Text("Add Inventory Item").foregroundStyle(Theme.Color.textPrimary)
+            } icon: {
+                Image(systemName: "plus.square.on.square").foregroundStyle(EditorCategory.advanced.accent)
+            }
+            .font(Theme.cardTitleFont)
             Text("Set or inject a specific item by id and count (power-user).")
                 .font(.subheadline).foregroundStyle(Theme.Color.textSecondary)
             HStack(spacing: Theme.Spacing.sm) {
                 TextField("Item ID", text: $itemIDText).frame(width: Theme.Spacing.advancedIDFieldWidth)
+                    .onSubmit(add)
                 TextField("Count", text: $countText).frame(width: Theme.Spacing.advancedCountFieldWidth)
-                Button("Add Item") { if let id, let count { model.addInventoryItem(itemID: id, count: count) } }
+                    .onSubmit(add)
+                Button("Add Item", action: add)
                     .buttonStyle(.bordered)
                     .tint(EditorCategory.advanced.accent)
                     .disabled(id == nil || count == nil)
@@ -37,12 +47,7 @@ struct AdvancedDetail: View {
             .textFieldStyle(.roundedBorder).monospacedDigit()
             StatusFooter(text: model.ingredientStatus)
         }
-        .padding(Theme.Spacing.lg)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Theme.Color.surface, in: RoundedRectangle(cornerRadius: Theme.Radius.card))
-        .overlay {
-            RoundedRectangle(cornerRadius: Theme.Radius.card).strokeBorder(Theme.Color.separator)
-        }
+        .cardSurface()
         .disabled(!model.isLoaded)
     }
 }
