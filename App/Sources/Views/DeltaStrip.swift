@@ -16,12 +16,15 @@ struct DeltaStrip: View {
         }
     }
 
+    /// Compact, ungrouped label so the strip never truncates in a table row: 1000 → "1k".
+    private func compact(_ n: Int64) -> String { n >= 1000 ? "\(n / 1000)k" : "\(n)" }
+
     private func button(_ delta: Int64) -> some View {
         let positive = delta > 0
         return Button {
             model.adjust(currency, by: delta)
         } label: {
-            Text(positive ? "+\(abs(delta))" : "−\(abs(delta))")
+            Text(verbatim: (positive ? "+" : "−") + compact(abs(delta)))
                 .foregroundStyle(positive ? Theme.Color.successText : Theme.Color.errorText)
                 .monospacedDigit()
         }

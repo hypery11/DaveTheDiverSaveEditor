@@ -2,33 +2,14 @@
 import SwiftUI
 import DaveSaveCore
 
-/// Shared status line (+ Undo) used by the bulk-action detail panes.
-struct StatusFooter: View {
-    let model: SaveEditorModel
-    var body: some View {
-        if !model.ingredientStatus.isEmpty || model.canUndoBulk {
-            HStack(spacing: Theme.Spacing.md) {
-                Text(model.ingredientStatus)
-                    .font(.callout).foregroundStyle(Theme.Color.textSecondary)
-                Spacer()
-                if model.canUndoBulk {
-                    Button("Undo last edit", systemImage: "arrow.uturn.backward") { model.undoLastBulk() }
-                        .buttonStyle(.bordered).controlSize(.small)
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-        }
-    }
-}
-
 /// Add or inject an inventory item — searched by NAME (no need to know internal IDs),
-/// with a raw numeric ID still accepted for true power users.
+/// with a raw numeric ID still accepted. Rendered as plain rows inside the Advanced section.
 struct AdvancedDetail: View {
     let model: SaveEditorModel
     @State private var query = ""
     @State private var picked: ItemMatch? = nil
     @State private var countText = ""
-    @State private var results: [ItemMatch] = []   // memoized; recomputed on query change
+    @State private var results: [ItemMatch] = []
 
     private func computeResults() -> [ItemMatch] {
         let q = query.trimmingCharacters(in: .whitespaces)
@@ -40,13 +21,7 @@ struct AdvancedDetail: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Label {
-                Text("Add Inventory Item").foregroundStyle(Theme.Color.textPrimary)
-            } icon: {
-                Image(systemName: "plus.square.on.square").foregroundStyle(EditorCategory.advanced.accent)
-            }
-            .font(Theme.cardTitleFont)
+        VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
             Text("Search an item by name (or a numeric ID), pick it, then set a count.")
                 .font(.subheadline).foregroundStyle(Theme.Color.textSecondary)
 
@@ -60,11 +35,10 @@ struct AdvancedDetail: View {
                     .foregroundStyle(Theme.Color.success)
                     Spacer(minLength: Theme.Spacing.md)
                     TextField("Count", text: $countText)
-                        .textFieldStyle(.roundedBorder).monospacedDigit()
-                        .frame(width: Theme.Spacing.advancedCountFieldWidth)
+                        .textFieldStyle(.roundedBorder).monospacedDigit().frame(width: 90)
                         .onSubmit(add)
                     Button("Add", action: add)
-                        .buttonStyle(.borderedProminent).tint(EditorCategory.advanced.accent)
+                        .buttonStyle(.borderedProminent).tint(Theme.Color.slate)
                         .disabled(Int(countText) == nil)
                     Button("Clear") { reset() }.buttonStyle(.bordered)
                 }
@@ -72,35 +46,29 @@ struct AdvancedDetail: View {
                 TextField("Search item name or ID…", text: $query)
                     .textFieldStyle(.roundedBorder)
                     .onChange(of: query) { _, _ in results = computeResults() }
-                let matches = results
-                if matches.isEmpty {
+                if results.isEmpty {
                     if !query.trimmingCharacters(in: .whitespaces).isEmpty {
                         Text("No matches.").font(.callout).foregroundStyle(Theme.Color.textSecondary)
                     }
                 } else {
-                    LazyVStack(spacing: 0) {
-                        ForEach(matches) { m in
-                            Button {
-                                picked = m
-                            } label: {
-                                HStack {
-                                    Text(m.name).foregroundStyle(Theme.Color.textPrimary)
-                                    Spacer()
-                                    Text(verbatim: "#\(m.id)").font(.caption.monospaced()).foregroundStyle(Theme.Color.textSecondary)
-                                }
-                                .contentShape(Rectangle())
-                                .padding(.vertical, Theme.Spacing.xs)
+                    ForEach(results) { m in
+                        Button { picked = m } label: {
+                            HStack {
+                                Text(m.name).foregroundStyle(Theme.Color.textPrimary)
+                                Spacer()
+                                Text(verbatim: "#\(m.id)").font(.caption.monospaced()).foregroundStyle(Theme.Color.textSecondary)
                             }
-                            .buttonStyle(.plain)
-                            Divider()
+                            .contentShape(Rectangle())
+                            .padding(.vertical, Theme.Spacing.xs)
                         }
+                        .buttonStyle(.plain)
+                        Divider()
                     }
                 }
             }
-
-            StatusFooter(model: model)
         }
-        .cardSurface()
+        .padding(.horizontal, Theme.Spacing.xl)
+        .padding(.vertical, Theme.Spacing.sm)
         .disabled(!model.isLoaded)
     }
 
