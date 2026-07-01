@@ -30,9 +30,7 @@ struct ContentView: View {
 
     var body: some View {
         NavigationSplitView {
-            EditorSidebar(selection: $selection, model: model,
-                          onLoad: { guardedLoad(loadSaveFile) },
-                          onSave: { showingPreview = true })
+            EditorSidebar(selection: $selection, model: model)
                 .navigationSplitViewColumnWidth(min: 200, ideal: 220, max: 260)
         } detail: {
             ZStack {
@@ -85,6 +83,15 @@ struct ContentView: View {
         }
         .frame(minWidth: 760, minHeight: 560)
         .preferredColorScheme(Self.snapshotColorScheme)
+        .toolbar {
+            ToolbarItemGroup(placement: .primaryAction) {
+                Button("Open…", systemImage: "folder") { guardedLoad(loadSaveFile) }
+                Button("Max Everything", systemImage: "wand.and.stars") { model.maxEverything() }
+                    .disabled(!model.isLoaded)
+                Button("Save", systemImage: "square.and.arrow.up") { showingPreview = true }
+                    .disabled(!model.isLoaded || !model.hasChanges)
+            }
+        }
         .sheet(isPresented: $showingPreview) { ChangePreviewView(model: model) }
         // Menu ⌘S sets model.requestWrite; observe here to present the sheet.
         .onChange(of: model.requestWrite) { _, newValue in

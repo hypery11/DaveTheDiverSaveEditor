@@ -243,6 +243,21 @@ final class SaveEditorModel {
         }
     }
 
+    /// One-click convenience: run every safe bulk fill at once (one undo step).
+    func maxEverything() {
+        mutateBulk { doc, ref in
+            if let ref {
+                doc.maxAllIngredients(using: ref)
+                doc.maxBranchIngredients(using: ref)
+                _ = doc.maxInventoryItems(using: ref)
+                _ = doc.maxCraftMaterials(using: ref)
+            }
+            _ = doc.maxMermanInventory()
+            _ = doc.maxFarmStorage()
+            return "Maxed everything (ingredients, branch, inventory, craft, village, seeds)."
+        }
+    }
+
     /// Add or set a specific inventory item by id and count. Resolves the item's name for
     /// feedback; a missing `InventoryItemSlot` container is reported (and not undoable).
     func addInventoryItem(itemID: Int, count: Int) {

@@ -1,11 +1,11 @@
 // App/Sources/Views/EditorSidebar.swift
 import SwiftUI
 
+/// Sidebar: a loaded-save chip + the category list. Load/Save live in the window
+/// toolbar (native), so the sidebar footer is gone.
 struct EditorSidebar: View {
     @Binding var selection: EditorCategory?
     let model: SaveEditorModel
-    let onLoad: () -> Void
-    let onSave: () -> Void
 
     /// Only a truly-loaded save shows a filename; otherwise the chip must not imply
     /// a file is open (the detected-but-unloaded save is offered in the empty state).
@@ -26,7 +26,7 @@ struct EditorSidebar: View {
 
             // Native sidebar: accent lives on the SF Symbol only; the label uses the
             // adaptive label color so it stays legible on cream and flips to white on
-            // the (warm ocean) selection — never accent-text-on-system-blue.
+            // the (warm ocean) selection.
             List(EditorCategory.allCases, selection: $selection) { c in
                 Label {
                     Text(c.label)
@@ -37,24 +37,6 @@ struct EditorSidebar: View {
             }
             .listStyle(.sidebar)
             .tint(Theme.Color.ocean)
-
-            Divider()
-            HStack(spacing: Theme.Spacing.sm) {
-                Button(action: onLoad) { Label("Open…", systemImage: "folder") }
-                Spacer()
-                Button(action: onSave) {
-                    HStack(spacing: Theme.Spacing.xs) {
-                        Label("Save", systemImage: "square.and.arrow.up")
-                        if model.hasChanges {
-                            Circle().fill(Theme.Color.coral)
-                                .frame(width: Theme.Spacing.statusDotSize,
-                                       height: Theme.Spacing.statusDotSize)
-                        }
-                    }
-                }
-                .disabled(!model.isLoaded || !model.hasChanges)
-            }
-            .padding(Theme.Spacing.md)
         }
     }
 }
