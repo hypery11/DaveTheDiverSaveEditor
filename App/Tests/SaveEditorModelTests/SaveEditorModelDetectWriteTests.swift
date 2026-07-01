@@ -80,8 +80,8 @@ import DaveSaveCore
         #expect(backup != nil)
         #expect(m.alert?.revealURL == backup)            // success alert carries the backup URL
 
-        // A backup now exists in the per-bundle backup directory under the temp home.
-        let backups = BackupStore.listBackups(bundleID: SaveEditorModel.bundleID, home: home)
+        // A backup now exists in this save's per-save backup subfolder under the temp home.
+        let backups = BackupStore.listBackups(for: fileURL, bundleID: SaveEditorModel.bundleID, home: home)
         #expect(!backups.isEmpty)
 
         // The backup holds the ORIGINAL gold (taken before the overwrite)…

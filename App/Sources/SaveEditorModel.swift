@@ -361,36 +361,38 @@ final class SaveEditorModel {
     // MARK: - Backups
 
     /// Timestamped backups for the currently-loaded save (newest first). Scoped to this
-    /// save by the `<stem>_` filename prefix so a multi-slot Backups folder never offers
-    /// another slot's backups for restore.
+    /// exact save by `BackupStore`'s per-save subfolder, so identically-named saves in
+    /// other Steam-id folders can never surface here.
     func availableBackups() -> [URL] {
         guard let url = currentFileURL else { return [] }
-        let stem = url.deletingPathExtension().lastPathComponent + "_"
-        return BackupStore.listBackups(bundleID: Self.bundleID, home: home)
-            .filter { $0.lastPathComponent.hasPrefix(stem) }
+        return BackupStore.listBackups(for: url, bundleID: Self.bundleID, home: home)
     }
 
-    /// Overwrite the live save with a chosen backup. Mirrors `write()`'s safety flow:
-    /// it refuses while the game is running / the file is open, and backs up the CURRENT
-    /// save first so a mistaken restore is itself reversible, then reloads so the UI
-    /// reflects the restored values.
+    /// Overwrite the live save with a chosen backup. Mirrors `write()`'s safety flow, and
+    /// is careful in a few ways the reviewer flagged: it (1) refuses while the game is
+    /// running / the file is open; (2) VALIDATES the backup parses BEFORE touching the live
+    /// file (so a corrupt backup can never be written + falsely reported as success);
+    /// (3) backs up the CURRENT in-memory document — including unsaved edits — so the
+    /// restore is genuinely reversible; then reloads so the UI reflects the restored save.
     func restore(from backupURL: URL) {
-        guard isLoaded, let url = currentFileURL else { return }
+        guard isLoaded, let url = currentFileURL, let document else { return }
         if let reason = safetyCheck(url).blockReason {
             AppLog.io.error("Restore blocked by safety check: \(reason)")
             alert = AppAlert(id: UUID(), title: "Can't Restore Yet", message: reason, revealURL: nil)
             return
         }
         do {
-            let safetyBackup = try BackupStore.backup(original: url, bundleID: Self.bundleID, home: home)
             let data = try Data(contentsOf: backupURL)
+            _ = try SaveDocument.load(data)                    // throws on a corrupt backup — before any write
+            let safetyBackup = try BackupStore.backupData(document.encoded(), forSaveNamed: url,
+                                                          bundleID: Self.bundleID, home: home)
             try BackupStore.writeAtomically(data, to: url)
             AppLog.io.notice("Restored backup \(backupURL.lastPathComponent) onto \(url.lastPathComponent)")
-            load(data: data, sourceURL: url)   // reload so values / dirty-state are fresh
+            load(data: data, sourceURL: url)                   // reload so values / dirty-state are fresh
             alert = AppAlert(
                 id: UUID(),
                 title: "Backup Restored",
-                message: "Restored \(backupURL.lastPathComponent). Your previous state was backed up first.",
+                message: "Restored \(backupURL.lastPathComponent). Your previous state was saved as \(safetyBackup.lastPathComponent) — reveal it to undo.",
                 revealURL: safetyBackup
             )
         } catch {

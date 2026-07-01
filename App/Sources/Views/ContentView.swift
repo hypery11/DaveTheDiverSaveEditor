@@ -128,8 +128,6 @@ struct ContentView: View {
                 .frame(maxWidth: .infinity)
             }
             .background(Theme.Color.bg)
-            .onAppear { if Self.snapshotRaw && model.isLoaded { showingRaw = true } }
-            .onChange(of: model.isLoaded) { _, loaded in if Self.snapshotRaw && loaded { showingRaw = true } }
             .overlay { if !model.isLoaded { emptyState } }
             .safeAreaInset(edge: .bottom) { statusBar }
             .navigationTitle(model.isLoaded ? (model.currentFileURL?.lastPathComponent ?? "Save Editor")
@@ -249,6 +247,7 @@ struct ContentView: View {
     }
 
     private func slotLabel(_ s: SaveCandidate) -> String {
-        "\(s.fileURL.lastPathComponent)  ·  \(s.modified.formatted(.relative(presentation: .named)))"
+        // Include the containing folder (Steam-id / root) so same-named slots are distinguishable.
+        "\(s.fileURL.lastPathComponent)  ·  \(s.directoryURL.lastPathComponent)  ·  \(s.modified.formatted(.relative(presentation: .named)))"
     }
 }

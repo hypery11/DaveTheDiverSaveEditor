@@ -211,4 +211,60 @@ import DaveSaveCore
         #expect(model.canUndoBulk == false)
         #expect(model.hasChanges == false)   // reverted to the clean load state
     }
+
+    // MARK: Backup restore
+
+    private func tempHome() throws -> URL {
+        let home = FileManager.default.temporaryDirectory
+            .appendingPathComponent("dtdrestore-\(UUID().uuidString)", isDirectory: true)
+        try FileManager.default.createDirectory(at: home, withIntermediateDirectories: true)
+        return home
+    }
+
+    @Test func restoreRefusesCorruptBackupAndLeavesLiveFileUntouched() throws {
+        let home = try tempHome()
+        defer { try? FileManager.default.removeItem(at: home) }
+        let fileURL = home.appendingPathComponent("GameSave0_GD.sav")
+        let original = SaveCodec.encode(Self.fixtureJSON)
+        try original.write(to: fileURL)
+
+        let model = SaveEditorModel(referenceDB: try ReferenceDB.bundled(), home: home)
+        model.load(url: fileURL)
+
+        let badBackup = home.appendingPathComponent("bad.sav")
+        try Data("not a real save".utf8).write(to: badBackup)   // readable but unparseable
+
+        model.restore(from: badBackup)
+        #expect(model.alert?.title == "Restore Failed")
+        #expect(try Data(contentsOf: fileURL) == original)      // live file NOT overwritten
+    }
+
+    @Test func restoreReplacesLiveFileReloadsAndSnapshotsInMemoryState() throws {
+        let home = try tempHome()
+        defer { try? FileManager.default.removeItem(at: home) }
+        let fileURL = home.appendingPathComponent("GameSave0_GD.sav")
+        try SaveCodec.encode(Self.fixtureJSON).write(to: fileURL)
+
+        let model = SaveEditorModel(referenceDB: try ReferenceDB.bundled(), home: home)
+        model.load(url: fileURL)
+
+        let backupJSON = #"{"PlayerInfo":{"m_Gold":777,"m_Bei":5,"m_ChefFlame":1,"m_researchPoint":42,"m_trustPoint":100,"m_FakePoint":100},"SNSInfo":{"m_Follow_Count":7},"Ingredients":{},"InventoryItemSlot":{},"MermanVillInventory":{}}"#
+        let backupData = SaveCodec.encode(backupJSON)
+        let backupURL = home.appendingPathComponent("GameSave0_GD_snapshot.sav")
+        try backupData.write(to: backupURL)
+
+        model.applyText(.gold, "424242")               // unsaved in-memory edit
+        model.restore(from: backupURL)
+
+        #expect(model.alert?.title == "Backup Restored")
+        #expect(model.value(.gold) == 777)             // reloaded from the backup
+        #expect(model.hasChanges == false)             // fresh clean baseline
+        #expect(try Data(contentsOf: fileURL) == backupData)   // live file replaced
+
+        // The safety backup captured the pre-restore IN-MEMORY state (gold 424242) → reversible.
+        let safeties = BackupStore.listBackups(for: fileURL, bundleID: SaveEditorModel.bundleID, home: home)
+        #expect(safeties.count == 1)
+        let snapshot = try SaveDocument.load(Data(contentsOf: safeties[0]))
+        #expect(snapshot.gold == 424242)
+    }
 }

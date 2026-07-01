@@ -58,8 +58,11 @@ enum Currency: String, CaseIterable, Identifiable {
         case .artisansFlame: return 999_999
         case .followerCount: return 99_999
         case .researchPoint: return 999_999_999
-        case .trustPoint:    return 999_999
-        case .fakePoint:     return 999_999
+        // Both read 100 in a mid/late-game real save, so their in-game domain is likely
+        // small + unverified — keep the "Set to Max" preset conservative (Set exact still
+        // allows any value; the engine clamps at 999,999,999 either way).
+        case .trustPoint:    return 9_999
+        case .fakePoint:     return 9_999
         }
     }
 }
