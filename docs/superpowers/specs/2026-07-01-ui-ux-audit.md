@@ -54,3 +54,7 @@ Every finding above was fixed, verified via the snapshot loop, and covered by th
 - **Roadmap:** added **Max Everything** (one-click, one undo step). Deferred (need game-data RE or have distinct UX): unlock-all-recipes, fish-encyclopedia completion GUI, relationships, a raw JSON view. `Progression` vs `Economy` split left as a future call (Follower Count now carries a "progression stat" caption instead).
 
 Bonus fixes surfaced while implementing: item ids no longer render with thousand-separators (`Text(verbatim:)`); the value field can now be cleared/retyped (commit-on-submit); ⌘S/Save still routes through the preview + SaveGuard.
+
+### Layout pivot — 2026-07-02 (single-table, no tabs)
+
+After living with the sidebar + card panes, the cards read as too sparse (only ~2.5 currency cards fit on screen). Reworked to a **single scrolling table with pinned section headers** (Economy / Restaurant / Inventory / Advanced) and divider rows — no category tabs. Every currency is now one compact row (`name · value · ±strip · set · Max · Reset`), so all five are visible at once; bulk actions and the item browser are compact rows in the same scroll. Retired `EditorSidebar`, `ValueCard`, `ActionCard`, `ItemBrowser`, and the per-category Detail panes in favor of `TableRows.swift` (`SectionHeader` / `EconomyRow` / `BulkActionRow` / `InventoryItemRow`). DeltaStrip now uses compact `1k` labels so the strip never truncates in a row. Undo moved to the toolbar + a bottom status bar.

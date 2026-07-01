@@ -7,7 +7,9 @@
 #     -destination 'platform=macOS,arch=arm64' -derivedDataPath build
 #
 # Usage: snapshot.sh [out.png] [category] [appearance]
-#   category   = economy | restaurant | farm | inventory | advanced | ""(empty state, no fixture)
+#   category   = any non-empty value loads the fixture (the UI is now a single
+#                scrolling table, so category no longer selects a pane); "" / empty
+#                / none launches the no-save empty state.
 #   appearance = light | dark   (default: system)
 set -e
 HERE="${0:A:h}"                    # .../App/scripts
@@ -34,5 +36,5 @@ fi
 pkill -f "MacOS/DaveTheDiverSaveEditor" 2>/dev/null || true
 sleep 0.6
 open -a "$APP" --args "${ARGS[@]}"
-sleep 2.5   # let the window appear + onAppear load the fixture + SwiftUI settle
+sleep 4.5   # let the window appear + onAppear load the fixture + SwiftUI settle
 "$HERE/snapshot-app.sh" "$OUT"
