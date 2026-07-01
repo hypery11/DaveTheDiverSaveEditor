@@ -1,18 +1,18 @@
 // App/Sources/Views/ValueCard.swift
 import SwiftUI
 
-/// One editable value. The big rounded number IS the edit control: it shows grouped
-/// digits (3,074,847) at rest and raw digits while focused, committing on Return/blur.
-/// Below it: the ±DeltaStrip and Max / Reset. The number springs on any change.
+/// One editable value: icon + label + caption, a big rounded number (the focal display,
+/// grouped and springing on change), the ±DeltaStrip, and a "Set exact…" field + Max /
+/// Reset. The field is a real input (empty placeholder), not a second copy of the value.
 struct ValueCard: View {
     let model: SaveEditorModel
     let currency: Currency
     let accent: Color
 
-    @State private var draft = ""
+    @State private var setText = ""
     @State private var bounce = false
-    @FocusState private var editing: Bool
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ScaledMetric(relativeTo: .largeTitle) private var valueSize: CGFloat = 34
 
     private var groupedValue: String {
         model.value(currency).map { $0.formatted(.number.grouping(.automatic)) } ?? "—"
@@ -20,29 +20,26 @@ struct ValueCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Label {
-                Text(currency.label).foregroundStyle(Theme.Color.textPrimary)
-            } icon: {
-                Image(systemName: currency.systemImage).foregroundStyle(accent)
+            VStack(alignment: .leading, spacing: 2) {
+                Label {
+                    Text(currency.label).foregroundStyle(Theme.Color.textPrimary)
+                } icon: {
+                    Image(systemName: currency.systemImage).foregroundStyle(accent)
+                }
+                .font(Theme.cardTitleFont)
+                Text(currency.caption)
+                    .font(.caption)
+                    .foregroundStyle(Theme.Color.textSecondary)
             }
-            .font(Theme.cardTitleFont)
 
-            TextField("", text: $draft)
-                .focused($editing)
-                .textFieldStyle(.plain)
-                .font(Theme.valueFont)
+            Text(groupedValue)
+                .font(.system(size: valueSize, weight: .semibold, design: .rounded).monospacedDigit())
                 .foregroundStyle(Theme.Color.textPrimary)
+                .contentTransition(.numericText())
                 .scaleEffect(!reduceMotion && bounce ? 1.06 : 1.0, anchor: .leading)
                 .animation(reduceMotion ? nil : Theme.valueSpring, value: bounce)
-                .accessibilityLabel("\(currency.label) value")
-                .onAppear { draft = groupedValue }
-                .onSubmit { commit() }
-                .onChange(of: editing) { _, nowEditing in
-                    if nowEditing { draft = model.displayText(currency) }  // raw digits to edit
-                    else { commit() }
-                }
+                .accessibilityLabel("\(currency.label): \(groupedValue)")
                 .onChange(of: model.value(currency)) { _, _ in
-                    if !editing { draft = groupedValue }
                     guard !reduceMotion else { return }
                     bounce = true
                     Task { try? await Task.sleep(nanoseconds: 350_000_000); bounce = false }
@@ -51,6 +48,16 @@ struct ValueCard: View {
             DeltaStrip(model: model, currency: currency)
 
             HStack(spacing: Theme.Spacing.sm) {
+                TextField("Set exact…", text: $setText)
+                    .textFieldStyle(.roundedBorder)
+                    .monospacedDigit()
+                    .frame(width: Theme.Spacing.exactFieldWidth)
+                    .onSubmit(commitSet)
+                    .accessibilityLabel("Set \(currency.label) to an exact value")
+                Button("Set", action: commitSet)
+                    .buttonStyle(.bordered)
+                    .disabled(Int64(setText) == nil)
+                Spacer(minLength: Theme.Spacing.sm)
                 Button("Max") { model.maximize(currency) }
                     .buttonStyle(.bordered)
                     .tint(Theme.Color.coral)
@@ -58,17 +65,15 @@ struct ValueCard: View {
                 Button("Reset") { model.reset(currency) }
                     .buttonStyle(.bordered)
                     .accessibilityLabel("Reset \(currency.label)")
-                Spacer()
             }
         }
         .cardSurface()
         .disabled(!model.isLoaded)
     }
 
-    /// Push the draft into the model (applyText clamps + ignores junk), then reflect the
-    /// committed value back as grouped digits.
-    private func commit() {
-        model.applyText(currency, draft)
-        draft = groupedValue
+    private func commitSet() {
+        guard !setText.isEmpty else { return }
+        model.applyText(currency, setText)
+        setText = ""
     }
 }

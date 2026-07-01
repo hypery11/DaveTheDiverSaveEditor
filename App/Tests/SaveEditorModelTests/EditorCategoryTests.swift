@@ -3,8 +3,8 @@ import SwiftUI
 @testable import DaveTheDiverSaveEditor
 
 @Suite struct EditorCategoryTests {
-    @Test func fiveCategoriesEachWithLabelAndSymbol() {
-        #expect(EditorCategory.allCases.count == 5)
+    @Test func categoriesEachHaveLabelAndSymbol() {
+        #expect(EditorCategory.allCases.count == 4)
         for c in EditorCategory.allCases {
             #expect(!c.label.isEmpty)
             #expect(!c.systemImage.isEmpty)

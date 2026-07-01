@@ -24,10 +24,21 @@ enum Currency: String, CaseIterable, Identifiable {
     var systemImage: String {
         switch self {
         case .gold:          return "dollarsign.circle.fill"
-        case .bei:           return "fish.fill"
+        case .bei:           return "diamond.fill"       // Sea People currency, not a fish
         case .artisansFlame: return "flame.fill"
         case .followerCount: return "person.2.fill"
         case .researchPoint: return "flask.fill"
+        }
+    }
+
+    /// One-line explainer under the label (what it is / where it's spent).
+    var caption: String {
+        switch self {
+        case .gold:          return "Main restaurant & shop currency"
+        case .bei:           return "Sea People (Merman Village) currency"
+        case .artisansFlame: return "Weapon-upgrade currency"
+        case .followerCount: return "Cooksta followers — a progression stat"
+        case .researchPoint: return "Spent on research & recipes"
         }
     }
 

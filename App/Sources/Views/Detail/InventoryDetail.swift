@@ -14,6 +14,9 @@ struct InventoryDetail: View {
         ActionCard(title: "Max Merman Village", systemImage: "drop.fill",
                    description: "Fill the Sea People village inventory.",
                    accent: accent, buttonTitle: "Max Village", isEnabled: model.isLoaded) { model.maxMermanInventory() }
+        ActionCard(title: "Max Farm Seeds", systemImage: "leaf.fill",
+                   description: "Fill every owned seed / produce stack in the home farm.",
+                   accent: Theme.Color.leaf, buttonTitle: "Max Seeds", isEnabled: model.isLoaded) { model.maxSeeds() }
         StatusFooter(text: model.ingredientStatus)
     }
 }

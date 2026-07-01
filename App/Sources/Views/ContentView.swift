@@ -41,7 +41,6 @@ struct ContentView: View {
                         switch selection ?? .economy {
                         case .economy:    EconomyDetail(model: model)
                         case .restaurant: RestaurantDetail(model: model)
-                        case .farm:       FarmDetail(model: model)
                         case .inventory:  InventoryDetail(model: model)
                         case .advanced:   AdvancedDetail(model: model)
                         }
