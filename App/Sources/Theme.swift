@@ -39,7 +39,7 @@ enum Theme {
         static let textSecondary = SwiftUI.Color(light: .init(hex: 0x5C6B70), dark: .init(hex: 0x9DB0B3))
         static let ocean         = SwiftUI.Color(light: .init(hex: 0x1A8A94), dark: .init(hex: 0x3FB6BE))
         static let coral         = SwiftUI.Color(light: .init(hex: 0xFF7A59), dark: .init(hex: 0xFF8C6E))
-        static let gold          = SwiftUI.Color(light: .init(hex: 0xF2B705), dark: .init(hex: 0xF7C72E))
+        static let gold          = SwiftUI.Color(light: .init(hex: 0xF2B705), dark: .init(hex: 0xEABF4A))
         static let leaf          = SwiftUI.Color(light: .init(hex: 0x5BA85A), dark: .init(hex: 0x7EBF7D))
         static let slate         = SwiftUI.Color(light: .init(hex: 0x7A8B92), dark: .init(hex: 0xA0B2B8))
         static let success       = SwiftUI.Color(hex: 0x3FB27F)
