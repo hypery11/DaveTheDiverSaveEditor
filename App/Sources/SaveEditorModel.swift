@@ -303,6 +303,12 @@ final class SaveEditorModel {
         resolvedReferenceDB()?.itemName(id: id) ?? "item \(id)"
     }
 
+    /// The whole loaded save as indented, order-preserving JSON — for the read-only
+    /// Raw inspector. Empty when nothing is loaded.
+    func rawJSON() -> String {
+        document?.prettyJSON() ?? ""
+    }
+
     // MARK: - Write
 
     @discardableResult

@@ -7,6 +7,7 @@ import SwiftUI
 struct ContentView: View {
     @Bindable var model: SaveEditorModel
     @State private var showingPreview = false
+    @State private var showingRaw = false
     @State private var confirmLoad: (() -> Void)? = nil
     @State private var itemQuery = ""
 
@@ -21,6 +22,9 @@ struct ContentView: View {
         }
     }
 
+    /// Snapshot seam: `-snapshot-raw` auto-opens the Raw inspector on launch.
+    private static var snapshotRaw: Bool { ProcessInfo.processInfo.arguments.contains("-snapshot-raw") }
+
     private var filteredItems: [SaveEditorModel.InventoryRow] {
         let all = model.inventoryRows()
         let q = itemQuery.trimmingCharacters(in: .whitespaces).lowercased()
@@ -31,6 +35,15 @@ struct ContentView: View {
     private func rowDivider() -> some View { Divider().padding(.leading, Theme.Spacing.xl) }
 
     var body: some View {
+        if Self.snapshotRaw {
+            RawJSONView(model: model)   // snapshot seam: capture the Raw view as the main window
+                .preferredColorScheme(Self.snapshotColorScheme)
+        } else {
+            mainBody
+        }
+    }
+
+    private var mainBody: some View {
         NavigationStack {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 0, pinnedViews: [.sectionHeaders]) {
@@ -113,6 +126,8 @@ struct ContentView: View {
                 .frame(maxWidth: .infinity)
             }
             .background(Theme.Color.bg)
+            .onAppear { if Self.snapshotRaw && model.isLoaded { showingRaw = true } }
+            .onChange(of: model.isLoaded) { _, loaded in if Self.snapshotRaw && loaded { showingRaw = true } }
             .overlay { if !model.isLoaded { emptyState } }
             .safeAreaInset(edge: .bottom) { statusBar }
             .navigationTitle(model.isLoaded ? (model.currentFileURL?.lastPathComponent ?? "Save Editor")
@@ -125,6 +140,8 @@ struct ContentView: View {
                     if model.canUndoBulk {
                         Button("Undo", systemImage: "arrow.uturn.backward") { model.undoLastBulk() }
                     }
+                    Button("Raw JSON", systemImage: "curlybraces") { showingRaw = true }
+                        .disabled(!model.isLoaded)
                     Button("Save", systemImage: "square.and.arrow.up") { showingPreview = true }
                         .disabled(!model.isLoaded || !model.hasChanges)
                 }
@@ -133,6 +150,7 @@ struct ContentView: View {
         .frame(minWidth: 900, minHeight: 600)
         .preferredColorScheme(Self.snapshotColorScheme)
         .sheet(isPresented: $showingPreview) { ChangePreviewView(model: model) }
+        .sheet(isPresented: $showingRaw) { RawJSONView(model: model) }
         .onChange(of: model.requestWrite) { _, newValue in
             if newValue { showingPreview = true; model.requestWrite = false }
         }

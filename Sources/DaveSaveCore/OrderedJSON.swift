@@ -79,6 +79,35 @@ public extension OrderedJSON {
             return s
         }
     }
+
+    /// Indented, human-readable serialization (2-space) preserving member order.
+    /// Emits the same verbatim lexemes as `serialized()`, so re-parsing the result
+    /// and `serialized()`-ing it reproduces the compact original — it's lossless.
+    /// Read-only view aid; the editor never writes this back.
+    func prettyPrinted(indent: Int = 0) -> String {
+        let pad = String(repeating: "  ", count: indent)
+        let pad1 = String(repeating: "  ", count: indent + 1)
+        switch self {
+        case .scalar(let lexeme):
+            return lexeme
+        case .array(let elements):
+            if elements.isEmpty { return "[]" }
+            var s = "[\n"
+            for (i, element) in elements.enumerated() {
+                s += pad1 + element.prettyPrinted(indent: indent + 1)
+                s += i < elements.count - 1 ? ",\n" : "\n"
+            }
+            return s + pad + "]"
+        case .object(let members):
+            if members.isEmpty { return "{}" }
+            var s = "{\n"
+            for (i, member) in members.enumerated() {
+                s += pad1 + member.keyLexeme + ": " + member.value.prettyPrinted(indent: indent + 1)
+                s += i < members.count - 1 ? ",\n" : "\n"
+            }
+            return s + pad + "}"
+        }
+    }
 }
 
 // MARK: - Key/string lexeme decoding

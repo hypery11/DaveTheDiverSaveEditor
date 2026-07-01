@@ -63,6 +63,11 @@ public struct SaveDocument {
         SaveCodec.encode(root.serialized())
     }
 
+    /// Indented, order-preserving JSON of the whole save (for the read-only Raw view).
+    public func prettyJSON() -> String {
+        root.prettyPrinted()
+    }
+
     // MARK: Scalar helpers
 
     /// Verbatim scalar lexeme at `path` in `json`, or `nil` if the path is
