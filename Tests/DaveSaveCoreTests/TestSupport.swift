@@ -28,19 +28,20 @@ func makeTinyReferenceDB(at url: URL) throws {
         ItemDataID INTEGER NOT NULL,
         MaxCount INTEGER NOT NULL,
         DLCType INTEGER NOT NULL,
-        ItemType INTEGER NOT NULL
+        ItemType INTEGER NOT NULL,
+        ItemTextID TEXT NOT NULL
     );
     CREATE TABLE Ingredients (
         TID INTEGER PRIMARY KEY,
         Type INTEGER NOT NULL
     );
-    INSERT INTO Items VALUES (1010201, 1020201, 9999, 1, 4);
-    INSERT INTO Items VALUES (1011006, 1021006, 9999, 0, 4);
-    INSERT INTO Items VALUES (1011701, 1021011, 99,   0, 4);
-    INSERT INTO Items VALUES (1018901, 1025901, 1,    0, 4);
-    INSERT INTO Items VALUES (1017019, 1027019, 9999, 5, 4);
-    INSERT INTO Items VALUES (1014980, -1,      9999, 1, 6);  -- DREDGE research part (DLC-gated)
-    INSERT INTO Items VALUES (1018090, -1,      9999, 0, 6);  -- base craft material (always)
+    INSERT INTO Items VALUES (1010201, 1020201, 9999, 1, 4, 'Aberration_Fish_Name');
+    INSERT INTO Items VALUES (1011006, 1021006, 9999, 0, 4, 'Soybean_Name');
+    INSERT INTO Items VALUES (1011701, 1021011, 99,   0, 4, 'Kelp_Name');
+    INSERT INTO Items VALUES (1018901, 1025901, 1,    0, 4, 'Rare_Trinket_Name');
+    INSERT INTO Items VALUES (1017019, 1027019, 9999, 5, 4, 'Godzilla_Scale_Name');
+    INSERT INTO Items VALUES (1014980, -1,      9999, 1, 6, 'Dredge_ResearchPart_Name');
+    INSERT INTO Items VALUES (1018090, -1,      9999, 0, 6, 'Base_Material_Name');
     INSERT INTO Ingredients VALUES (1020201, 0);
     INSERT INTO Ingredients VALUES (1021011, 0);
     INSERT INTO Ingredients VALUES (1025901, 0);

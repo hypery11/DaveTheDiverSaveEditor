@@ -1,6 +1,26 @@
 import Foundation
 
+/// One `InventoryItemSlot` entry as seen in the save: itemID + current count.
+public struct InventorySlot: Equatable {
+    public let itemID: Int
+    public let count: Int
+    public init(itemID: Int, count: Int) { self.itemID = itemID; self.count = count }
+}
+
 public extension SaveDocument {
+    /// Enumerate `InventoryItemSlot` entries (itemID, totalCount), sorted by id. Skips
+    /// `totalCount == -1` (unique/equipped markers). Powers the per-item browse view.
+    func inventoryItems() -> [InventorySlot] {
+        guard case .object(let members)? = root.value(at: ["InventoryItemSlot"]) else { return [] }
+        var out: [InventorySlot] = []
+        for m in members {
+            guard case .scalar(let idl)? = m.value.value(at: ["itemID"]), let id = Int(idl),
+                  case .scalar(let cl)? = m.value.value(at: ["totalCount"]), let c = Int(cl), c >= 0 else { continue }
+            out.append(InventorySlot(itemID: id, count: c))
+        }
+        return out.sorted { $0.itemID < $1.itemID }
+    }
+
     /// DLCType -> the installedDLCs id required to keep the material (same map the
     /// ingredient logic uses). DLCType 0 is base content and always allowed.
     private static let craftDLCTypeToID: [Int: Int] = [1: 14252001, 3: 14252201, 5: 14252401]

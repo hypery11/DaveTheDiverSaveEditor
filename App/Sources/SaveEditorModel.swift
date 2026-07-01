@@ -209,16 +209,44 @@ final class SaveEditorModel {
         recordBulk("Maxed craft materials (\(changed) slots).")
     }
 
-    /// Add or set a specific inventory item by id and count (power-user override). Sets a
-    /// status describing the outcome; a missing `InventoryItemSlot` container is reported.
+    /// Add or set a specific inventory item by id and count. Resolves the item's name for
+    /// feedback; a missing `InventoryItemSlot` container is reported.
     func addInventoryItem(itemID: Int, count: Int) {
         guard document != nil else { return }
         let ok = document?.setInventoryItem(itemID: itemID, count: count) ?? false
         if ok {
-            recordBulk("Set item \(itemID) = \(count).")
+            let name = resolvedReferenceDB()?.itemName(id: itemID) ?? "item"
+            recordBulk("Set \(name) (\(itemID)) → \(count).")
         } else {
             ingredientStatus = "Couldn't set item \(itemID) (no inventory container)."
         }
+    }
+
+    // MARK: - Per-item browse / search
+
+    /// A named inventory row for the browse view.
+    struct InventoryRow: Identifiable, Equatable {
+        let id: Int          // itemID
+        let name: String
+        let count: Int
+    }
+
+    /// The save's inventory slots, name-resolved and sorted by id.
+    func inventoryRows() -> [InventoryRow] {
+        guard let document, let ref = resolvedReferenceDB() else { return [] }
+        return document.inventoryItems().map { slot in
+            InventoryRow(id: slot.itemID, name: ref.itemName(id: slot.itemID) ?? "#\(slot.itemID)", count: slot.count)
+        }
+    }
+
+    /// Search the reference item table by name (for the Advanced item picker).
+    func searchItems(_ query: String) -> [ItemMatch] {
+        resolvedReferenceDB()?.searchItems(query) ?? []
+    }
+
+    /// Readable name for an item id, or a fallback.
+    func itemName(for id: Int) -> String {
+        resolvedReferenceDB()?.itemName(id: id) ?? "item \(id)"
     }
 
     // MARK: - Write

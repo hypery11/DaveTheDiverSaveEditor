@@ -1,5 +1,6 @@
 // App/Sources/Views/Detail/AdvancedDetail.swift
 import SwiftUI
+import DaveSaveCore
 
 /// Shared status line used by the bulk-action detail panes.
 struct StatusFooter: View {
@@ -12,16 +13,21 @@ struct StatusFooter: View {
     }
 }
 
-/// Power-user override: add/set a specific InventoryItemSlot by id and count.
+/// Add or inject an inventory item — searched by NAME (no need to know internal IDs),
+/// with a raw numeric ID still accepted for true power users.
 struct AdvancedDetail: View {
     let model: SaveEditorModel
-    @State private var itemIDText = ""
+    @State private var query = ""
+    @State private var picked: ItemMatch? = nil
     @State private var countText = ""
-    private var id: Int? { Int(itemIDText).flatMap { $0 > 0 ? $0 : nil } }
-    private var count: Int? { Int(countText).flatMap { $0 >= 0 ? $0 : nil } }
 
-    private func add() {
-        if let id, let count { model.addInventoryItem(itemID: id, count: count) }
+    private var results: [ItemMatch] {
+        let q = query.trimmingCharacters(in: .whitespaces)
+        guard picked == nil, !q.isEmpty else { return [] }
+        var out: [ItemMatch] = []
+        if let raw = Int(q), raw > 0 { out.append(ItemMatch(id: raw, name: model.itemName(for: raw))) }
+        out.append(contentsOf: model.searchItems(q).filter { m in !out.contains(where: { $0.id == m.id }) })
+        return Array(out.prefix(12))
     }
 
     var body: some View {
@@ -32,22 +38,69 @@ struct AdvancedDetail: View {
                 Image(systemName: "plus.square.on.square").foregroundStyle(EditorCategory.advanced.accent)
             }
             .font(Theme.cardTitleFont)
-            Text("Set or inject a specific item by id and count (power-user).")
+            Text("Search an item by name (or a numeric ID), pick it, then set a count.")
                 .font(.subheadline).foregroundStyle(Theme.Color.textSecondary)
-            HStack(spacing: Theme.Spacing.sm) {
-                TextField("Item ID", text: $itemIDText).frame(width: Theme.Spacing.advancedIDFieldWidth)
-                    .onSubmit(add)
-                TextField("Count", text: $countText).frame(width: Theme.Spacing.advancedCountFieldWidth)
-                    .onSubmit(add)
-                Button("Add Item", action: add)
-                    .buttonStyle(.bordered)
-                    .tint(EditorCategory.advanced.accent)
-                    .disabled(id == nil || count == nil)
+
+            if let item = picked {
+                HStack(spacing: Theme.Spacing.sm) {
+                    Label {
+                        Text(verbatim: "\(item.name)  ·  #\(item.id)")
+                    } icon: {
+                        Image(systemName: "checkmark.circle.fill")
+                    }
+                    .foregroundStyle(Theme.Color.success)
+                    Spacer(minLength: Theme.Spacing.md)
+                    TextField("Count", text: $countText)
+                        .textFieldStyle(.roundedBorder).monospacedDigit()
+                        .frame(width: Theme.Spacing.advancedCountFieldWidth)
+                        .onSubmit(add)
+                    Button("Add", action: add)
+                        .buttonStyle(.borderedProminent).tint(EditorCategory.advanced.accent)
+                        .disabled(Int(countText) == nil)
+                    Button("Clear") { reset() }.buttonStyle(.bordered)
+                }
+            } else {
+                TextField("Search item name or ID…", text: $query)
+                    .textFieldStyle(.roundedBorder)
+                let matches = results
+                if matches.isEmpty {
+                    if !query.trimmingCharacters(in: .whitespaces).isEmpty {
+                        Text("No matches.").font(.callout).foregroundStyle(Theme.Color.textSecondary)
+                    }
+                } else {
+                    LazyVStack(spacing: 0) {
+                        ForEach(matches) { m in
+                            Button {
+                                picked = m
+                            } label: {
+                                HStack {
+                                    Text(m.name).foregroundStyle(Theme.Color.textPrimary)
+                                    Spacer()
+                                    Text(verbatim: "#\(m.id)").font(.caption.monospaced()).foregroundStyle(Theme.Color.textSecondary)
+                                }
+                                .contentShape(Rectangle())
+                                .padding(.vertical, Theme.Spacing.xs)
+                            }
+                            .buttonStyle(.plain)
+                            Divider()
+                        }
+                    }
+                }
             }
-            .textFieldStyle(.roundedBorder).monospacedDigit()
+
             StatusFooter(text: model.ingredientStatus)
         }
         .cardSurface()
         .disabled(!model.isLoaded)
+    }
+
+    private func add() {
+        guard let item = picked, let c = Int(countText), c >= 0 else { return }
+        model.addInventoryItem(itemID: item.id, count: c)
+        reset()
+    }
+
+    private func reset() {
+        picked = nil; countText = ""; query = ""
     }
 }

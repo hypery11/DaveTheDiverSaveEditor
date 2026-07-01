@@ -18,5 +18,6 @@ struct InventoryDetail: View {
                    description: "Fill every owned seed / produce stack in the home farm.",
                    accent: Theme.Color.leaf, buttonTitle: "Max Seeds", isEnabled: model.isLoaded) { model.maxSeeds() }
         StatusFooter(text: model.ingredientStatus)
+        ItemBrowser(model: model)
     }
 }

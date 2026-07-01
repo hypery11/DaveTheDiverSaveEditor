@@ -136,7 +136,7 @@ import DaveSaveCore
         let model = SaveEditorModel(referenceDB: try ReferenceDB.bundled())
         model.load(data: SaveCodec.encode(json), sourceURL: nil)
         model.addInventoryItem(itemID: 1014980, count: 99)
-        #expect(model.ingredientStatus == "Set item 1014980 = 99.")
+        #expect(model.ingredientStatus == "Set Dredge ResearchPart (1014980) → 99.")
         #expect(model.hasChanges)
     }
 
