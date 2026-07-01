@@ -24,3 +24,6 @@ App/*.xcodeproj/
 .superpowers/
 # Real save vectors for LOCAL validation only — never commit real user saves
 /LocalFixtures/
+
+# XcodeGen/xcodebuild output
+App/build/
