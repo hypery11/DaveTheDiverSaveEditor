@@ -209,11 +209,15 @@ final class SaveEditorModel {
     /// from the buttons. (`inout doc` can't be captured in a closure, hence the for-loop.)
     func maxEverything() {
         mutateBulk { doc, ref in
-            var count = 0
+            var ran: [String] = []
             for action in BulkAction.catalog where action.includeInMaxEverything {
-                if action.run(&doc, ref) != nil { count += 1 }
+                // List each fill that actually ran (shows in the write preview), so the
+                // summary stays informative rather than just a count.
+                if action.run(&doc, ref) != nil {
+                    ran.append(action.buttonTitle.replacingOccurrences(of: "Max ", with: ""))
+                }
             }
-            return "Maxed everything — ran \(count) bulk fills."
+            return ran.isEmpty ? "Nothing to max." : "Maxed everything — " + ran.joined(separator: ", ") + "."
         }
     }
 
