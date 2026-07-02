@@ -212,6 +212,30 @@ import DaveSaveCore
         #expect(model.hasChanges == false)   // reverted to the clean load state
     }
 
+    // MARK: Bulk-action catalog
+
+    @Test func maxEverythingRunsFullCatalogInOneUndoStep() throws {
+        let model = try loadedModel()
+        #expect(model.hasChanges == false)
+        model.maxEverything()
+        #expect(model.hasChanges)                                   // it mutated
+        #expect(model.ingredientStatus.hasPrefix("Maxed everything"))
+        #expect(model.canUndoBulk)                                  // exactly one undo step
+        model.undoLastBulk()
+        #expect(model.hasChanges == false)                          // fully reversible
+    }
+
+    @Test func bulkCatalogIsConsistent() {
+        let ids = BulkAction.catalog.map(\.id)
+        #expect(Set(ids).count == ids.count)                        // unique ids
+        // Max Everything runs every action except "own" (superseded by "all").
+        #expect(BulkAction.catalog.filter { !$0.includeInMaxEverything }.map(\.id) == ["maxOwn"])
+        // Every named model entry point resolves to a catalog id (no orphans).
+        for id in ["maxOwn","maxAll","maxBranch","maxStaff","maxInventory","maxCraft","maxMerman","maxSeeds","maxFish"] {
+            #expect(BulkAction.catalog.contains { $0.id == id })
+        }
+    }
+
     // MARK: Backup restore
 
     private func tempHome() throws -> URL {

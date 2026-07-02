@@ -185,98 +185,35 @@ final class SaveEditorModel {
         AppLog.model.info("bulk → \(status)")
     }
 
-    func maxOwnIngredients() {
-        mutateBulk { doc, ref in
-            guard let ref else { return nil }
-            doc.maxOwnedIngredients(using: ref)
-            return "Maxed owned ingredients (skips perishable aberration fish)."
-        }
+    // MARK: - Bulk operations (each defined once in BulkAction.catalog)
+
+    /// Run one bulk action through the undo-tracking `mutateBulk` combinator.
+    func run(_ action: BulkAction) {
+        mutateBulk { doc, ref in action.run(&doc, ref) }
     }
 
-    func maxAllIngredients() {
-        mutateBulk { doc, ref in
-            guard let ref else { return nil }
-            doc.maxAllIngredients(using: ref)
-            return "Maxed all ingredients (skips perishable aberration fish)."
-        }
-    }
+    // Named entry points, kept for readable call sites + tests; each just runs its
+    // catalog action, so the op is defined in exactly one place (BulkAction.catalog).
+    func maxOwnIngredients()    { run(.with(id: "maxOwn")) }
+    func maxAllIngredients()    { run(.with(id: "maxAll")) }
+    func maxBranchIngredients() { run(.with(id: "maxBranch")) }
+    func maxStaff()             { run(.with(id: "maxStaff")) }
+    func maxInventoryItems()    { run(.with(id: "maxInventory")) }
+    func maxCraftMaterials()    { run(.with(id: "maxCraft")) }
+    func maxMermanInventory()   { run(.with(id: "maxMerman")) }
+    func maxSeeds()             { run(.with(id: "maxSeeds")) }
+    func maxFishGrades()        { run(.with(id: "maxFish")) }
 
-    // MARK: - Materials (second store, general inventory, merman village)
-
-    /// Raise every ingredient's branch (second sushi store) stock. Aberration fish are
-    /// skipped by the engine — they are perishable and discarded on load.
-    func maxBranchIngredients() {
-        mutateBulk { doc, ref in
-            guard let ref else { return nil }
-            doc.maxBranchIngredients(using: ref)
-            return "Maxed branch (2nd store) ingredients (skips aberration fish)."
-        }
-    }
-
-    /// Max general inventory items (materials / crafting parts). Reports the slot count.
-    func maxInventoryItems() {
-        mutateBulk { doc, ref in
-            guard let ref else { return nil }
-            return "Maxed inventory items (\(doc.maxInventoryItems(using: ref)) slots)."
-        }
-    }
-
-    /// Max the Sea People (merman) village inventory. Reports the slot count.
-    func maxMermanInventory() {
-        mutateBulk { doc, _ in
-            "Maxed merman village inventory (\(doc.maxMermanInventory()) slots)."
-        }
-    }
-
-    /// Fill the home farm's seed / produce storage (skips empty slots). Reports stacks.
-    func maxSeeds() {
-        mutateBulk { doc, _ in
-            "Maxed farm seeds / produce (\(doc.maxFarmStorage()) stacks)."
-        }
-    }
-
-    /// Level every hired restaurant staff member to the cap (20).
-    func maxStaff() {
-        mutateBulk { doc, _ in
-            "Maxed \(doc.maxStaffLevels()) staff member(s) to level 20."
-        }
-    }
-
-    /// Record the top grade (5) for every fish already in the encyclopedia (does not add
-    /// uncaught fish — that needs the fish master list).
-    func maxFishGrades() {
-        mutateBulk { doc, _ in
-            "Set \(doc.maxCaughtFishGrades()) caught fish to top grade."
-        }
-    }
-
-    /// Stock every craft material (fish parts, DREDGE research parts / bones) the
-    /// installed DLCs allow — raising owned stacks and injecting missing ones so weapon
-    /// crafting is unblocked. These are non-perishable, unlike raw aberration fish.
-    func maxCraftMaterials() {
-        mutateBulk { doc, ref in
-            guard let ref else { return nil }
-            return "Maxed craft materials (\(doc.maxCraftMaterials(using: ref)) slots)."
-        }
-    }
-
-    /// One-click convenience: run every safe bulk fill at once (one undo step).
+    /// One-click convenience: run every catalog action flagged `includeInMaxEverything`,
+    /// in one undo step. Correct-by-construction — it IS the catalog, so it can't drift
+    /// from the buttons. (`inout doc` can't be captured in a closure, hence the for-loop.)
     func maxEverything() {
         mutateBulk { doc, ref in
-            var parts: [String] = []
-            if let ref {
-                doc.maxAllIngredients(using: ref)
-                doc.maxBranchIngredients(using: ref)
-                _ = doc.maxInventoryItems(using: ref)
-                _ = doc.maxCraftMaterials(using: ref)
-                parts += ["ingredients", "branch", "inventory", "craft"]
+            var count = 0
+            for action in BulkAction.catalog where action.includeInMaxEverything {
+                if action.run(&doc, ref) != nil { count += 1 }
             }
-            _ = doc.maxMermanInventory()
-            _ = doc.maxFarmStorage()
-            _ = doc.maxStaffLevels()
-            _ = doc.maxCaughtFishGrades()
-            parts += ["village", "seeds", "staff", "fish grades"]
-            return "Maxed everything (" + parts.joined(separator: ", ") + ")."
+            return "Maxed everything — ran \(count) bulk fills."
         }
     }
 

@@ -61,47 +61,14 @@ struct ContentView: View {
 
                     // Restaurant (bulk fills)
                     Section {
-                        BulkActionRow(title: "Max Owned Ingredients", systemImage: "tray.full.fill",
-                                      description: "Fill every ingredient you already own (skips perishable aberration fish).",
-                                      accent: Theme.Color.coral, buttonTitle: "Max Own", isEnabled: model.isLoaded) { model.maxOwnIngredients() }
-                        rowDivider()
-                        BulkActionRow(title: "Max All Ingredients", systemImage: "tray.2.fill",
-                                      description: "Fill and inject every DLC-owned ingredient (skips aberration fish).",
-                                      accent: Theme.Color.coral, buttonTitle: "Max All", isEnabled: model.isLoaded) { model.maxAllIngredients() }
-                        rowDivider()
-                        BulkActionRow(title: "Max Branch Store", systemImage: "building.2.fill",
-                                      description: "Stock the second store's separate branch counts — run alongside Max Owned.",
-                                      accent: Theme.Color.coral, buttonTitle: "Max Branch", isEnabled: model.isLoaded) { model.maxBranchIngredients() }
-                        rowDivider()
-                        BulkActionRow(title: "Max Staff Levels", systemImage: "person.3.fill",
-                                      description: "Level every hired restaurant staff member to the cap (20).",
-                                      accent: Theme.Color.coral, buttonTitle: "Max Staff", isEnabled: model.isLoaded) { model.maxStaff() }
+                        bulkRows(.restaurant)
                     } header: {
                         SectionHeader(title: "Restaurant", systemImage: "fork.knife", accent: Theme.Color.coral)
                     }
 
                     // Inventory (bulk fills + per-item browse)
                     Section {
-                        BulkActionRow(title: "Max Inventory Items", systemImage: "shippingbox.fill",
-                                      description: "Raise general materials / crafting parts.",
-                                      accent: Theme.Color.ocean, buttonTitle: "Max Items", isEnabled: model.isLoaded) { model.maxInventoryItems() }
-                        rowDivider()
-                        BulkActionRow(title: "Max Craft Materials", systemImage: "hammer.fill",
-                                      description: "Stock fish parts + DREDGE research parts/bones so weapon crafting is unblocked.",
-                                      accent: Theme.Color.ocean, buttonTitle: "Max Craft", isEnabled: model.isLoaded) { model.maxCraftMaterials() }
-                        rowDivider()
-                        BulkActionRow(title: "Max Merman Village", systemImage: "drop.fill",
-                                      description: "Fill the Sea People village inventory.",
-                                      accent: Theme.Color.ocean, buttonTitle: "Max Village", isEnabled: model.isLoaded) { model.maxMermanInventory() }
-                        rowDivider()
-                        BulkActionRow(title: "Max Farm Seeds", systemImage: "leaf.fill",
-                                      description: "Fill every owned seed / produce stack in the home farm.",
-                                      accent: Theme.Color.leaf, buttonTitle: "Max Seeds", isEnabled: model.isLoaded) { model.maxSeeds() }
-                        rowDivider()
-                        BulkActionRow(title: "Max Caught-Fish Grade", systemImage: "fish.fill",
-                                      description: "Record the top size (grade 5) for every fish already caught. Doesn't add uncaught fish.",
-                                      accent: Theme.Color.ocean, buttonTitle: "Max Fish", isEnabled: model.isLoaded) { model.maxFishGrades() }
-                        rowDivider()
+                        bulkRows(.inventory)
 
                         HStack(spacing: Theme.Spacing.sm) {
                             Image(systemName: "magnifyingglass").foregroundStyle(Theme.Color.textSecondary)
@@ -251,6 +218,17 @@ struct ContentView: View {
     private func loadSaveFile() {
         if let url = FileDialogs.openSaveFile(startDirectory: model.detected?.directoryURL) {
             model.load(url: url)
+        }
+    }
+
+    /// All bulk-action rows for one section, derived from the single BulkAction.catalog.
+    @ViewBuilder
+    private func bulkRows(_ section: EditorCategory) -> some View {
+        ForEach(BulkAction.catalog.filter { $0.section == section }) { action in
+            BulkActionRow(title: action.title, systemImage: action.systemImage,
+                          description: action.description, accent: action.accent,
+                          buttonTitle: action.buttonTitle, isEnabled: model.isLoaded) { model.run(action) }
+            rowDivider()
         }
     }
 
