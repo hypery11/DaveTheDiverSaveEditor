@@ -77,15 +77,10 @@ final class SaveEditorModel {
         do {
             let document = try SaveDocument.load(data)
             self.document = document
-            self.loadedValues = [
-                .gold:          document.gold,
-                .bei:           document.bei,
-                .artisansFlame: document.artisansFlame,
-                .followerCount: document.followerCount,
-                .researchPoint: document.researchPoint,
-                .trustPoint:    document.trustPoint,
-                .fakePoint:     document.fakePoint,
-            ]
+            // Snapshot every currency generically from the engine table — no per-case
+            // dictionary literal to keep in sync (a missing key used to silently break Reset).
+            self.loadedValues = Dictionary(uniqueKeysWithValues:
+                Currency.allCases.map { ($0, document.intValue(forID: $0.rawValue)) })
             self.currentFileURL = sourceURL
             self.isLoaded = true
             self.alert = nil
@@ -477,55 +472,32 @@ final class SaveEditorModel {
 
     /// `true` when the current document differs from its load-time snapshot. Three
     /// sources, each independently reversible to "no change":
-    /// - the four currencies, diffed by `pendingChanges()`;
-    /// - research point, diffed against its load-time snapshot (so Reset clears it);
+    /// - every editable scalar (gold/bei/flame/follower/research/trust/fake), diffed by
+    ///   `pendingChanges()` — all live in the engine's `editableScalars` table now;
     /// - bulk ingredient/material ops, which latch `bulkEdited` (not individually
     ///   reversible, so they stay dirty until the next load).
     var hasChanges: Bool {
-        bulkEdited
-            || !pendingChanges().isEmpty
-            || value(.researchPoint) != loadedValue(.researchPoint)
+        bulkEdited || !pendingChanges().isEmpty
     }
 
-    /// Per-field `old -> new` diff over the currency paths + research point (so the
-    /// write preview never renders blank when only research point changed).
+    /// Per-field `old -> new` diff over every editable scalar (drives the write preview).
     func pendingChanges() -> [FieldChange] {
-        var changes = document?.pendingChanges() ?? []
-        if let now = value(.researchPoint), let base = loadedValue(.researchPoint), now != base {
-            changes.append(FieldChange(path: "PlayerInfo.m_researchPoint", oldValue: String(base), newValue: String(now)))
-        }
-        return changes
+        document?.pendingChanges() ?? []
     }
 
     // MARK: Private helpers
 
-    /// Route a value to the correct `SaveDocument` setter (which applies engine
-    /// clamps). Copy-mutate-writeback so the `@Observable` store republishes.
+    /// Route a value to the engine's clamped setter via the shared `editableScalars`
+    /// table (`Currency.rawValue` is the table id). Copy-mutate-writeback so the
+    /// `@Observable` store republishes. No dirty latch: currencies are diffed by
+    /// `pendingChanges()`, so an edit followed by Reset correctly reads as clean.
     private func apply(_ currency: Currency, _ value: Int64) {
         guard var document else { return }
-        switch currency {
-        case .gold:          document.setGold(value)
-        case .bei:           document.setBei(value)
-        case .artisansFlame: document.setArtisansFlame(value)
-        case .followerCount: document.setFollowerCount(value)
-        case .researchPoint: document.setResearchPoint(value)
-        case .trustPoint:    document.setTrustPoint(value)
-        case .fakePoint:     document.setFakePoint(value)
-        }
+        document.setInt(value, forID: currency.rawValue)
         self.document = document
-        // No dirty latch here: currencies are diffed by `pendingChanges()` and research
-        // point by `hasChanges`, so an edit followed by Reset correctly reads as clean.
     }
 
     private static func read(_ currency: Currency, from document: SaveDocument) -> Int64 {
-        switch currency {
-        case .gold:          return document.gold
-        case .bei:           return document.bei
-        case .artisansFlame: return document.artisansFlame
-        case .followerCount: return document.followerCount
-        case .researchPoint: return document.researchPoint
-        case .trustPoint:    return document.trustPoint
-        case .fakePoint:     return document.fakePoint
-        }
+        document.intValue(forID: currency.rawValue)
     }
 }

@@ -10,19 +10,8 @@ private func inventoryTierTarget(forMaxCount maxCount: Int) -> Int {
 }
 
 public extension SaveDocument {
-    // MARK: Research Point (a spendable resource, like the currencies)
-
-    /// `PlayerInfo.m_researchPoint`.
-    var researchPoint: Int64 {
-        if case .scalar(let s)? = root.value(at: ["PlayerInfo", "m_researchPoint"]), let v = Int64(s) { return v }
-        return 0
-    }
-
-    /// Set research points (clamped to the same 0...999,999,999 range as the currencies).
-    mutating func setResearchPoint(_ value: Int64) {
-        let clamped = max(0, min(value, 999_999_999))
-        _ = root.setScalar(at: ["PlayerInfo", "m_researchPoint"], lexeme: String(clamped))
-    }
+    // Research Point (`PlayerInfo.m_researchPoint`) is now an `editableScalars` row in
+    // SaveDocument.swift — its getter/setter live there with the other currency-likes.
 
     // MARK: General inventory items (materials, crafting parts, ...)
 

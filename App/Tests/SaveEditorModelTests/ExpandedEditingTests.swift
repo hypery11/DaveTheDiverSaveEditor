@@ -67,7 +67,7 @@ import DaveSaveCore
         #expect(model.hasChanges == false)
     }
 
-    // MARK: Trust / Fake points (ride the currency machinery via currencyPaths)
+    // MARK: Trust / Fake points (ride the currency machinery via editableScalars)
 
     @Test func trustAndFakePointsLoadEditDiffReset() throws {
         let model = try loadedModel()
@@ -76,7 +76,7 @@ import DaveSaveCore
 
         model.applyText(.trustPoint, "9999")
         #expect(model.value(.trustPoint) == 9999)
-        #expect(model.hasChanges)                                        // diffed via currencyPaths
+        #expect(model.hasChanges)                                        // diffed via editableScalars
         #expect(model.pendingChanges().contains { $0.path == "PlayerInfo.m_trustPoint" && $0.newValue == "9999" })
 
         model.reset(.trustPoint)

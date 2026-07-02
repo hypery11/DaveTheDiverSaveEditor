@@ -31,26 +31,28 @@ public struct SaveDocument {
         self.originalRoot = root
     }
 
-    // MARK: Constants — editable paths & clamp
+    // MARK: Editable scalar table — the single source of truth for every currency-like value
 
     static let currencyClamp: Int64 = 999_999_999
 
-    static let goldPath:     [String] = ["PlayerInfo", "m_Gold"]
-    static let beiPath:      [String] = ["PlayerInfo", "m_Bei"]
-    static let flamePath:    [String] = ["PlayerInfo", "m_ChefFlame"]
-    static let followerPath: [String] = ["SNSInfo", "m_Follow_Count"]
-    static let trustPath:    [String] = ["PlayerInfo", "m_trustPoint"]   // lowercase t
-    static let fakePath:     [String] = ["PlayerInfo", "m_FakePoint"]    // uppercase F
-
-    /// Dotted display path paired with its lookup path, in preview order.
-    static let currencyPaths: [(dotted: String, path: [String])] = [
-        ("PlayerInfo.m_Gold",       goldPath),
-        ("PlayerInfo.m_Bei",        beiPath),
-        ("PlayerInfo.m_ChefFlame",  flamePath),
-        ("SNSInfo.m_Follow_Count",  followerPath),
-        ("PlayerInfo.m_trustPoint", trustPath),
-        ("PlayerInfo.m_FakePoint",  fakePath),
+    /// One row per editable scalar: a stable `id` (matches the app's `Currency.rawValue`),
+    /// the dotted display path (write preview), the lookup path, and an inclusive `[lo, hi]`
+    /// clamp. Read / write / diff / reset all derive from this table, so adding an editable
+    /// value is a single row here + a `Currency` case — no scattered getters, setters, or
+    /// dictionary literals to keep in sync.
+    static let editableScalars: [(id: String, dotted: String, path: [String], lo: Int64, hi: Int64)] = [
+        ("gold",          "PlayerInfo.m_Gold",         ["PlayerInfo", "m_Gold"],           .min, currencyClamp),
+        ("bei",           "PlayerInfo.m_Bei",          ["PlayerInfo", "m_Bei"],            .min, currencyClamp),
+        ("artisansFlame", "PlayerInfo.m_ChefFlame",    ["PlayerInfo", "m_ChefFlame"],      .min, currencyClamp),
+        ("followerCount", "SNSInfo.m_Follow_Count",    ["SNSInfo", "m_Follow_Count"],      .min, .max),          // unclamped
+        ("researchPoint", "PlayerInfo.m_researchPoint",["PlayerInfo", "m_researchPoint"],  0,    currencyClamp), // floors at 0
+        ("trustPoint",    "PlayerInfo.m_trustPoint",   ["PlayerInfo", "m_trustPoint"],     .min, currencyClamp),
+        ("fakePoint",     "PlayerInfo.m_FakePoint",    ["PlayerInfo", "m_FakePoint"],      .min, currencyClamp),
     ]
+
+    private static func spec(_ id: String) -> (dotted: String, path: [String], lo: Int64, hi: Int64)? {
+        editableScalars.first { $0.id == id }.map { ($0.dotted, $0.path, $0.lo, $0.hi) }
+    }
 
     // MARK: Load / encode
 
@@ -93,56 +95,51 @@ public struct SaveDocument {
         root.setScalar(at: path, lexeme: String(value))
     }
 
-    // MARK: Currency getters
+    // MARK: Generic accessors (drive off `editableScalars`)
 
-    public var gold: Int64          { intValue(at: Self.goldPath) }
-    public var bei: Int64           { intValue(at: Self.beiPath) }
-    public var artisansFlame: Int64 { intValue(at: Self.flamePath) }
-    public var followerCount: Int64 { intValue(at: Self.followerPath) }
-    public var trustPoint: Int64    { intValue(at: Self.trustPath) }
-    public var fakePoint: Int64     { intValue(at: Self.fakePath) }
-
-    // MARK: Currency setters
-
-    public mutating func setGold(_ v: Int64) {
-        setInt(min(v, Self.currencyClamp), at: Self.goldPath)
+    /// Current value for an editable-scalar `id` (0 if the id is unknown or its path absent).
+    public func intValue(forID id: String) -> Int64 {
+        guard let s = Self.spec(id) else { return 0 }
+        return intValue(at: s.path)
     }
 
-    public mutating func setBei(_ v: Int64) {
-        setInt(min(v, Self.currencyClamp), at: Self.beiPath)
+    /// Set an editable scalar by `id`, clamped to its inclusive `[lo, hi]`. No-op (returns
+    /// false) for an unknown id or a missing path.
+    @discardableResult
+    public mutating func setInt(_ value: Int64, forID id: String) -> Bool {
+        guard let s = Self.spec(id) else { return false }
+        return setInt(max(s.lo, min(value, s.hi)), at: s.path)
     }
 
-    public mutating func setArtisansFlame(_ v: Int64) {
-        setInt(min(v, Self.currencyClamp), at: Self.flamePath)
-    }
+    // MARK: Typed convenience accessors (thin wrappers over the table; used by CLI/tests)
 
-    public mutating func setFollowerCount(_ v: Int64) {
-        setInt(v, at: Self.followerPath)   // unclamped (matches upstream)
-    }
+    public var gold: Int64          { intValue(forID: "gold") }
+    public var bei: Int64           { intValue(forID: "bei") }
+    public var artisansFlame: Int64 { intValue(forID: "artisansFlame") }
+    public var followerCount: Int64 { intValue(forID: "followerCount") }
+    public var researchPoint: Int64 { intValue(forID: "researchPoint") }
+    public var trustPoint: Int64    { intValue(forID: "trustPoint") }
+    public var fakePoint: Int64     { intValue(forID: "fakePoint") }
 
-    public mutating func setTrustPoint(_ v: Int64) {
-        setInt(min(v, Self.currencyClamp), at: Self.trustPath)
-    }
-
-    public mutating func setFakePoint(_ v: Int64) {
-        setInt(min(v, Self.currencyClamp), at: Self.fakePath)
-    }
+    public mutating func setGold(_ v: Int64)          { setInt(v, forID: "gold") }
+    public mutating func setBei(_ v: Int64)           { setInt(v, forID: "bei") }
+    public mutating func setArtisansFlame(_ v: Int64) { setInt(v, forID: "artisansFlame") }
+    public mutating func setFollowerCount(_ v: Int64) { setInt(v, forID: "followerCount") }
+    public mutating func setResearchPoint(_ v: Int64) { setInt(v, forID: "researchPoint") }
+    public mutating func setTrustPoint(_ v: Int64)    { setInt(v, forID: "trustPoint") }
+    public mutating func setFakePoint(_ v: Int64)     { setInt(v, forID: "fakePoint") }
 
     // MARK: Pending-change diff (preview)
 
-    /// Diff the current document against the load-time snapshot over the four
-    /// known editable currency paths. Reports `old -> new` verbatim lexemes.
+    /// Diff the current document against the load-time snapshot over every editable
+    /// scalar in `editableScalars`. Reports `old -> new` verbatim lexemes, in table order.
     public func pendingChanges() -> [FieldChange] {
-        var changes: [FieldChange] = []
-        for entry in Self.currencyPaths {
-            let oldValue = Self.scalarLexeme(in: originalRoot, at: entry.path) ?? ""
-            let newValue = Self.scalarLexeme(in: root,         at: entry.path) ?? ""
-            if oldValue != newValue {
-                changes.append(FieldChange(path: entry.dotted,
-                                           oldValue: oldValue,
-                                           newValue: newValue))
-            }
+        Self.editableScalars.compactMap { s in
+            let oldValue = Self.scalarLexeme(in: originalRoot, at: s.path) ?? ""
+            let newValue = Self.scalarLexeme(in: root,         at: s.path) ?? ""
+            return oldValue == newValue
+                ? nil
+                : FieldChange(path: s.dotted, oldValue: oldValue, newValue: newValue)
         }
-        return changes
     }
 }
