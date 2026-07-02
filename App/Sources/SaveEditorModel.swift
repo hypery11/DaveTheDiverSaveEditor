@@ -240,6 +240,21 @@ final class SaveEditorModel {
         }
     }
 
+    /// Level every hired restaurant staff member to the cap (20).
+    func maxStaff() {
+        mutateBulk { doc, _ in
+            "Maxed \(doc.maxStaffLevels()) staff member(s) to level 20."
+        }
+    }
+
+    /// Record the top grade (5) for every fish already in the encyclopedia (does not add
+    /// uncaught fish — that needs the fish master list).
+    func maxFishGrades() {
+        mutateBulk { doc, _ in
+            "Set \(doc.maxCaughtFishGrades()) caught fish to top grade."
+        }
+    }
+
     /// Stock every craft material (fish parts, DREDGE research parts / bones) the
     /// installed DLCs allow — raising owned stacks and injecting missing ones so weapon
     /// crafting is unblocked. These are non-perishable, unlike raw aberration fish.
@@ -263,7 +278,9 @@ final class SaveEditorModel {
             }
             _ = doc.maxMermanInventory()
             _ = doc.maxFarmStorage()
-            parts += ["village", "seeds"]
+            _ = doc.maxStaffLevels()
+            _ = doc.maxCaughtFishGrades()
+            parts += ["village", "seeds", "staff", "fish grades"]
             return "Maxed everything (" + parts.joined(separator: ", ") + ")."
         }
     }

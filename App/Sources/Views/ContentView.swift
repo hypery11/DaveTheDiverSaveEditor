@@ -72,6 +72,10 @@ struct ContentView: View {
                         BulkActionRow(title: "Max Branch Store", systemImage: "building.2.fill",
                                       description: "Stock the second store's separate branch counts — run alongside Max Owned.",
                                       accent: Theme.Color.coral, buttonTitle: "Max Branch", isEnabled: model.isLoaded) { model.maxBranchIngredients() }
+                        rowDivider()
+                        BulkActionRow(title: "Max Staff Levels", systemImage: "person.3.fill",
+                                      description: "Level every hired restaurant staff member to the cap (20).",
+                                      accent: Theme.Color.coral, buttonTitle: "Max Staff", isEnabled: model.isLoaded) { model.maxStaff() }
                     } header: {
                         SectionHeader(title: "Restaurant", systemImage: "fork.knife", accent: Theme.Color.coral)
                     }
@@ -93,6 +97,10 @@ struct ContentView: View {
                         BulkActionRow(title: "Max Farm Seeds", systemImage: "leaf.fill",
                                       description: "Fill every owned seed / produce stack in the home farm.",
                                       accent: Theme.Color.leaf, buttonTitle: "Max Seeds", isEnabled: model.isLoaded) { model.maxSeeds() }
+                        rowDivider()
+                        BulkActionRow(title: "Max Caught-Fish Grade", systemImage: "fish.fill",
+                                      description: "Record the top size (grade 5) for every fish already caught. Doesn't add uncaught fish.",
+                                      accent: Theme.Color.ocean, buttonTitle: "Max Fish", isEnabled: model.isLoaded) { model.maxFishGrades() }
                         rowDivider()
 
                         HStack(spacing: Theme.Spacing.sm) {

@@ -75,4 +75,42 @@ public extension SaveDocument {
         }
         return changed
     }
+
+    // MARK: Staff levels
+
+    /// Raise every hired `Staff.<guid>.level` to `target` (default 20 — the observed cap;
+    /// most staff in a maxed save already sit there). `level` is a standalone int with no
+    /// coupled derived field, so this is safe. Returns the number of staff raised.
+    @discardableResult
+    mutating func maxStaffLevels(to target: Int = 20) -> Int {
+        guard case .object(let members)? = root.value(at: ["Staff"]) else { return 0 }
+        var changed = 0
+        for member in members {
+            let key = member.key
+            guard case .scalar(let l)? = member.value.value(at: ["level"]),
+                  let current = Int(l), current < target else { continue }
+            _ = root.setScalar(at: ["Staff", key, "level"], lexeme: String(target))
+            changed += 1
+        }
+        return changed
+    }
+
+    // MARK: Caught-fish grades
+
+    /// Raise every `CaughtFish.<id>.grade` to `target` (default 5 — the top grade), i.e.
+    /// record the best size caught for every fish already in the encyclopedia. `grade` is a
+    /// standalone int; this does NOT add uncaught fish. Returns the number of records raised.
+    @discardableResult
+    mutating func maxCaughtFishGrades(to target: Int = 5) -> Int {
+        guard case .object(let members)? = root.value(at: ["CaughtFish"]) else { return 0 }
+        var changed = 0
+        for member in members {
+            let key = member.key
+            guard case .scalar(let g)? = member.value.value(at: ["grade"]),
+                  let current = Int(g), current < target else { continue }
+            _ = root.setScalar(at: ["CaughtFish", key, "grade"], lexeme: String(target))
+            changed += 1
+        }
+        return changed
+    }
 }

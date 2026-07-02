@@ -44,4 +44,23 @@ import Foundation
         #expect(changed == 1)
         #expect(SaveCodec.decode(d.encoded()).contains(#""count":999"#))
     }
+
+    @Test func maxStaffLevelsRaisesOnlyBelowCap() throws {
+        var d = try SaveDocument.load(SaveCodec.encode(
+            #"{"Staff":{"g1":{"level":1},"g2":{"level":20}}}"#))
+        let changed = d.maxStaffLevels()          // default cap 20
+        #expect(changed == 1)                      // only g1 was below
+        let json = SaveCodec.decode(d.encoded())
+        #expect(json.contains(#""g1":{"level":20}"#))
+        #expect(json.contains(#""g2":{"level":20}"#))
+    }
+
+    @Test func maxCaughtFishGradesRaisesOnlyBelowTop() throws {
+        var d = try SaveDocument.load(SaveCodec.encode(
+            #"{"CaughtFish":{"2010005":{"fishID":2010005,"grade":2},"2010006":{"fishID":2010006,"grade":5}}}"#))
+        let changed = d.maxCaughtFishGrades()      // default top grade 5
+        #expect(changed == 1)                      // only the grade-2 fish moved
+        let json = SaveCodec.decode(d.encoded())
+        #expect(json.contains(#""fishID":2010005,"grade":5"#))
+    }
 }

@@ -51,3 +51,17 @@ casino bet tiers, auto seahorse race. Out of scope.
 4. The **data pipeline** (master fish/recipe IDs) unlocks the B-tier headliners (encyclopedia,
    recipes) — do once, reuse for everything.
 5. Keep C entirely out; document that stance so scope stays clean.
+
+## Resolution — 2026-07-03
+
+Shipped (fields verified against the real save; standalone ints, no coupled data):
+- **Max Staff Levels** → 20 (`Staff.<guid>.level`; cap 20 confirmed — 16/22 already there).
+- **Max Caught-Fish Grade** → 5 (`CaughtFish.<id>.grade`; top grade observed). Does NOT add uncaught fish.
+- Both wired into per-row buttons + "Max Everything" + bulk undo; engine + model tests added.
+
+Held (would repeat the trust/fake "write-unverified-value" mistake):
+- **GunCraft (weapon unlock/upgrade)** — `gunCraftState` / `developedCount` / `UIState` are interrelated in ways not clear from data alone (state 1 & 2 both show varied developedCount); needs in-game verification before writing.
+- **CookingStudy (recipe upgrade level)** — `studyLevel` is coupled to a derived `finalStudyTasteValue`; writing level without the taste formula risks an inconsistent recipe.
+
+Out of scope (confirmed, not a save-editor capability):
+- **C-tier runtime cheats** (god mode / infinite oxygen / one-hit-kill / speed / freeze time). These are RAM-only per-frame values with NO save field. Reaching them requires a separate runtime trainer that attaches to the live process — on macOS that means defeating SIP + code-signing/entitlements against a Unity IL2CPP target, a fundamentally different (and fragile) program, not this editor. The persistent *equivalents* a save can offer are weapon/gear upgrade tiers and capacities (see B-tier / Held).
