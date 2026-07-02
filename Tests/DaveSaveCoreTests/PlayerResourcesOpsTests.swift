@@ -55,6 +55,17 @@ import Foundation
         #expect(json.contains(#""g2":{"level":20}"#))
     }
 
+    @Test func raiseIntFieldRaisesBelowTargetSkipsFloorAndCap() throws {
+        var d = try SaveDocument.load(SaveCodec.encode(
+            #"{"C":{"a":{"v":3},"b":{"v":10},"c":{"v":-1}}}"#))
+        let changed = d.raiseIntField(inObjectAt: ["C"], field: "v", to: 10)   // floor 0 default
+        #expect(changed == 1)                          // only a (3) is in [0, 10)
+        let j = SaveCodec.decode(d.encoded())
+        #expect(j.contains(#""a":{"v":10}"#))          // raised
+        #expect(j.contains(#""b":{"v":10}"#))          // already at target — untouched
+        #expect(j.contains(#""c":{"v":-1}"#))          // below floor — skipped
+    }
+
     @Test func maxCaughtFishGradesRaisesOnlyBelowTop() throws {
         var d = try SaveDocument.load(SaveCodec.encode(
             #"{"CaughtFish":{"2010005":{"fishID":2010005,"grade":2},"2010006":{"fishID":2010006,"grade":5}}}"#))

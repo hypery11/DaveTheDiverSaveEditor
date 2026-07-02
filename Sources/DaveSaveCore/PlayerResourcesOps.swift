@@ -47,59 +47,42 @@ public extension SaveDocument {
         return changed
     }
 
-    // MARK: Merman Village inventory
+    // MARK: Object-keyed "raise a field" ops (share one combinator)
+
+    /// For every member of the object at `containerPath`, if its child `field` is an integer
+    /// in `[floor, target)`, raise it to `target`. This is the one place the guard / parse /
+    /// setScalar / count dance lives; merman / staff / fish all fold onto it. Returns the
+    /// number of members changed. (Inventory items use a reference-DB tier map, and farm
+    /// storage iterates an array, so those legitimately stay separate.)
+    @discardableResult
+    mutating func raiseIntField(inObjectAt containerPath: [String], field: String, to target: Int, floor: Int = 0) -> Int {
+        guard case .object(let members)? = root.value(at: containerPath) else { return 0 }
+        var changed = 0
+        for member in members {
+            guard case .scalar(let s)? = member.value.value(at: [field]),
+                  let current = Int(s), current >= floor, current < target else { continue }
+            _ = root.setScalar(at: containerPath + [member.key, field], lexeme: String(target))
+            changed += 1
+        }
+        return changed
+    }
 
     /// Raise every `MermanVillInventory.<key>.count` to 999 (skips negative markers).
-    /// Returns the number of slots changed.
     @discardableResult
     mutating func maxMermanInventory() -> Int {
-        guard case .object(let members)? = root.value(at: ["MermanVillInventory"]) else { return 0 }
-        var changed = 0
-        for member in members {
-            let key = member.key
-            guard case .scalar(let c)? = member.value.value(at: ["count"]),
-                  let current = Int(c), current >= 0, current < 999 else { continue }
-            _ = root.setScalar(at: ["MermanVillInventory", key, "count"], lexeme: "999")
-            changed += 1
-        }
-        return changed
+        raiseIntField(inObjectAt: ["MermanVillInventory"], field: "count", to: 999)
     }
 
-    // MARK: Staff levels
-
-    /// Raise every hired `Staff.<guid>.level` to `target` (default 20 — the observed cap;
-    /// most staff in a maxed save already sit there). `level` is a standalone int with no
-    /// coupled derived field, so this is safe. Returns the number of staff raised.
+    /// Level every hired `Staff.<guid>.level` to `target` (default 20 — the observed cap).
     @discardableResult
     mutating func maxStaffLevels(to target: Int = 20) -> Int {
-        guard case .object(let members)? = root.value(at: ["Staff"]) else { return 0 }
-        var changed = 0
-        for member in members {
-            let key = member.key
-            guard case .scalar(let l)? = member.value.value(at: ["level"]),
-                  let current = Int(l), current < target else { continue }
-            _ = root.setScalar(at: ["Staff", key, "level"], lexeme: String(target))
-            changed += 1
-        }
-        return changed
+        raiseIntField(inObjectAt: ["Staff"], field: "level", to: target)
     }
 
-    // MARK: Caught-fish grades
-
-    /// Raise every `CaughtFish.<id>.grade` to `target` (default 5 — the top grade), i.e.
-    /// record the best size caught for every fish already in the encyclopedia. `grade` is a
-    /// standalone int; this does NOT add uncaught fish. Returns the number of records raised.
+    /// Record the top `grade` (default 5) for every fish already in `CaughtFish` — does NOT
+    /// add uncaught fish (`grade` is a standalone int with no coupled derived field).
     @discardableResult
     mutating func maxCaughtFishGrades(to target: Int = 5) -> Int {
-        guard case .object(let members)? = root.value(at: ["CaughtFish"]) else { return 0 }
-        var changed = 0
-        for member in members {
-            let key = member.key
-            guard case .scalar(let g)? = member.value.value(at: ["grade"]),
-                  let current = Int(g), current < target else { continue }
-            _ = root.setScalar(at: ["CaughtFish", key, "grade"], lexeme: String(target))
-            changed += 1
-        }
-        return changed
+        raiseIntField(inObjectAt: ["CaughtFish"], field: "grade", to: target)
     }
 }
