@@ -1,0 +1,19 @@
+name: Feature request
+description: Suggest something the editor should be able to do
+labels: [enhancement]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What would you like to edit or do?
+    validations: { required: true }
+  - type: textarea
+    id: why
+    attributes:
+      label: What are you trying to achieve?
+      description: The underlying goal — it often suggests a safer or simpler way to get there.
+  - type: markdown
+    attributes:
+      value: |
+        Out of scope: anything that attaches to the running game (trainers, memory editing,
+        overlays), and anything that modifies the game's own code or assets.

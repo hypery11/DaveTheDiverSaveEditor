@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Tests
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Engine tests
+        run: swift test
+
+      - name: Generate Xcode project
+        run: |
+          brew install xcodegen
+          cd App && xcodegen generate
+
+      # The scheme pins language/region to en/US: the suite asserts the exact English
+      # copy, and String(localized:) otherwise resolves against the runner's locale.
+      - name: App tests
+        run: |
+          cd App
+          xcodebuild test \
+            -project DaveTheDiverSaveEditor.xcodeproj \
+            -scheme DaveTheDiverSaveEditor \
+            -destination 'platform=macOS' \
+            | xcpretty || exit ${PIPESTATUS[0]}

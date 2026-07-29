@@ -1,0 +1,19 @@
+name: Translation
+description: Fix a translation, or offer a new language
+labels: [translation]
+body:
+  - type: input
+    id: language
+    attributes:
+      label: Language
+      placeholder: "e.g. 日本語 / Deutsch / 繁體中文"
+    validations: { required: true }
+  - type: textarea
+    id: detail
+    attributes:
+      label: What's wrong, or what would you like to add?
+      description: |
+        For a fix, please quote the current text and your suggested replacement.
+        See CONTRIBUTING.md — translations live in App/Sources/Localizable.xcstrings, and
+        format specifiers (%@, %lld) must survive exactly.
+    validations: { required: true }
