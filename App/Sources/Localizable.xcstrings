@@ -1,0 +1,496 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@: %2$@"
+          }
+        }
+      }
+    },
+    "%lld" : {
+
+    },
+    "A free, open-source, 100% local save editor for macOS." : {
+
+    },
+    "A timestamped backup is saved automatically each time you write this save." : {
+
+    },
+    "About %@" : {
+
+    },
+    "Add" : {
+
+    },
+    "Add %lld to %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add %1$lld to %2$@"
+          }
+        }
+      }
+    },
+    "Advanced" : {
+
+    },
+    "An independent reimplementation in Swift — not a fork." : {
+
+    },
+    "Artisan's Flame" : {
+
+    },
+    "Backup Restored" : {
+
+    },
+    "Bei" : {
+
+    },
+    "Bulk edits" : {
+
+    },
+    "Can't Restore Yet" : {
+
+    },
+    "Can't Write Yet" : {
+
+    },
+    "Cancel" : {
+
+    },
+    "Choose Another…" : {
+
+    },
+    "Clear" : {
+
+    },
+    "Cooksta followers — a progression stat" : {
+
+    },
+    "Copy All" : {
+
+    },
+    "Could not load the bundled ingredient reference database: %@" : {
+
+    },
+    "Could Not Read Save" : {
+
+    },
+    "Could not restore the backup: %@" : {
+
+    },
+    "Could not write the save: %@" : {
+
+    },
+    "Couldn't read save" : {
+
+    },
+    "Couldn't set item %@ (no inventory container)." : {
+
+    },
+    "Count" : {
+
+    },
+    "Credits" : {
+
+    },
+    "Discard & Open" : {
+
+    },
+    "Discard unsaved changes?" : {
+
+    },
+    "Done" : {
+
+    },
+    "Economy" : {
+
+    },
+    "Failed to read %@: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Failed to read %1$@: %2$@"
+          }
+        }
+      }
+    },
+    "Fake Point" : {
+
+    },
+    "Fill and inject every DLC-owned ingredient (skips aberration fish)." : {
+
+    },
+    "Fill every ingredient you already own (skips perishable aberration fish)." : {
+
+    },
+    "Fill every owned seed / produce stack in the home farm." : {
+
+    },
+    "Fill the Sea People village inventory." : {
+
+    },
+    "FNGarvin/DaveSaveEd (MIT)" : {
+
+    },
+    "Follower Count" : {
+
+    },
+    "Found your latest save." : {
+
+    },
+    "Gold" : {
+
+    },
+    "Inventory" : {
+
+    },
+    "item" : {
+
+    },
+    "item %@" : {
+
+    },
+    "Level every hired restaurant staff member to the cap (20)." : {
+
+    },
+    "Load Latest Save" : {
+
+    },
+    "Main restaurant & shop currency" : {
+
+    },
+    "Max" : {
+
+    },
+    "Max All" : {
+
+    },
+    "Max All Ingredients" : {
+
+    },
+    "Max Branch" : {
+
+    },
+    "Max Branch Store" : {
+
+    },
+    "Max Caught-Fish Grade" : {
+
+    },
+    "Max Craft" : {
+
+    },
+    "Max Craft Materials" : {
+
+    },
+    "Max Everything" : {
+
+    },
+    "Max Farm Seeds" : {
+
+    },
+    "Max Fish" : {
+
+    },
+    "Max Inventory Items" : {
+
+    },
+    "Max Items" : {
+
+    },
+    "Max Merman Village" : {
+
+    },
+    "Max Own" : {
+
+    },
+    "Max Owned Ingredients" : {
+
+    },
+    "Max Seeds" : {
+
+    },
+    "Max Staff" : {
+
+    },
+    "Max Staff Levels" : {
+
+    },
+    "Max Village" : {
+
+    },
+    "Maxed %lld staff member(s) to level 20." : {
+
+    },
+    "Maxed all ingredients (skips perishable aberration fish)." : {
+
+    },
+    "Maxed branch (2nd store) ingredients (skips aberration fish)." : {
+
+    },
+    "Maxed craft materials (%lld slots)." : {
+
+    },
+    "Maxed farm seeds / produce (%lld stacks)." : {
+
+    },
+    "Maxed inventory items (%lld slots)." : {
+
+    },
+    "Maxed merman village inventory (%lld slots)." : {
+
+    },
+    "Maxed owned ingredients (skips perishable aberration fish)." : {
+
+    },
+    "More" : {
+
+    },
+    "No backups yet" : {
+
+    },
+    "No changes to write." : {
+
+    },
+    "No inventory items." : {
+
+    },
+    "No items match “%@”." : {
+
+    },
+    "No matches for “%@”" : {
+
+    },
+    "No matches." : {
+
+    },
+    "No save loaded" : {
+
+    },
+    "No save slots detected" : {
+
+    },
+    "Not affiliated with, endorsed by, or associated with MINTROCKET or NEXON. “Dave the Diver” and related marks belong to their respective owners." : {
+
+    },
+    "Nothing loaded" : {
+
+    },
+    "OK" : {
+
+    },
+    "Open" : {
+
+    },
+    "Open %@" : {
+
+    },
+    "Open a Dave the Diver save file to begin." : {
+
+    },
+    "Open File…" : {
+
+    },
+    "Open Save…" : {
+
+    },
+    "Original Windows save editor — feature set, save-path knowledge, and ingredient reference data." : {
+
+    },
+    "PlayerInfo.m_FakePoint — fake / counterfeit points" : {
+
+    },
+    "PlayerInfo.m_trustPoint — villager trust points" : {
+
+    },
+    "Raise general materials / crafting parts." : {
+
+    },
+    "Raw JSON…" : {
+
+    },
+    "Raw Save · read-only" : {
+
+    },
+    "Record the top size (grade 5) for every fish already caught. Doesn't add uncaught fish." : {
+
+    },
+    "Reference Data Error" : {
+
+    },
+    "Research Point" : {
+
+    },
+    "Reset" : {
+
+    },
+    "Reset %@" : {
+
+    },
+    "Restaurant" : {
+
+    },
+    "Restore" : {
+
+    },
+    "Restore & Overwrite" : {
+
+    },
+    "Restore Failed" : {
+
+    },
+    "Restore from Backup" : {
+
+    },
+    "Restore from Backup…" : {
+
+    },
+    "Restore this backup?" : {
+
+    },
+    "Restored %@. Your previous state was saved as %@ — reveal it to undo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Restored %1$@. Your previous state was saved as %2$@ — reveal it to undo."
+          }
+        }
+      }
+    },
+    "Reveal Backup in Finder" : {
+
+    },
+    "Review Changes" : {
+
+    },
+    "Save" : {
+
+    },
+    "Save codec reverse-engineering (char-level UTF-16 XOR)." : {
+
+    },
+    "Save slots" : {
+
+    },
+    "Save Written" : {
+
+    },
+    "Sea People (Merman Village) currency" : {
+
+    },
+    "Search an item by name (or a numeric ID), pick it, then set a count." : {
+
+    },
+    "Search item name or ID…" : {
+
+    },
+    "Search items by name…" : {
+
+    },
+    "Search keys or values…" : {
+
+    },
+    "set" : {
+
+    },
+    "Set" : {
+
+    },
+    "Set %@ (%@) → %lld." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Set %1$@ (%2$@) → %3$lld."
+          }
+        }
+      }
+    },
+    "Set %@ count" : {
+
+    },
+    "Set %@ to an exact value" : {
+
+    },
+    "Set %@ to maximum" : {
+
+    },
+    "Set %lld caught fish to top grade." : {
+
+    },
+    "Spent on research & recipes" : {
+
+    },
+    "Stock fish parts + DREDGE research parts/bones so weapon crafting is unblocked." : {
+
+    },
+    "Stock the second store's separate branch counts — run alongside Max Owned." : {
+
+    },
+    "Subtract %lld from %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Subtract %1$lld from %2$@"
+          }
+        }
+      }
+    },
+    "This file isn't a readable Dave the Diver save." : {
+
+    },
+    "This overwrites the current save with the backup. Your current state is backed up first, so it's reversible." : {
+
+    },
+    "Trust Point" : {
+
+    },
+    "Undid last bulk action." : {
+
+    },
+    "Undo last edit" : {
+
+    },
+    "Values" : {
+
+    },
+    "Version %@ (build %@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Version %1$@ (build %2$@)"
+          }
+        }
+      }
+    },
+    "Weapon-upgrade currency" : {
+
+    },
+    "WhiteMinds" : {
+
+    },
+    "Write Failed" : {
+
+    },
+    "Write Save" : {
+
+    },
+    "Your changes were written to %@. A timestamped backup was saved first." : {
+
+    },
+    "Your edits to this save haven't been written. Opening another save will discard them." : {
+
+    }
+  },
+  "version" : "1.0"
+}

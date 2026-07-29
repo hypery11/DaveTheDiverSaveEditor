@@ -10,6 +10,9 @@ options:
 settings:
   base:
     SWIFT_VERSION: "6.0"
+    # Emit .stringsdata for String(localized:) / LocalizedStringResource so the String
+    # Catalog picks up model-layer strings, not just SwiftUI Text/Button literals.
+    SWIFT_EMIT_LOC_STRINGS: "YES"
     ARCHS: arm64
     ONLY_ACTIVE_ARCH: "YES"
     CODE_SIGN_STYLE: Manual

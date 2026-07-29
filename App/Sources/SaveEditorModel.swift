@@ -93,8 +93,8 @@ final class SaveEditorModel {
             AppLog.io.error("Failed to load \(sourceURL?.lastPathComponent ?? "in-memory"): \(error.localizedDescription)")
             self.alert = AppAlert(
                 id: UUID(),
-                title: "Couldn't read save",
-                message: "This file isn't a readable Dave the Diver save.",
+                title: String(localized: "Couldn't read save"),
+                message: String(localized: "This file isn't a readable Dave the Diver save."),
                 revealURL: nil
             )
         }
@@ -124,8 +124,8 @@ final class SaveEditorModel {
         } catch {
             alert = AppAlert(
                 id: UUID(),
-                title: "Could Not Read Save",
-                message: "Failed to read \(url.lastPathComponent): \(error.localizedDescription)",
+                title: String(localized: "Could Not Read Save"),
+                message: String(localized: "Failed to read \(url.lastPathComponent): \(error.localizedDescription)"),
                 revealURL: nil
             )
         }
@@ -143,8 +143,8 @@ final class SaveEditorModel {
         } catch {
             alert = AppAlert(
                 id: UUID(),
-                title: "Reference Data Error",
-                message: "Could not load the bundled ingredient reference database: \(error.localizedDescription)",
+                title: String(localized: "Reference Data Error"),
+                message: String(localized: "Could not load the bundled ingredient reference database: \(error.localizedDescription)"),
                 revealURL: nil
             )
             return nil
@@ -173,7 +173,7 @@ final class SaveEditorModel {
         document = prev
         if !appliedBulkOps.isEmpty { appliedBulkOps.removeLast() }
         bulkEdited = !bulkUndoStack.isEmpty
-        ingredientStatus = "Undid last bulk action."
+        ingredientStatus = String(localized: "Undid last bulk action.")
     }
 
     /// Record a bulk op's result: marks dirty, sets the shared status, and logs it in
@@ -227,13 +227,13 @@ final class SaveEditorModel {
         guard let original = document else { return }
         var doc = original
         guard doc.setInventoryItem(itemID: itemID, count: count) else {
-            ingredientStatus = "Couldn't set item \(itemID) (no inventory container)."
+            ingredientStatus = String(localized: "Couldn't set item \(String(itemID)) (no inventory container).")
             return
         }
         document = doc
         bulkUndoStack.append(original)
-        let name = resolvedReferenceDB()?.itemName(id: itemID) ?? "item"
-        recordBulk("Set \(name) (\(itemID)) → \(count).")
+        let name = resolvedReferenceDB()?.itemName(id: itemID) ?? String(localized: "item")
+        recordBulk(String(localized: "Set \(name) (\(String(itemID))) → \(count)."))
     }
 
     // MARK: - Per-item browse / search
@@ -260,7 +260,7 @@ final class SaveEditorModel {
 
     /// Readable name for an item id, or a fallback.
     func itemName(for id: Int) -> String {
-        resolvedReferenceDB()?.itemName(id: id) ?? "item \(id)"
+        resolvedReferenceDB()?.itemName(id: id) ?? String(localized: "item \(String(id))")
     }
 
     /// The whole loaded save as indented, order-preserving JSON — for the read-only
@@ -280,7 +280,7 @@ final class SaveEditorModel {
             AppLog.io.error("Write blocked by safety check: \(reason)")
             alert = AppAlert(
                 id: UUID(),
-                title: "Can't Write Yet",
+                title: String(localized: "Can't Write Yet"),
                 message: reason,
                 revealURL: nil
             )
@@ -294,8 +294,8 @@ final class SaveEditorModel {
             AppLog.io.notice("Wrote save: \(url.lastPathComponent)")
             alert = AppAlert(
                 id: UUID(),
-                title: "Save Written",
-                message: "Your changes were written to \(url.lastPathComponent). A timestamped backup was saved first.",
+                title: String(localized: "Save Written"),
+                message: String(localized: "Your changes were written to \(url.lastPathComponent). A timestamped backup was saved first."),
                 revealURL: backupURL
             )
             return backupURL
@@ -303,8 +303,8 @@ final class SaveEditorModel {
             AppLog.io.error("Write failed: \(error.localizedDescription)")
             alert = AppAlert(
                 id: UUID(),
-                title: "Write Failed",
-                message: "Could not write the save: \(error.localizedDescription)",
+                title: String(localized: "Write Failed"),
+                message: String(localized: "Could not write the save: \(error.localizedDescription)"),
                 revealURL: backupURL
             )
             return nil
@@ -331,7 +331,7 @@ final class SaveEditorModel {
         guard isLoaded, let url = currentFileURL, let document else { return }
         if let reason = safetyCheck(url).blockReason {
             AppLog.io.error("Restore blocked by safety check: \(reason)")
-            alert = AppAlert(id: UUID(), title: "Can't Restore Yet", message: reason, revealURL: nil)
+            alert = AppAlert(id: UUID(), title: String(localized: "Can't Restore Yet"), message: reason, revealURL: nil)
             return
         }
         do {
@@ -344,14 +344,14 @@ final class SaveEditorModel {
             load(data: data, sourceURL: url)                   // reload so values / dirty-state are fresh
             alert = AppAlert(
                 id: UUID(),
-                title: "Backup Restored",
-                message: "Restored \(backupURL.lastPathComponent). Your previous state was saved as \(safetyBackup.lastPathComponent) — reveal it to undo.",
+                title: String(localized: "Backup Restored"),
+                message: String(localized: "Restored \(backupURL.lastPathComponent). Your previous state was saved as \(safetyBackup.lastPathComponent) — reveal it to undo."),
                 revealURL: safetyBackup
             )
         } catch {
             AppLog.io.error("Restore failed: \(error.localizedDescription)")
-            alert = AppAlert(id: UUID(), title: "Restore Failed",
-                             message: "Could not restore the backup: \(error.localizedDescription)", revealURL: nil)
+            alert = AppAlert(id: UUID(), title: String(localized: "Restore Failed"),
+                             message: String(localized: "Could not restore the backup: \(error.localizedDescription)"), revealURL: nil)
         }
     }
 

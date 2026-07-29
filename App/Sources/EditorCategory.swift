@@ -10,10 +10,10 @@ enum EditorCategory: String, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .economy:    return "Economy"
-        case .restaurant: return "Restaurant"
-        case .inventory:  return "Inventory"
-        case .advanced:   return "Advanced"
+        case .economy:    return String(localized: "Economy")
+        case .restaurant: return String(localized: "Restaurant")
+        case .inventory:  return String(localized: "Inventory")
+        case .advanced:   return String(localized: "Advanced")
         }
     }
 

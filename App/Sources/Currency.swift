@@ -12,13 +12,13 @@ enum Currency: String, CaseIterable, Identifiable {
     /// Human-readable label shown beside each field.
     var label: String {
         switch self {
-        case .gold:          return "Gold"
-        case .bei:           return "Bei"
-        case .artisansFlame: return "Artisan's Flame"
-        case .followerCount: return "Follower Count"
-        case .researchPoint: return "Research Point"
-        case .trustPoint:    return "Trust Point"
-        case .fakePoint:     return "Fake Point"
+        case .gold:          return String(localized: "Gold")
+        case .bei:           return String(localized: "Bei")
+        case .artisansFlame: return String(localized: "Artisan's Flame")
+        case .followerCount: return String(localized: "Follower Count")
+        case .researchPoint: return String(localized: "Research Point")
+        case .trustPoint:    return String(localized: "Trust Point")
+        case .fakePoint:     return String(localized: "Fake Point")
         }
     }
 
@@ -38,13 +38,13 @@ enum Currency: String, CaseIterable, Identifiable {
     /// One-line explainer under the label (what it is / where it's spent).
     var caption: String {
         switch self {
-        case .gold:          return "Main restaurant & shop currency"
-        case .bei:           return "Sea People (Merman Village) currency"
-        case .artisansFlame: return "Weapon-upgrade currency"
-        case .followerCount: return "Cooksta followers — a progression stat"
-        case .researchPoint: return "Spent on research & recipes"
-        case .trustPoint:    return "PlayerInfo.m_trustPoint — villager trust points"
-        case .fakePoint:     return "PlayerInfo.m_FakePoint — fake / counterfeit points"
+        case .gold:          return String(localized: "Main restaurant & shop currency")
+        case .bei:           return String(localized: "Sea People (Merman Village) currency")
+        case .artisansFlame: return String(localized: "Weapon-upgrade currency")
+        case .followerCount: return String(localized: "Cooksta followers — a progression stat")
+        case .researchPoint: return String(localized: "Spent on research & recipes")
+        case .trustPoint:    return String(localized: "PlayerInfo.m_trustPoint — villager trust points")
+        case .fakePoint:     return String(localized: "PlayerInfo.m_FakePoint — fake / counterfeit points")
         }
     }
 
