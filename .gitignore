@@ -27,3 +27,6 @@ App/*.xcodeproj/
 
 # XcodeGen/xcodebuild output
 App/build/
+
+# Internal launch strategy (channel tactics, competitive positioning) — not for publication
+/docs/launch/
