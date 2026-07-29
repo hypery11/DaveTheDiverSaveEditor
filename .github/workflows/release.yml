@@ -13,6 +13,10 @@ permissions:
 jobs:
   release:
     name: Build, sign, notarize
+    # Releases are currently cut locally with App/scripts/release-local.sh, which keeps
+    # the Developer ID private key on the maintainer's Mac. This job stays dormant until
+    # the signing secrets are configured, rather than failing on every tag.
+    if: ${{ secrets.BUILD_CERTIFICATE_BASE64 != '' }}
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4

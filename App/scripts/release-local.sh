@@ -21,8 +21,15 @@ NAME="DiveSaveEd-macOS-v$VERSION"
 OUT="$REPO/dist"; STAGE="$(mktemp -d)"
 
 command -v xcodegen >/dev/null || { echo "brew install xcodegen" >&2; exit 1; }
-security find-identity -v -p codesigning | grep -q "$IDENTITY" \
-  || { echo "No '$IDENTITY' certificate in the keychain." >&2; exit 1; }
+CERT_LINE=$(security find-identity -v -p codesigning | grep "$IDENTITY" | head -1)
+[[ -n "$CERT_LINE" ]] || { echo "No '$IDENTITY' certificate in the keychain." >&2; exit 1; }
+# Team ID is the (XXXXXXXXXX) suffix of the certificate name. Manual signing needs it
+# explicitly, and the SwiftPM resource-bundle targets need it too — passing it on the
+# command line applies it to every target in the build.
+TEAM_ID="${TEAM_ID:-$(sed -n 's/.*(\([A-Z0-9]\{10\}\))".*/\1/p' <<< "$CERT_LINE")}"
+[[ -n "$TEAM_ID" ]] || { echo "Could not read a Team ID from: $CERT_LINE" >&2; exit 1; }
+echo "▸ Signing as: $CERT_LINE" | sed 's/  */ /g'
+echo "▸ Team ID: $TEAM_ID"
 xcrun notarytool history --keychain-profile "$PROFILE" >/dev/null 2>&1 \
   || { echo "No notary profile '$PROFILE'. See the header of this script." >&2; exit 1; }
 
@@ -33,13 +40,20 @@ xcodebuild -project DaveTheDiverSaveEditor.xcodeproj \
   -scheme DaveTheDiverSaveEditor -configuration Release \
   -destination 'generic/platform=macOS' -derivedDataPath build \
   MARKETING_VERSION="$VERSION" \
-  CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY="$IDENTITY" \
+  CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY="$IDENTITY" DEVELOPMENT_TEAM="$TEAM_ID" \
   ENABLE_HARDENED_RUNTIME=YES OTHER_CODE_SIGN_FLAGS="--timestamp" \
+  CODE_SIGN_INJECT_BASE_ENTITLEMENTS=NO \
   build >/dev/null
 
 APP="$APP_DIR/build/Build/Products/Release/DaveTheDiverSaveEditor.app"
 echo "▸ Verifying signature…"
 codesign --verify --deep --strict --verbose=2 "$APP"
+
+echo "▸ Checking entitlements…"
+if codesign -d --entitlements - --xml "$APP" 2>/dev/null | grep -q "get-task-allow"; then
+  echo "✗ Binary carries com.apple.security.get-task-allow — Apple rejects that." >&2
+  exit 1
+fi
 
 echo "▸ Packaging DMG…"
 cp -R "$APP" "$STAGE/DiveSaveEd.app"
@@ -47,7 +61,14 @@ ln -s /Applications "$STAGE/Applications"
 hdiutil create -volname DiveSaveEd -srcfolder "$STAGE" -ov -format UDZO "$OUT/$NAME.dmg" >/dev/null
 
 echo "▸ Notarizing (this waits on Apple, usually a few minutes)…"
-xcrun notarytool submit "$OUT/$NAME.dmg" --keychain-profile "$PROFILE" --wait
+SUBMIT=$(xcrun notarytool submit "$OUT/$NAME.dmg" --keychain-profile "$PROFILE" --wait 2>&1)
+echo "$SUBMIT" | sed 's/^/    /'
+SUB_ID=$(sed -n 's/.*id: \([0-9a-f-]\{36\}\).*/\1/p' <<< "$SUBMIT" | head -1)
+if ! grep -q "status: Accepted" <<< "$SUBMIT"; then
+  echo "✗ Notarization rejected. Apple's reasons:" >&2
+  xcrun notarytool log "$SUB_ID" --keychain-profile "$PROFILE" 2>&1 | sed 's/^/    /' >&2
+  exit 1
+fi
 
 echo "▸ Stapling…"
 xcrun stapler staple "$OUT/$NAME.dmg"
