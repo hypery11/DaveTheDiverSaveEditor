@@ -38,8 +38,8 @@ import Testing
     }
 
     @Test func matchesTheRealGameExecutablePath() {
-        // The exact `ps -o comm=` line the running game produces on macOS.
-        let game = "/Users/cph/Library/Application Support/Steam/steamapps/common/Dave the Diver/DaveTheDiver.app/Contents/MacOS/DAVE THE DIVER"
+        // The shape of the `ps -o comm=` line the running game produces on macOS.
+        let game = "/Users/someone/Library/Application Support/Steam/steamapps/common/Dave the Diver/DaveTheDiver.app/Contents/MacOS/DAVE THE DIVER"
         #expect(SaveGuard.matchesGameProcess(in: game))
         // Mixed process list: the game line among unrelated processes.
         #expect(SaveGuard.matchesGameProcess(in: "/sbin/launchd\n\(game)\n/usr/bin/ssh"))
