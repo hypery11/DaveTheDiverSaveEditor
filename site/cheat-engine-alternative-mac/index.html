@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cheat Engine Alternative for Mac — Dave the Diver | DiveSaveEd</title>
+<meta name="description" content="Cheat Engine doesn't run on macOS. Here's the honest difference between a memory trainer and a save editor — and DiveSaveEd, a free, open-source native Mac app that edits your Dave the Diver save offline, with backups and undo.">
+<link rel="canonical" href="https://hypery11.github.io/DaveTheDiverSaveEditor/cheat-engine-alternative-mac/">
+<meta name="theme-color" content="#FBF6EC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14181B" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../images/logo.png" type="image/png">
+<link rel="apple-touch-icon" href="../images/logo.png">
+<link rel="stylesheet" href="../style.css">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="DiveSaveEd">
+<meta property="og:title" content="Cheat Engine alternative for Mac — Dave the Diver">
+<meta property="og:description" content="Cheat Engine doesn't run on macOS. The honest difference between a memory trainer and a save editor — and a free, open-source native Mac editor that works offline.">
+<meta property="og:url" content="https://hypery11.github.io/DaveTheDiverSaveEditor/cheat-engine-alternative-mac/">
+<meta property="og:image" content="https://hypery11.github.io/DaveTheDiverSaveEditor/images/main-en-dark.png">
+<meta property="og:image:alt" content="DiveSaveEd, a native macOS save editor for Dave the Diver">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cheat Engine alternative for Mac — Dave the Diver">
+<meta name="twitter:description" content="Cheat Engine doesn't run on macOS. The honest difference between a memory trainer and a save editor — and a free, open-source native Mac editor.">
+<meta name="twitter:image" content="https://hypery11.github.io/DaveTheDiverSaveEditor/images/main-en-dark.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Dave the Diver Save Editor for Mac",
+      "item": "https://hypery11.github.io/DaveTheDiverSaveEditor/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Cheat Engine alternative for Mac",
+      "item": "https://hypery11.github.io/DaveTheDiverSaveEditor/cheat-engine-alternative-mac/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Primary">
+  <div class="wrap wrap-wide nav-inner">
+    <a class="nav-brand" href="../"><img src="../images/logo.png" alt="" width="26" height="26">DiveSaveEd</a>
+    <div class="nav-links">
+      <a href="../">Home</a>
+      <a href="../dave-the-diver-save-file-location-mac/">Save location</a>
+      <a href="../max-gold-bei-artisans-flame/">Max currencies</a>
+      <a href="../faq/">FAQ</a>
+      <a class="cta" href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">Download</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+  <div class="wrap">
+
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="../">DiveSaveEd</a> › <span aria-current="page">Cheat Engine alternative for Mac</span>
+    </nav>
+
+    <h1>Cheat Engine alternative for Mac — Dave the Diver</h1>
+    <p class="lede">
+      Cheat Engine is Windows-only. There is no Mac build, and the workarounds people suggest mostly
+      don't work on modern macOS. For a single-player game like <em>Dave the Diver</em>, though, you
+      probably don't want a memory trainer at all — you want a save editor. Here's the honest
+      difference.
+    </p>
+
+    <div class="answer">
+      <h2 id="short-answer">The short answer</h2>
+      <p>
+        Cheat Engine does not run on macOS. Its native replacement for <em>Dave the Diver</em> is a
+        <strong>save editor</strong>: it changes values in the save file on disk while the game is
+        closed, instead of scanning and patching a running game's memory. For a single-player game
+        that's simpler, safer, reversible — and it doesn't need any of the privileges memory editing
+        requires.
+      </p>
+      <p>
+        <a href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">DiveSaveEd</a> is
+        a free, open-source, native macOS save editor for exactly that. macOS 14+, Apple Silicon and
+        Intel.
+      </p>
+    </div>
+
+    <h2 id="why-not">Why Cheat Engine doesn't work on a Mac</h2>
+    <p>
+      Cheat Engine is a Windows application built around Windows APIs for attaching to another
+      process and reading and writing its memory. Several things stand in the way on macOS:
+    </p>
+    <ul>
+      <li><strong>There's no macOS build.</strong> Not "hard to find" — it doesn't exist.</li>
+      <li><strong>Running it under Wine/CrossOver doesn't get you far.</strong> Even when the Cheat Engine window opens, the debugger and memory-scanning parts depend on Windows kernel behaviour that the translation layer doesn't reproduce; and the game you'd want to attach to is a separate native macOS process it can't see anyway.</li>
+      <li><strong>macOS gates process memory access.</strong> System Integrity Protection, hardened runtime, and the debugging entitlement model mean one app cannot casually read or write another app's memory. Tools that do this need elevated privileges and explicit user approval, and get broken by every OS update.</li>
+      <li><strong>A Windows VM doesn't help either</strong> — the Windows copy of the game inside the VM has its own separate save, unrelated to the Mac one you actually play.</li>
+    </ul>
+    <p>
+      The projects usually named as "Cheat Engine for Mac" — <em>Bit Slicer</em>, <em>iGG</em> and
+      friends — are genuine memory scanners, but they're general-purpose, they require granting an app
+      debugger-level access to your machine, and they only work while the game is running. That's a
+      lot of exposure for something you can accomplish by editing a file.
+    </p>
+
+    <h2 id="difference">Memory trainer vs. save editor</h2>
+    <p>They solve the same problem from opposite ends:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Memory trainer (Cheat Engine)</th>
+            <th scope="col">Save editor (DiveSaveEd)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">What it edits</th>
+            <td>The game's RAM while it runs</td>
+            <td>The save file on disk while the game is closed</td>
+          </tr>
+          <tr>
+            <th scope="row">Game must be running</th>
+            <td>Yes — it attaches to the process</td>
+            <td>No — it refuses to write if the game is open</td>
+          </tr>
+          <tr>
+            <th scope="row">How you find a value</th>
+            <td>Scan, change it in-game, re-scan, narrow down, guess at addresses</td>
+            <td>Pick the field by name from a list</td>
+          </tr>
+          <tr>
+            <th scope="row">Survives a game update</th>
+            <td>Often not — addresses and offsets move</td>
+            <td>Generally yes — it works on the save format, not on code layout</td>
+          </tr>
+          <tr>
+            <th scope="row">Undo</th>
+            <td>Restart the game and hope you didn't save</td>
+            <td>In-app undo, plus a timestamped backup of every write</td>
+          </tr>
+          <tr>
+            <th scope="row">Privileges needed</th>
+            <td>Debugger-level access to another process</td>
+            <td>Read/write on one file in your own home folder</td>
+          </tr>
+          <tr>
+            <th scope="row">Live effects (godmode, speed)</th>
+            <td>Possible — that's its advantage</td>
+            <td>Not possible, by design</td>
+          </tr>
+          <tr>
+            <th scope="row">Runs on macOS</th>
+            <td>No</td>
+            <td>Yes — native, universal, signed and notarized</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      To be straight about the trade-off: a save editor genuinely cannot do everything a trainer can.
+      Real-time effects — freezing oxygen, infinite ammo, movement speed — live in memory and vanish
+      when you close the game, so they're out of scope. What a save editor can do is everything that's
+      <em>persisted</em>: currencies, inventory, ingredients, item counts, staff levels. In
+      <em>Dave the Diver</em>, that covers virtually every reason people reach for a trainer in the
+      first place, since the grind is in the resources, not in the combat.
+    </p>
+
+    <h2 id="what-it-does">What DiveSaveEd does instead</h2>
+    <p>
+      It opens your save, decodes it, shows you the values, writes them back, and closes. It never
+      attaches to the game process, never reads or writes game memory, never touches the game
+      executable, and makes no network calls of any kind — no account, no telemetry, no update pings.
+    </p>
+
+    <ul class="grid">
+      <li class="card">
+        <h3>Currencies</h3>
+        <p>Gold, Bei, Artisan's Flame, Research Point, Cooksta Follower Count, Trust and Fake points —
+        nudge by ±10 / 100 / 1000, type an exact value, or set the maximum.
+        <a href="../max-gold-bei-artisans-flame/">Walkthrough →</a></p>
+      </li>
+      <li class="card">
+        <h3>Bulk fills</h3>
+        <p>Restaurant ingredients (DLC-aware), branch stock, staff levels, general items, craft
+        materials, Sea People village, farm seeds, caught-fish grade — or Max Everything at once.</p>
+      </li>
+      <li class="card">
+        <h3>Any single item, by name</h3>
+        <p>A built-in item database, so you search for what you want rather than reverse-engineering
+        numeric IDs — the save-editing equivalent of Cheat Engine's pointer hunt, minus the hunt.</p>
+      </li>
+      <li class="card">
+        <h3>Reversible by design</h3>
+        <p>In-app undo for bulk actions, a change preview before anything is written, and a
+        timestamped backup of every write with a restore window.</p>
+      </li>
+    </ul>
+
+    <figure>
+      <div class="shot">
+        <img class="only-light" src="../images/main-en-light.png" alt="DiveSaveEd editing Dave the Diver currencies on macOS" width="1960" height="1744" loading="lazy">
+        <img class="only-dark" src="../images/main-en-dark.png" alt="DiveSaveEd in dark mode editing Dave the Diver currencies on macOS" width="1960" height="1744" loading="lazy">
+      </div>
+      <figcaption>Values by name, with exact entry, step buttons and per-field reset — no address scanning.</figcaption>
+    </figure>
+
+    <h2 id="raw">There's a raw inspector, but it's read-only</h2>
+    <p>
+      If what you liked about Cheat Engine was poking at the guts, the raw inspector lets you search
+      the entire decoded save as formatted JSON. It's deliberately read-only: hand-editing raw values
+      can set progression flags out of order and soft-lock a run. Looking is free; editing goes
+      through the fields that are known to be safe.
+    </p>
+
+    <figure>
+      <div class="shot">
+        <img src="../images/sheet-raw-en-light.png" alt="The read-only raw JSON inspector in DiveSaveEd, showing a decoded Dave the Diver save" width="1960" height="1744" loading="lazy">
+      </div>
+      <figcaption>The whole save, decoded and searchable — read-only on purpose.</figcaption>
+    </figure>
+
+    <h2 id="ban">Will this get me banned?</h2>
+    <p>
+      No. <em>Dave the Diver</em> is a single-player game with no multiplayer, no leaderboards, and no
+      anti-cheat software. This tool edits a file on your own computer while the game is closed. It
+      never attaches to the game process, never reads or writes game memory, and never touches the
+      game executable — which is, incidentally, precisely the set of behaviours anti-cheat systems in
+      other games look for.
+    </p>
+    <p>
+      The realistic risk isn't a ban; it's a broken save. That's why every write is backed up first,
+      every bulk action is undoable, and the raw editor is locked. See the
+      <a href="../faq/">FAQ</a> for the specifics.
+    </p>
+
+    <div class="warn">
+      <strong>⚠️ One thing that will make edits “not work”</strong>
+      Steam Cloud restores the old cloud save over your edit at launch. Quit the game, turn Cloud off
+      for Dave the Diver in its Steam properties, then edit —
+      <a href="../dave-the-diver-save-file-location-mac/#steam-cloud">the full order is here</a>.
+    </div>
+
+    <h2 id="get">Get it</h2>
+    <p class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">Download DiveSaveEd — free</a>
+      <a class="btn btn-ghost" href="https://github.com/hypery11/DaveTheDiverSaveEditor">Read the source</a>
+    </p>
+    <p class="btn-note">macOS 14+, Apple Silicon and Intel. Signed and notarized by Apple. MIT licensed, no ads, no network.</p>
+
+    <hr>
+
+    <h2>Related</h2>
+    <ul class="grid">
+      <li class="card">
+        <h3><a href="../dave-the-diver-save-file-location-mac/">Where is the save file on macOS?</a></h3>
+        <p>Both paths, the hidden <code>~/Library</code> folder, and how to back one up.</p>
+      </li>
+      <li class="card">
+        <h3><a href="../max-gold-bei-artisans-flame/">Max Gold, Bei &amp; Artisan's Flame</a></h3>
+        <p>The practical walkthrough, with undo and backups.</p>
+      </li>
+      <li class="card">
+        <h3><a href="../faq/">FAQ</a></h3>
+        <p>Bans, disappearing edits, Intel Macs, non-English saves, DLC and undo.</p>
+      </li>
+    </ul>
+
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap wrap-wide">
+    <ul class="foot-links">
+      <li><a href="../">Home</a></li>
+      <li><a href="../dave-the-diver-save-file-location-mac/">Save file location</a></li>
+      <li><a href="../max-gold-bei-artisans-flame/">Max currencies</a></li>
+      <li><a href="../cheat-engine-alternative-mac/">Cheat Engine alternative</a></li>
+      <li><a href="../faq/">FAQ</a></li>
+      <li><a href="https://github.com/hypery11/DaveTheDiverSaveEditor">GitHub</a></li>
+      <li><a href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">Releases</a></li>
+    </ul>
+    <p>
+      This is an unofficial, fan-made tool. It is not affiliated with, authorized by, endorsed by, or
+      sponsored by MINTROCKET, Nexon Korea Corporation, or any of their affiliates. “Dave the Diver”
+      and all related names, logos, and characters are trademarks of their respective owners and are
+      used here only descriptively, to identify the game this tool works with. Cheat Engine is a
+      trademark of its respective owner and is referenced here only descriptively. This tool edits
+      save files on your own computer; it does not modify, patch, or redistribute any part of the
+      game, and it contains no game code and no game assets. It is free, contains no advertising, and
+      is not sold. Use at your own risk — always keep backups.
+    </p>
+    <p>Released under the MIT License.</p>
+  </div>
+</footer>
+
+</body>
+</html>

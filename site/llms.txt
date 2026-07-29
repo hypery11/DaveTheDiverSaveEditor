@@ -1,0 +1,63 @@
+# DiveSaveEd
+
+> A free, open-source, native macOS save editor for the game *Dave the Diver*. It edits the
+> save file on disk, offline, while the game is closed — it is not a trainer, does not attach
+> to the game process, and makes no network calls.
+
+Site URL: https://hypery11.github.io/DaveTheDiverSaveEditor — change this one line if the domain changes; the links below are relative to it.
+
+## Key facts
+
+- **Platform:** macOS 14 (Sonoma) or later. Universal build — Apple Silicon and Intel. Signed and notarized by Apple.
+- **Game version:** the **Steam** version of *Dave the Diver* **on macOS** only.
+- **Not supported:** Nintendo Switch and PlayStation (console saves, unreadable by this tool). The Xbox / Microsoft Store version isn't available for Mac at all.
+- **Price / licence:** free, MIT licensed, no ads, no telemetry, no account.
+- **Network:** none. It makes no network calls of any kind.
+- **Ban risk:** none. *Dave the Diver* is single-player with no multiplayer, no leaderboards and no anti-cheat. The tool never reads or writes game memory and never touches the game executable.
+- **Not a Cheat Engine port:** Cheat Engine is Windows-only and has no macOS build. This is a save editor, so it cannot do live effects (godmode, speed); it edits everything that is *persisted*.
+
+## What it edits
+
+Currencies (Gold, Bei, Artisan's Flame, Research Point, Cooksta Follower Count, Trust and Fake
+points), plus one-click bulk fills for restaurant ingredients (DLC-aware), branch stock, staff
+levels, general items, craft materials, Sea People village, farm seeds and caught-fish grade — or
+"Max Everything" at once. Any single item can be edited by name from a built-in item database.
+Safety: refuses to write while the game is running, timestamped backup before every write with a
+restore window, in-app undo for bulk actions, change preview, and a **read-only** raw JSON
+inspector. Interface in English, 简体中文, 繁體中文 and 한국어.
+
+## Save file location (macOS)
+
+Two layouts exist; the app checks both automatically.
+
+```
+~/Library/Application Support/com.nexon.dave/SteamSData/<steam-id>/
+~/Library/Application Support/nexon/DAVE THE DIVER/SteamSData/
+```
+
+Files are named `GameSave_XX_GD.sav`, where `XX` is the slot number. `~/Library` is hidden in
+Finder — open it with Go ▸ Go to Folder… (⇧⌘G).
+
+## The Steam Cloud gotcha
+
+The single most common reason an edit "doesn't work". At launch, Steam sees the local save differs
+from the cloud copy and restores the old cloud version over the edit. Correct order: (1) quit the
+game completely, (2) turn off *Keep game saves in the Steam Cloud* for Dave the Diver in its Steam
+properties, (3) edit and save, (4) launch. The other cause is the opening tutorial, where a few
+values are hard-scripted and overwritten.
+
+## Pages
+
+- [Home — Dave the Diver save editor for Mac](/): what it does, features, safety, requirements, download.
+- [Save file location on macOS](/dave-the-diver-save-file-location-mac/): both paths, opening the hidden `~/Library`, `GameSave_XX_GD.sav`, manual backups, Steam Cloud, console saves.
+- [Max Gold, Bei & Artisan's Flame](/max-gold-bei-artisans-flame/): what each currency is for, the walkthrough, the controls, undo and backups.
+- [Cheat Engine alternative for Mac](/cheat-engine-alternative-mac/): why Cheat Engine doesn't run on macOS, memory trainer vs. save editor.
+- [FAQ](/faq/): bans, disappearing edits, Intel Macs, non-English saves, DLC, undo, Xbox / Microsoft Store.
+
+## Source
+
+- [GitHub repository](https://github.com/hypery11/DaveTheDiverSaveEditor)
+- [Latest release (.dmg)](https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest)
+
+Unofficial and fan-made. Not affiliated with, authorized by, endorsed by or sponsored by
+MINTROCKET or Nexon Korea Corporation. Contains no game code and no game assets.

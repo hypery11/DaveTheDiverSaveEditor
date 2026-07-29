@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dave the Diver Save File Location on macOS — and How to Edit It</title>
+<meta name="description" content="Both macOS save paths for Dave the Diver: ~/Library/Application Support/com.nexon.dave/SteamSData/ and ~/Library/Application Support/nexon/DAVE THE DIVER/SteamSData/. How to open the hidden Library folder, what GameSave_XX_GD.sav means, how to back it up, the Steam Cloud trap, and a free Mac editor that finds both paths automatically.">
+<link rel="canonical" href="https://hypery11.github.io/DaveTheDiverSaveEditor/dave-the-diver-save-file-location-mac/">
+<meta name="theme-color" content="#FBF6EC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14181B" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../images/logo.png" type="image/png">
+<link rel="apple-touch-icon" href="../images/logo.png">
+<link rel="stylesheet" href="../style.css">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="DiveSaveEd">
+<meta property="og:title" content="Dave the Diver save file location on macOS — and how to edit it">
+<meta property="og:description" content="Both macOS save paths, how to open the hidden ~/Library folder, what GameSave_XX_GD.sav means, how to back it up, and the Steam Cloud trap that silently undoes edits.">
+<meta property="og:url" content="https://hypery11.github.io/DaveTheDiverSaveEditor/dave-the-diver-save-file-location-mac/">
+<meta property="og:image" content="https://hypery11.github.io/DaveTheDiverSaveEditor/images/main-en-light.png">
+<meta property="og:image:alt" content="DiveSaveEd showing a Dave the Diver save file loaded on macOS">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dave the Diver save file location on macOS — and how to edit it">
+<meta name="twitter:description" content="Both macOS save paths, how to open the hidden ~/Library folder, what GameSave_XX_GD.sav means, how to back it up, and the Steam Cloud trap.">
+<meta name="twitter:image" content="https://hypery11.github.io/DaveTheDiverSaveEditor/images/main-en-light.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Dave the Diver Save Editor for Mac",
+      "item": "https://hypery11.github.io/DaveTheDiverSaveEditor/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Save file location on macOS",
+      "item": "https://hypery11.github.io/DaveTheDiverSaveEditor/dave-the-diver-save-file-location-mac/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Primary">
+  <div class="wrap wrap-wide nav-inner">
+    <a class="nav-brand" href="../"><img src="../images/logo.png" alt="" width="26" height="26">DiveSaveEd</a>
+    <div class="nav-links">
+      <a href="../">Home</a>
+      <a href="../max-gold-bei-artisans-flame/">Max currencies</a>
+      <a href="../cheat-engine-alternative-mac/">Cheat Engine on Mac</a>
+      <a href="../faq/">FAQ</a>
+      <a class="cta" href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">Download</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+  <div class="wrap">
+
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="../">DiveSaveEd</a> › <span aria-current="page">Save file location on macOS</span>
+    </nav>
+
+    <h1>Dave the Diver save file location on macOS — and how to edit it</h1>
+    <p class="lede">
+      Two paths are in use on Mac, depending on how your copy was installed. Here's both of them, how
+      to actually reach the hidden folder they live in, what the files are called, how to back one up,
+      and the one Steam setting that silently throws your changes away.
+    </p>
+
+    <div class="answer">
+      <h2 id="short-answer">The short answer</h2>
+      <p>On macOS, <em>Dave the Diver</em> stores its saves in one of these two folders:</p>
+<pre><code>~/Library/Application Support/com.nexon.dave/SteamSData/&lt;steam-id&gt;/</code></pre>
+<pre><code>~/Library/Application Support/nexon/DAVE THE DIVER/SteamSData/</code></pre>
+      <p>
+        The save files inside are named <code>GameSave_XX_GD.sav</code>, where <code>XX</code> is the
+        slot number. <code>~/Library</code> is hidden by default — open it with
+        <strong>Finder ▸ Go ▸ Go to Folder…</strong> (<kbd>⇧</kbd><kbd>⌘</kbd><kbd>G</kbd>), paste the
+        path, press Return.
+      </p>
+    </div>
+
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#both-paths">Both macOS save paths</a></li>
+        <li><a href="#open-library">How to open the hidden <code>~/Library</code> folder</a></li>
+        <li><a href="#file-names">What <code>GameSave_XX_GD.sav</code> means</a></li>
+        <li><a href="#backup">How to back up your save manually</a></li>
+        <li><a href="#steam-cloud">Steam Cloud will silently undo your edits</a></li>
+        <li><a href="#edit">How to actually edit the save on a Mac</a></li>
+        <li><a href="#switch">Nintendo Switch and PlayStation saves</a></li>
+        <li><a href="#troubleshooting">If you can't find the folder</a></li>
+      </ol>
+    </nav>
+
+    <h2 id="both-paths">Both macOS save paths</h2>
+    <p>
+      There is no single answer, and this trips people up: different installs of the Steam macOS build
+      write to different places. Check both.
+    </p>
+
+    <h3>Path 1 — bundle-identifier folder (most common)</h3>
+<pre><code>~/Library/Application Support/com.nexon.dave/SteamSData/&lt;steam-id&gt;/</code></pre>
+    <p>
+      <code>&lt;steam-id&gt;</code> is your numeric Steam account ID — a long run of digits, e.g.
+      <code>76561198000000000</code>. If you're signed into more than one Steam account on the same
+      Mac, you'll see more than one of these folders, one per account. The one you want is the one
+      with the most recent modification date.
+    </p>
+
+    <h3>Path 2 — publisher/product folder</h3>
+<pre><code>~/Library/Application Support/nexon/DAVE THE DIVER/SteamSData/</code></pre>
+    <p>
+      Note the spaces and the capitalisation — the folder really is called <code>DAVE THE DIVER</code>
+      in caps. There's no per-account subfolder in this layout; the <code>.sav</code> files sit
+      directly in <code>SteamSData</code>.
+    </p>
+
+    <div class="note">
+      <strong>You don't have to guess</strong>
+      <a href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">DiveSaveEd</a>
+      checks <em>both</em> locations automatically and lists every save slot it finds, so you never
+      have to type a path or work out which layout your install uses.
+    </div>
+
+    <p>
+      A note on the leading <code>~</code>: it's shorthand for your home folder, so the full path is
+      really <code>/Users/yourname/Library/Application Support/…</code>. This is the
+      <em>user</em> Library inside your home folder — <strong>not</strong> the <code>/Library</code>
+      at the root of the disk, which is a different folder entirely and does not contain game saves.
+    </p>
+
+    <h2 id="open-library">How to open the hidden <code>~/Library</code> folder</h2>
+    <p>
+      Apple hides <code>~/Library</code> from Finder by default, which is why so many guides just print
+      a path and leave you stuck. Four ways in, easiest first:
+    </p>
+
+    <ol class="steps">
+      <li>
+        <p><strong>Go to Folder (fastest).</strong> In Finder, choose <strong>Go ▸ Go to Folder…</strong>
+        from the menu bar, or press <kbd>⇧</kbd><kbd>⌘</kbd><kbd>G</kbd>. Paste one of the paths above
+        and press <kbd>Return</kbd>. Finder autocompletes as you type, which doubles as a check that
+        the folder exists.</p>
+      </li>
+      <li>
+        <p><strong>Hold Option in the Go menu.</strong> Click <strong>Go</strong> in the menu bar, then
+        hold <kbd>⌥</kbd> (Option). <strong>Library</strong> appears in the list while the key is
+        held.</p>
+      </li>
+      <li>
+        <p><strong>Unhide it permanently.</strong> Open your home folder in Finder
+        (<kbd>⇧</kbd><kbd>⌘</kbd><kbd>H</kbd>), press <kbd>⌘</kbd><kbd>J</kbd> for View Options, and
+        tick <strong>Show Library Folder</strong>. It stays visible from then on.</p>
+      </li>
+      <li>
+        <p><strong>From Terminal.</strong> If you'd rather not click:</p>
+<pre><code>open ~/Library/Application\ Support/com.nexon.dave/SteamSData/
+open ~/Library/Application\ Support/nexon/DAVE\ THE\ DIVER/SteamSData/</code></pre>
+        <p>The backslashes escape the spaces. Whichever path exists will open in Finder; the other
+        will report “No such file or directory”, which is itself a useful answer.</p>
+      </li>
+    </ol>
+
+    <p>
+      Tip: once you're there, drag the <code>SteamSData</code> folder into the Finder sidebar. You'll
+      be back.
+    </p>
+
+    <h2 id="file-names">What <code>GameSave_XX_GD.sav</code> means</h2>
+    <p>
+      Inside <code>SteamSData</code> you'll find files named like <code>GameSave_00_GD.sav</code>,
+      <code>GameSave_01_GD.sav</code>, and so on. The two digits are the save slot. If you only ever
+      played one run, you'll likely see just one — plus whatever bookkeeping files the game keeps
+      alongside it.
+    </p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th scope="col">What you see</th><th scope="col">What it is</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>GameSave_00_GD.sav</code></td><td>Save slot 0 — the actual game data.</td></tr>
+          <tr><td><code>GameSave_01_GD.sav</code></td><td>Save slot 1, and so on for further slots.</td></tr>
+          <tr><td>A folder of digits, e.g. <code>76561198…</code></td><td>Your Steam account ID, in the Path 1 layout.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      The <code>.sav</code> file is not plain text and not human-readable — opening it in TextEdit
+      shows binary noise, and saving it from a text editor will corrupt it. It has to be decoded to be
+      edited meaningfully, which is exactly what a save editor does.
+    </p>
+
+    <h2 id="backup">How to back up your save manually</h2>
+    <p>
+      Do this before you change anything, even if the tool you use makes its own backups. It takes ten
+      seconds.
+    </p>
+    <ol class="steps">
+      <li><p><strong>Quit Dave the Diver completely</strong> — not just the window; quit the app so it isn't mid-write.</p></li>
+      <li><p><strong>Open the save folder</strong> using one of the methods above.</p></li>
+      <li><p><strong>Select the <code>.sav</code> files</strong> and press <kbd>⌘</kbd><kbd>D</kbd> to duplicate them, or <kbd>⌘</kbd><kbd>C</kbd> then paste them somewhere outside the folder — your Desktop, a Documents subfolder, an external drive.</p></li>
+      <li>
+        <p>Or, from Terminal, stamp a dated copy of the whole folder:</p>
+<pre><code>cp -R ~/Library/Application\ Support/com.nexon.dave/SteamSData \
+      ~/Desktop/DaveTheDiver-save-backup-$(date +%Y%m%d)</code></pre>
+      </li>
+    </ol>
+    <p>
+      To restore later, quit the game and copy the backed-up <code>.sav</code> file back over the one
+      in <code>SteamSData</code>, keeping the exact same file name.
+    </p>
+    <div class="note">
+      <strong>Automatic backups</strong>
+      DiveSaveEd writes a timestamped backup before every single write, and ships a
+      <strong>Restore from Backup</strong> window that rolls back to any of them. Manual copies are
+      still worth keeping — belt and braces.
+    </div>
+
+    <figure>
+      <div class="shot">
+        <img src="../images/sheet-backups-en-light.png" alt="The Restore from Backup window in DiveSaveEd, listing timestamped backups of a Dave the Diver save" width="1960" height="1744" loading="lazy">
+      </div>
+      <figcaption>Timestamped backups, one per write, restorable from inside the app.</figcaption>
+    </figure>
+
+    <h2 id="steam-cloud">⚠️ Steam Cloud will silently undo your edits</h2>
+    <p>
+      This is the single most common reason an edit “doesn't work”, and it has nothing to do with the
+      editor. When Steam launches, it notices your local save differs from the cloud copy and
+      <strong>restores the old cloud version over your edit</strong> before the game even loads. Your
+      change was written correctly; Steam simply replaced it.
+    </p>
+    <p>Do it in this order:</p>
+    <ol class="steps">
+      <li><p><strong>Quit Dave the Diver completely.</strong> A good editor refuses to write while the game is running — mid-write saves are how files get corrupted.</p></li>
+      <li><p><strong>Turn off Steam Cloud for this game.</strong> Steam Library → right-click <strong>Dave the Diver</strong> → <strong>Properties</strong> → <strong>General</strong> → uncheck <strong>Keep game saves in the Steam Cloud</strong>.</p></li>
+      <li><p><strong>Edit and save.</strong> A timestamped backup is written first, automatically.</p></li>
+      <li><p><strong>Launch the game.</strong> Your edit is now the version that loads.</p></li>
+    </ol>
+    <div class="warn">
+      <strong>If you already lost an edit to the cloud</strong>
+      Don't panic and don't re-edit while Cloud is still on — you'll just repeat the loop. Turn Cloud
+      off first, then restore from a backup (or redo the edit), then launch.
+    </div>
+
+    <h2 id="edit">How to actually edit the save on a Mac</h2>
+    <p>
+      Finding the file is the easy half. The <code>.sav</code> is encoded, so a text editor is not an
+      option, and the popular Windows editors need Wine, CrossOver, or a VM to run on macOS at all.
+    </p>
+    <p>
+      <a href="../">DiveSaveEd</a> is a free, open-source, native Mac app built for exactly this: it
+      finds both save paths on its own, lists every slot, and lets you edit currencies
+      (<a href="../max-gold-bei-artisans-flame/">Gold, Bei, Artisan's Flame</a>, Research Point,
+      Cooksta followers, Trust and Fake points), bulk-fill restaurant ingredients and inventory, or
+      change any single item by name. Every bulk action is undoable in-app, every write is backed up
+      first, and there's a read-only raw JSON inspector if you just want to look.
+    </p>
+
+    <figure>
+      <div class="shot">
+        <img class="only-light" src="../images/main-en-light.png" alt="DiveSaveEd with a Dave the Diver save loaded from the macOS save folder" width="1960" height="1744" loading="lazy">
+        <img class="only-dark" src="../images/main-en-dark.png" alt="DiveSaveEd in dark mode with a Dave the Diver save loaded" width="1960" height="1744" loading="lazy">
+      </div>
+      <figcaption>Both save paths are detected automatically — no path typing, no slot guessing.</figcaption>
+    </figure>
+
+    <p class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">Download DiveSaveEd — free</a>
+      <a class="btn btn-ghost" href="https://github.com/hypery11/DaveTheDiverSaveEditor">Read the source</a>
+    </p>
+    <p class="btn-note">macOS 14+, Apple Silicon and Intel. Signed and notarized by Apple. MIT licensed.</p>
+
+    <h2 id="switch">Nintendo Switch and PlayStation saves</h2>
+    <p>
+      <strong>Switch and PlayStation saves cannot be edited this way.</strong> Console saves live in
+      the console's own encrypted storage, never appear in
+      <code>~/Library/Application Support</code>, and are not the same file format. Copying a Switch
+      save to a Mac requires custom firmware or homebrew on the console itself — that is a different
+      problem with different risks, and nothing on this page applies to it. The paths above are
+      specific to the <strong>Steam version on macOS</strong>.
+    </p>
+    <p>
+      The Xbox / Microsoft Store version is also out of scope: it isn't available for Mac at all, and
+      it stores saves in a different Windows-side format.
+    </p>
+
+    <h2 id="troubleshooting">If you can't find the folder</h2>
+    <ul>
+      <li><strong>You looked in the wrong Library.</strong> It must be <code>~/Library</code> — the one inside your home folder — not <code>/Library</code> at the top level of the disk.</li>
+      <li><strong>You've never launched the game.</strong> The folder is created on first run. Start the game once, get to a save, quit, then look again.</li>
+      <li><strong>“Application Support” is localised in your Finder.</strong> macOS displays that folder under a translated name in some languages, but the real path on disk is always the English <code>Application Support</code> — paste the English path into <strong>Go to Folder</strong> and it will work.</li>
+      <li><strong>You have the other layout.</strong> If Path 1 doesn't exist, try Path 2, and vice versa.</li>
+      <li><strong>Still nothing?</strong> Search the whole Library from Terminal:
+<pre><code>find ~/Library/Application\ Support -name "GameSave_*_GD.sav" 2&gt;/dev/null</code></pre>
+      That prints the full path to every Dave the Diver save on your Mac, whichever layout it uses.</li>
+    </ul>
+
+    <hr>
+
+    <h2>Related</h2>
+    <ul class="grid">
+      <li class="card">
+        <h3><a href="../max-gold-bei-artisans-flame/">Max Gold, Bei &amp; Artisan's Flame</a></h3>
+        <p>What each currency is for, how to set it exactly, and how to undo it.</p>
+      </li>
+      <li class="card">
+        <h3><a href="../cheat-engine-alternative-mac/">Cheat Engine alternative for Mac</a></h3>
+        <p>Why Cheat Engine doesn't run on macOS, and what a save editor does instead.</p>
+      </li>
+      <li class="card">
+        <h3><a href="../faq/">FAQ</a></h3>
+        <p>Bans, disappearing edits, Intel Macs, non-English saves, DLC and undo.</p>
+      </li>
+    </ul>
+
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap wrap-wide">
+    <ul class="foot-links">
+      <li><a href="../">Home</a></li>
+      <li><a href="../dave-the-diver-save-file-location-mac/">Save file location</a></li>
+      <li><a href="../max-gold-bei-artisans-flame/">Max currencies</a></li>
+      <li><a href="../cheat-engine-alternative-mac/">Cheat Engine alternative</a></li>
+      <li><a href="../faq/">FAQ</a></li>
+      <li><a href="https://github.com/hypery11/DaveTheDiverSaveEditor">GitHub</a></li>
+      <li><a href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">Releases</a></li>
+    </ul>
+    <p>
+      This is an unofficial, fan-made tool. It is not affiliated with, authorized by, endorsed by, or
+      sponsored by MINTROCKET, Nexon Korea Corporation, or any of their affiliates. “Dave the Diver”
+      and all related names, logos, and characters are trademarks of their respective owners and are
+      used here only descriptively, to identify the game this tool works with. This tool edits save
+      files on your own computer; it does not modify, patch, or redistribute any part of the game, and
+      it contains no game code and no game assets. It is free, contains no advertising, and is not
+      sold. Use at your own risk — always keep backups.
+    </p>
+    <p>Released under the MIT License.</p>
+  </div>
+</footer>
+
+</body>
+</html>

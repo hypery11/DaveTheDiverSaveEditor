@@ -39,3 +39,19 @@ doesn't expire when the account password changes, and it can be scoped and revok
 2. Regenerate screenshots if the UI changed: `./App/scripts/screenshots.sh`.
 3. Bump `MARKETING_VERSION` — the workflow sets it from the tag, so just tag correctly.
 4. Tag, push, then confirm the release page shows the SHA-256 and the attestation.
+
+## The website
+
+`site/` is deployed to GitHub Pages by `.github/workflows/pages.yml` on any push to
+`main` that touches it. Enable it once under **Settings ▸ Pages ▸ Source: GitHub Actions**.
+
+Absolute URLs (canonical, Open Graph, JSON-LD, sitemap, robots) currently point at the
+default Pages URL. If you move to a custom domain — which is worth doing, since
+`github.io` is on the Public Suffix List and can't have its own Search Console domain
+property — swap them in one command and add a `CNAME` file:
+
+```bash
+sed -i '' 's|https://hypery11.github.io/DaveTheDiverSaveEditor|https://YOUR-DOMAIN|g' \
+  site/robots.txt site/sitemap.xml site/llms.txt site/404.html site/index.html site/*/index.html
+echo "YOUR-DOMAIN" > site/CNAME
+```
