@@ -50,6 +50,11 @@ targets:
     scheme:
       testTargets:
         - DaveTheDiverSaveEditorTests
+      # Pin the test run to English. The suite asserts the exact English copy, and
+      # String(localized:) resolves against the *host machine's* language — without this
+      # the same commit passes on an English CI box and fails on a localized desktop.
+      language: en
+      region: US
 
   DaveTheDiverSaveEditorTests:
     type: bundle.unit-test
