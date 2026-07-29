@@ -1,9 +1,18 @@
 name: Release
 
+# Releases are currently cut locally with App/scripts/release-local.sh, which keeps the
+# Developer ID private key on the maintainer's Mac instead of copying it into secrets.
+# This workflow is therefore manual-only. To go back to tag-triggered releases, set the
+# signing secrets listed in docs/RELEASING.md and restore the `push: tags` trigger below.
+#
+#  push:
+#    tags: ["v*"]
 on:
-  push:
-    tags: ["v*"]
   workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to build (e.g. v1.0.0)"
+        required: true
 
 permissions:
   contents: write
@@ -13,17 +22,21 @@ permissions:
 jobs:
   release:
     name: Build, sign, notarize
-    # Releases are currently cut locally with App/scripts/release-local.sh, which keeps
-    # the Developer ID private key on the maintainer's Mac. This job stays dormant until
-    # the signing secrets are configured, rather than failing on every tag.
-    if: ${{ secrets.BUILD_CERTIFICATE_BASE64 != '' }}
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
 
       - name: Version from tag
         id: v
-        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+        run: |
+          TAG="${{ inputs.tag || github.ref_name }}"
+          echo "version=${TAG#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Require signing secrets
+        run: |
+          test -n "${{ secrets.BUILD_CERTIFICATE_BASE64 }}" || {
+            echo "::error::Signing secrets are not configured — see docs/RELEASING.md." >&2
+            exit 1; }
 
       # Developer ID cert lives in a throwaway keychain that dies with the runner.
       - name: Import signing certificate
