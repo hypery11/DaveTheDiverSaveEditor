@@ -1,60 +1,166 @@
-# Dave The Diver Save Editor
+# DiveSaveEd — Dave the Diver Save Editor for macOS
 
-> The first **native macOS (Apple Silicon)** save editor for the game *Dave the Diver* —
-> free, open-source, 100% local, and the only one that edits **Chinese/Korean saves without corrupting them**.
+**English** · [简体中文](README.zh-Hans.md) · [繁體中文](README.zh-Hant.md) · [한국어](README.ko.md)
 
-**Status:** early development. The pure-Swift core (`DaveSaveCore`) is being built first (TDD);
-the SwiftUI app follows. See [`docs/superpowers/specs`](docs/superpowers/specs) for the design
-and [`docs/superpowers/plans`](docs/superpowers/plans) for the implementation plan.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Platform: macOS 14+](https://img.shields.io/badge/Platform-macOS%2014%2B-black.svg)](#requirements)
+[![Apple Silicon + Intel](https://img.shields.io/badge/Apple%20Silicon-Intel-lightgrey.svg)](#requirements)
 
-## Why this exists
+**A native macOS save editor for Dave the Diver.** Save editors for this game are almost all
+Windows-only — this one is a real Mac app: it opens your save, edits it, and closes. No Wine, no
+Cheat Engine, no process injection, no account, no network.
 
-The excellent [DaveSaveEd](https://github.com/FNGarvin/DaveSaveEd) by FNGarvin is Windows-only.
-Mac players have had to run it under Wine, hand-edit JSON in a terminal, or pay a stranger ~$20.
-This project brings a real, native, trustworthy editor to the Mac — and fixes a correctness bug:
-the upstream byte-level codec corrupts saves that contain non-ASCII names (it produced 121 garbage
-characters on a real Chinese save where this editor produces zero).
+<!-- SCREENSHOT: docs/images/hero-light.png — pending automated capture -->
+
+## Requirements
+
+macOS 14 or later, Apple Silicon or Intel. Works with the **Steam** version of the game on macOS.
+
+> Nintendo Switch and PlayStation saves are **not** supported — those are console saves and this tool
+> cannot read them.
+
+## Install
+
+Download the latest `.dmg` from [Releases](../../releases/latest) and drag the app to Applications.
+
+The app is signed and notarized by Apple, so it opens normally — macOS will show the usual
+"downloaded from the Internet" confirmation the first time.
 
 ## Features
 
-- View and edit Gold, Bei, Artisan's Flame, Follower Count, and Research Point (exact value **or** one-click Max, with Reset).
-- Max owned ingredients / max all ingredients (DLC-aware), plus **branch (second sushi store) stock** — each ingredient carries a separate main-store and branch count.
-- Max general inventory items (materials / crafting parts) and the Sea People (merman) village inventory.
-- Max **farm seeds / produce** and **craft materials** — the latter stocks the fish parts and DREDGE research parts/bones that weapon crafting needs (these, unlike the raw aberration fish, are safe to stock). Plus a power-user "add item by id:count" override.
-- Perishable **aberration fish** (the DREDGE collab catch) are deliberately skipped by the bulk "max" actions — the game discards stockpiled aberrations on load, so maxing them would wipe your real catch.
-- **Won't let you clobber a live save:** writing is blocked while Dave the Diver is running or the save file is open, with a clear prompt to quit the game first.
-- Auto-detect your macOS save, read-only viewer, change-preview-before-write, automatic timestamped backups.
-- A headless companion CLI (`dtdcli`) over the same engine for power users and scripting.
+**Currencies** — Gold, Bei, Artisan's Flame, Research Point, Cooksta Follower Count, Trust and Fake
+points. Nudge by ±10/100/1000, type an exact value, or set the maximum. Reset restores the value the
+save had when you opened it.
 
-## How to use — and the #1 gotcha (read this!)
+**Bulk fills** — one click each, or **Max Everything** for all of them at once:
 
-**⚠️ Steam Cloud will silently undo your edits unless you turn it off first.** This is the single
-most common reason a save edit "doesn't work": when Steam launches, it sees your locally-edited save
-differs from the cloud copy and **overwrites your edit with the old cloud backup** before the game even
-loads. Always follow this order:
+| | |
+|---|---|
+| Restaurant | owned ingredients · all ingredients (DLC-aware) · second-store branch stock · staff levels |
+| Inventory | general items · craft materials (fish parts + DREDGE research parts/bones) · Sea People village · farm seeds · caught-fish grade |
 
-1. **Quit Dave the Diver completely** (the game must not be running while you edit).
-2. **Disable Steam Cloud for this game:** Steam Library → right-click **Dave the Diver** → **Properties**
-   → **General** → uncheck **"Keep game saves in the Steam Cloud for Dave the Diver"**.
-3. **Edit and save** with this tool (it makes an automatic timestamped backup before writing).
-4. **Launch the game.** Your local edit now takes priority and persists.
+**Browse and edit any single item by name** — the app ships an item database, so you search for what
+you actually want instead of hunting for numeric IDs.
 
-Other notes:
+**Everything is reversible** — every bulk action can be undone in-app, every write makes a timestamped
+backup first, and there is a restore UI to roll back to any of them.
 
-- **Save location (macOS):** `~/Library/Application Support/com.nexon.dave/SteamSData/<steam-id>/` —
-  the tool auto-detects the newest `GameSave_XX_GD.sav`. (Some installs use
-  `…/nexon/DAVE THE DIVER/SteamSData/…` instead; both are checked.)
-- **Early game:** during the opening tutorial, a few values (e.g. gold before the sushi-bar quest) are
-  hard-scripted by the game and will override save edits. Edits "stick" reliably once you're past that.
-- **Backups & restore:** every write is backed up first. To revert, quit the game and copy a backup
-  `GameSave_XX_GD.sav` back into the save folder above.
+**Read-only raw inspector** — search the entire decoded save as formatted JSON. Deliberately read-only:
+hand-editing raw values can set progression flags out of order and soft-lock a run.
 
-## Credits
+**Multiple save slots** — picks up every save the game has and lets you choose.
 
-Inspired by and crediting [FNGarvin/DaveSaveEd](https://github.com/FNGarvin/DaveSaveEd) (MIT) and
-[WhiteMinds' save-codec reverse-engineering](https://github.com/WhiteMinds/dave-diver-expansion).
-See [NOTICE](NOTICE). Not affiliated with Mintrocket or Nexon.
+**Four languages** — English, 简体中文, 繁體中文, 한국어.
+
+## Where is the Dave the Diver save file on Mac?
+
+Dave the Diver stores its macOS saves here:
+
+```
+~/Library/Application Support/com.nexon.dave/SteamSData/<steam-id>/
+```
+
+Some installs use this path instead:
+
+```
+~/Library/Application Support/nexon/DAVE THE DIVER/SteamSData/
+```
+
+Both are checked automatically — the app finds your saves without being told where they are. The files
+are named `GameSave_XX_GD.sav`.
+
+`~/Library` is hidden in Finder. To open it yourself: **Finder → Go → Go to Folder…** (`⇧⌘G`), paste the
+path, press Return.
+
+## ⚠️ Steam Cloud will silently undo your edits
+
+This is the single most common reason an edit "doesn't work". When Steam launches, it sees your local
+save differs from the cloud copy and **restores the old cloud version over your edit** before the game
+even loads. Do it in this order:
+
+1. **Quit Dave the Diver completely.** The app refuses to write while the game is running.
+2. **Turn off Steam Cloud for this game** — Steam Library → right-click **Dave the Diver** →
+   **Properties** → **General** → uncheck **Keep game saves in the Steam Cloud**.
+3. **Edit and save.** A timestamped backup is written first, automatically.
+4. **Launch the game.** Your edit is now the version that loads.
+
+## FAQ
+
+### Will I get banned for using this?
+
+No. Dave the Diver is a single-player game with no multiplayer, no leaderboards, and no anti-cheat
+software. This tool edits a file on your own computer while the game is closed. It never attaches to
+the game process, never reads or writes game memory, and never touches the game executable.
+
+### Why did my edits disappear after launching the game?
+
+Almost always Steam Cloud — see the section above. The other cause is the opening tutorial: a few
+values are hard-scripted during it and the game overwrites them. Edits stick reliably once you're past
+that point.
+
+### Does it work with Chinese, Korean, or Japanese saves?
+
+Yes. Saves containing non-ASCII text are read and written correctly, with no corrupted characters.
+
+### Does this work on Intel Macs?
+
+Yes — the app is a universal build for Apple Silicon and Intel.
+
+### Does it support the "In the Jungle" DLC?
+
+Yes. DLC ingredients are handled, and the app only injects content for DLCs your save reports as
+installed.
+
+### Can I undo something I didn't mean to do?
+
+Yes, twice over: **Undo last edit** reverses a bulk action in-app before you ever write, and every
+write makes a timestamped backup you can restore from the **Restore from Backup** window.
+
+### Does it work with the Xbox / Microsoft Store version?
+
+Not on macOS — that version isn't available for Mac. This tool targets the macOS Steam save location.
+
+## Is this safe?
+
+Safety is a design constraint, not an afterthought:
+
+- **Refuses to write while Dave the Diver is running**, or while the save file is open elsewhere.
+- **Automatic timestamped backup before every write**, with a restore UI.
+- **Bulk undo** for every bulk operation.
+- **A change preview** before anything is written.
+- **Skips perishable aberration fish** (the DREDGE collab catch) in bulk fills — the game discards
+  stockpiled aberrations on load, so filling them would wipe your real catch.
+- **Open source under MIT.** Read every line before you run it.
+
+This exists so you can back up, repair, and un-grind your own single-player save.
+
+## Build from source
+
+```bash
+git clone https://github.com/hypery11/DaveTheDiverSaveEditor.git
+cd DaveTheDiverSaveEditor
+swift test                                  # engine tests
+cd App && xcodegen generate                 # generate the Xcode project
+xcodebuild -scheme DaveTheDiverSaveEditor test
+```
+
+There's also `dtdcli`, a headless companion CLI over the same engine, for scripting.
+
+## Contributing
+
+Translations, bug reports and fixes are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Disclaimer
+
+> This is an unofficial, fan-made tool. It is not affiliated with, authorized by, endorsed by, or
+> sponsored by MINTROCKET, Nexon Korea Corporation, or any of their affiliates. "Dave the Diver" and
+> all related names, logos, and characters are trademarks of their respective owners and are used here
+> only descriptively, to identify the game this tool works with. This tool edits save files on your own
+> computer; it does not modify, patch, or redistribute any part of the game, and it **contains no game
+> code and no game assets**. It is free, contains no advertising, and is not sold. Use at your own risk
+> — always keep backups.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE). Third-party notices: [NOTICE](NOTICE) and
+[THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md).
