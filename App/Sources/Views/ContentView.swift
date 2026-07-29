@@ -13,19 +13,6 @@ struct ContentView: View {
     @State private var confirmLoad: (() -> Void)? = nil
     @State private var itemQuery = ""
 
-    /// Snapshot/UI-test seam: `-snapshot-appearance dark|light` forces the color scheme.
-    private static var snapshotColorScheme: ColorScheme? {
-        let a = ProcessInfo.processInfo.arguments
-        guard let i = a.firstIndex(of: "-snapshot-appearance"), i + 1 < a.count else { return nil }
-        switch a[i + 1] {
-        case "dark":  return .dark
-        case "light": return .light
-        default:      return nil
-        }
-    }
-
-    /// Snapshot seam: `-snapshot-raw` auto-opens the Raw inspector on launch.
-    private static var snapshotRaw: Bool { ProcessInfo.processInfo.arguments.contains("-snapshot-raw") }
 
     private var filteredItems: [SaveEditorModel.InventoryRow] {
         let all = model.inventoryRows()
@@ -37,12 +24,18 @@ struct ContentView: View {
     private func rowDivider() -> some View { Divider().padding(.leading, Theme.Spacing.xl) }
 
     var body: some View {
-        if Self.snapshotRaw {
-            RawJSONView(model: model)   // snapshot seam: capture the Raw view as the main window
-                .preferredColorScheme(Self.snapshotColorScheme)
-        } else {
-            mainBody
-        }
+        mainBody
+            // Snapshot seam: open a sheet directly instead of driving menus in a UI test.
+            // A sheet is a child window overlapping the parent, so a window-scoped
+            // screenshot composites it in — no parallel view code needed.
+            .onAppear {
+                switch Snapshot.sheet {
+                case "raw":     showingRaw = true
+                case "backups": showingBackups = true
+                case "preview": showingPreview = true
+                default:        break
+                }
+            }
     }
 
     private var mainBody: some View {
@@ -56,14 +49,14 @@ struct ContentView: View {
                             rowDivider()
                         }
                     } header: {
-                        SectionHeader(title: "Economy", systemImage: "dollarsign.circle.fill", accent: Theme.Color.gold)
+                        SectionHeader(category: .economy)
                     }
 
                     // Restaurant (bulk fills)
                     Section {
                         bulkRows(.restaurant)
                     } header: {
-                        SectionHeader(title: "Restaurant", systemImage: "fork.knife", accent: Theme.Color.coral)
+                        SectionHeader(category: .restaurant)
                     }
 
                     // Inventory (bulk fills + per-item browse)
@@ -89,14 +82,14 @@ struct ContentView: View {
                             }
                         }
                     } header: {
-                        SectionHeader(title: "Inventory", systemImage: "shippingbox.fill", accent: Theme.Color.ocean)
+                        SectionHeader(category: .inventory)
                     }
 
                     // Advanced (add item by name/ID)
                     Section {
                         AdvancedDetail(model: model)
                     } header: {
-                        SectionHeader(title: "Advanced", systemImage: "wrench.and.screwdriver.fill", accent: Theme.Color.slate)
+                        SectionHeader(category: .advanced)
                     }
                 }
                 .frame(maxWidth: 920, alignment: .leading)
@@ -143,7 +136,6 @@ struct ContentView: View {
             }
         }
         .frame(minWidth: 900, minHeight: 600)
-        .preferredColorScheme(Self.snapshotColorScheme)
         .sheet(isPresented: $showingPreview) { ChangePreviewView(model: model) }
         .sheet(isPresented: $showingRaw) { RawJSONView(model: model) }
         .sheet(isPresented: $showingBackups) { BackupRestoreView(model: model) }

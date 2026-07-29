@@ -7,6 +7,15 @@ struct SectionHeader: View {
     let systemImage: String
     let accent: Color
 
+    /// Build from a category so the header reuses its localized label, icon and accent
+    /// rather than restating them (a plain `String` title would not be localized at all,
+    /// since `Text(String)` skips localization).
+    init(category: EditorCategory) {
+        self.title = category.label
+        self.systemImage = category.systemImage
+        self.accent = category.accent
+    }
+
     var body: some View {
         HStack(spacing: Theme.Spacing.sm) {
             Image(systemName: systemImage).foregroundStyle(accent)

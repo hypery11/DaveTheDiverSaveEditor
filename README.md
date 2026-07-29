@@ -1,4 +1,8 @@
-# DiveSaveEd — Dave the Diver Save Editor for macOS
+<p align="center">
+  <img src="docs/images/logo.png" alt="DiveSaveEd" width="160">
+</p>
+
+<h1 align="center">DiveSaveEd — Dave the Diver Save Editor for macOS</h1>
 
 **English** · [简体中文](README.zh-Hans.md) · [繁體中文](README.zh-Hant.md) · [한국어](README.ko.md)
 
@@ -10,7 +14,9 @@
 Windows-only — this one is a real Mac app: it opens your save, edits it, and closes. No Wine, no
 Cheat Engine, no process injection, no account, no network.
 
-<!-- SCREENSHOT: docs/images/hero-light.png — pending automated capture -->
+<p align="center">
+  <img src="docs/images/main-en-light.png" alt="DiveSaveEd editing a Dave the Diver save on macOS" width="900">
+</p>
 
 ## Requirements
 
@@ -51,6 +57,11 @@ hand-editing raw values can set progression flags out of order and soft-lock a r
 **Multiple save slots** — picks up every save the game has and lets you choose.
 
 **Four languages** — English, 简体中文, 繁體中文, 한국어.
+
+<p align="center">
+  <img src="docs/images/main-zh-Hant-light.png" alt="繁體中文介面" width="440">
+  <img src="docs/images/main-ko-dark.png" alt="한국어 인터페이스 (다크 모드)" width="440">
+</p>
 
 ## Where is the Dave the Diver save file on Mac?
 

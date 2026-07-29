@@ -25,12 +25,19 @@ struct DaveTheDiverSaveEditorApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(model: model)
+                // Pinned only when the screenshot script asks for it; nil is a
+                // pass-through, so a normal launch is untouched.
+                .frame(width: Snapshot.contentSize?.width, height: Snapshot.contentSize?.height)
                 .onAppear {
-                    // Snapshot/UI-test seam: `--args -snapshot-fixture <path>` preloads a
-                    // save so an automated capture sees populated cards (no keystrokes).
-                    let args = ProcessInfo.processInfo.arguments
-                    if let i = args.firstIndex(of: "-snapshot-fixture"), i + 1 < args.count {
-                        model.load(url: URL(fileURLWithPath: args[i + 1]))
+                    // Appearance is applied here, NOT in init(): touching
+                    // NSApplication.shared during App.init() instantiates NSApplication
+                    // before SwiftUI wires up its scenes, and the WindowGroup then never
+                    // creates a window at all.
+                    Snapshot.applyAppearance()
+                    // Snapshot/UI-test seam: `-snapshot-fixture <path>` preloads a save so
+                    // an automated capture sees populated rows (no keystrokes needed).
+                    if let fixture = Snapshot.fixture {
+                        model.load(url: URL(fileURLWithPath: fixture))
                     } else {
                         model.detectLatestSave()
                     }
