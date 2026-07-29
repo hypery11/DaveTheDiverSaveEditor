@@ -30,3 +30,4 @@ App/build/
 
 # Internal launch strategy (channel tactics, competitive positioning) — not for publication
 /docs/launch/
+dist/
