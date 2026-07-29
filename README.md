@@ -145,6 +145,16 @@ Safety is a design constraint, not an afterthought:
 
 This exists so you can back up, repair, and un-grind your own single-player save.
 
+## Not planned
+
+- **Nintendo Switch / PlayStation saves** — those are encrypted console saves; this tool
+  cannot read them.
+- **Windows or Linux builds** — this is a Mac app.
+- **Anything that attaches to the running game** — trainers, memory editing, overlays.
+- **Modifying the game's own code or assets.**
+- **Auto-update, telemetry, or any network feature.** The app makes no network requests
+  at all, and that is a design guarantee rather than an oversight.
+
 ## Build from source
 
 ```bash

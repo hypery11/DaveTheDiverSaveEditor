@@ -9,13 +9,27 @@ what the app said. If a save failed to load or write, say which — and **never 
 to a public issue**; it contains your progress and your Steam ID. If a save is needed to reproduce
 something, we'll arrange it privately.
 
-## Development setup
+## Building from source
+
+You need Xcode 16 or later. You do **not** need a paid Apple Developer account — the
+project is configured for ad-hoc local signing (`CODE_SIGN_IDENTITY = "-"`), so it builds
+and runs with no team set. An unexplained signing failure is the usual reason someone
+gives up here, so if you hit one, that's a bug in these instructions — please say so.
 
 ```bash
-swift test                                  # engine tests (DaveSaveCore)
-cd App && xcodegen generate                 # the .xcodeproj is generated, not committed
-xcodebuild -scheme DaveTheDiverSaveEditor test
+git clone https://github.com/hypery11/DaveTheDiverSaveEditor.git
+cd DaveTheDiverSaveEditor
+
+swift test                     # engine tests — no Xcode project, no signing needed
+
+brew install xcodegen          # the .xcodeproj is generated, not committed
+cd App && xcodegen generate
+xcodebuild -scheme DaveTheDiverSaveEditor -destination 'platform=macOS' test
 ```
+
+CI runs exactly these commands. **The engine is a plain Swift package**, so most bugs in
+save parsing, the codec or the bulk operations can be fixed and tested with `swift test`
+alone — no Xcode, no xcodegen, no signing.
 
 The project is split in two:
 

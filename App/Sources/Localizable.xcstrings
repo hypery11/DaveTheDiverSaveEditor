@@ -17,6 +17,12 @@
     },
     "A free, open-source, 100% local save editor for macOS.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100% 로컬에서 동작하는 macOS용 무료 오픈소스 세이브 편집기입니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -28,17 +34,17 @@
             "state": "translated",
             "value": "免費、開放原始碼、100% 在本機運作的 macOS 存檔修改器。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "100% 로컬에서 동작하는 macOS용 무료 오픈소스 세이브 편집기입니다."
-          }
         }
       }
     },
     "A timestamped backup is saved automatically each time you write this save.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 세이브를 저장할 때마다 시각이 기록된 백업이 자동으로 만들어집니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -50,17 +56,17 @@
             "state": "translated",
             "value": "每次寫入此存檔時，都會自動建立一份帶時間戳記的備份。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "이 세이브를 저장할 때마다 시각이 기록된 백업이 자동으로 만들어집니다."
-          }
         }
       }
     },
     "About %@": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 정보"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -72,17 +78,17 @@
             "state": "translated",
             "value": "關於 %@"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ 정보"
-          }
         }
       }
     },
     "Add": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "추가"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -94,12 +100,6 @@
             "state": "translated",
             "value": "增加"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "추가"
-          }
         }
       }
     },
@@ -109,6 +109,12 @@
           "stringUnit": {
             "state": "new",
             "value": "Add %1$lld to %2$@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@에 %1$lld 추가"
           }
         },
         "zh-Hans": {
@@ -122,17 +128,17 @@
             "state": "translated",
             "value": "為 %2$@ 增加 %1$lld"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%2$@에 %1$lld 추가"
-          }
         }
       }
     },
     "Advanced": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "고급"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -144,17 +150,17 @@
             "state": "translated",
             "value": "進階"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "고급"
-          }
         }
       }
     },
     "An independent reimplementation in Swift — not a fork.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "포크가 아니라 Swift로 새로 구현한 독립 프로젝트입니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -166,17 +172,17 @@
             "state": "translated",
             "value": "以 Swift 獨立重新實作，並非 fork。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "포크가 아니라 Swift로 새로 구현한 독립 프로젝트입니다."
-          }
         }
       }
     },
     "Artisan's Flame": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "장인의 불꽃"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -188,17 +194,17 @@
             "state": "translated",
             "value": "匠人之火"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "장인의 불꽃"
-          }
         }
       }
     },
     "Backup Restored": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "백업 복구 완료"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -210,17 +216,17 @@
             "state": "translated",
             "value": "備份已還原"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "백업 복구 완료"
-          }
         }
       }
     },
     "Bei": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "베이"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -232,17 +238,17 @@
             "state": "translated",
             "value": "貝"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "베이"
-          }
         }
       }
     },
     "Bulk edits": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "일괄 편집"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -254,17 +260,17 @@
             "state": "translated",
             "value": "批次修改"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "일괄 편집"
-          }
         }
       }
     },
     "Can't Restore Yet": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아직 복구할 수 없음"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -276,17 +282,17 @@
             "state": "translated",
             "value": "目前無法還原"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "아직 복구할 수 없음"
-          }
         }
       }
     },
     "Can't Write Yet": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아직 저장할 수 없음"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -298,17 +304,17 @@
             "state": "translated",
             "value": "目前無法寫入"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "아직 저장할 수 없음"
-          }
         }
       }
     },
     "Cancel": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "취소"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -320,17 +326,17 @@
             "state": "translated",
             "value": "取消"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "취소"
-          }
         }
       }
     },
     "Choose Another…": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다른 파일 선택…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -342,17 +348,17 @@
             "state": "translated",
             "value": "選擇其他…"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "다른 파일 선택…"
-          }
         }
       }
     },
     "Clear": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "지우기"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -364,17 +370,17 @@
             "state": "translated",
             "value": "清除"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "지우기"
-          }
         }
       }
     },
     "Cooksta followers — a progression stat": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "쿡스타 팔로워 — 진행도 수치"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -386,17 +392,17 @@
             "state": "translated",
             "value": "COOKSTA 追蹤者 — 進度數值"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "쿡스타 팔로워 — 진행도 수치"
-          }
         }
       }
     },
     "Copy All": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "모두 복사"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -408,17 +414,39 @@
             "state": "translated",
             "value": "全部複製"
           }
+        }
+      }
+    },
+    "Copy Diagnostics": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "复制诊断信息"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "複製診斷資訊"
+          }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "모두 복사"
+            "value": "진단 정보 복사"
           }
         }
       }
     },
     "Could not load the bundled ingredient reference database: %@": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "내장 식재료 참조 데이터베이스를 불러오지 못했습니다: %@"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -430,17 +458,17 @@
             "state": "translated",
             "value": "無法載入內建的食材參考資料庫：%@"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "내장 식재료 참조 데이터베이스를 불러오지 못했습니다: %@"
-          }
         }
       }
     },
     "Could Not Read Save": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "세이브를 읽을 수 없음"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -452,17 +480,17 @@
             "state": "translated",
             "value": "無法讀取存檔"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "세이브를 읽을 수 없음"
-          }
         }
       }
     },
     "Could not restore the backup: %@": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "백업을 복구하지 못했습니다: %@"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -474,17 +502,17 @@
             "state": "translated",
             "value": "無法還原備份：%@"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "백업을 복구하지 못했습니다: %@"
-          }
         }
       }
     },
     "Could not write the save: %@": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "세이브를 저장하지 못했습니다: %@"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -496,17 +524,17 @@
             "state": "translated",
             "value": "無法寫入存檔：%@"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "세이브를 저장하지 못했습니다: %@"
-          }
         }
       }
     },
     "Couldn't read save": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "세이브 읽기 실패"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -518,17 +546,17 @@
             "state": "translated",
             "value": "無法讀取存檔"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "세이브 읽기 실패"
-          }
         }
       }
     },
     "Couldn't set item %@ (no inventory container).": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아이템 %@을(를) 설정하지 못했습니다(인벤토리 없음)."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -540,17 +568,17 @@
             "state": "translated",
             "value": "無法設定物品 %@（找不到物品欄容器）。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "아이템 %@을(를) 설정하지 못했습니다(인벤토리 없음)."
-          }
         }
       }
     },
     "Count": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "개수"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -562,17 +590,17 @@
             "state": "translated",
             "value": "數量"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "개수"
-          }
         }
       }
     },
     "Credits": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "크레딧"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -584,17 +612,17 @@
             "state": "translated",
             "value": "致謝"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "크레딧"
-          }
         }
       }
     },
     "Discard & Open": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "버리고 열기"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -606,17 +634,17 @@
             "state": "translated",
             "value": "捨棄並開啟"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "버리고 열기"
-          }
         }
       }
     },
     "Discard unsaved changes?": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장하지 않은 변경 사항을 버릴까요?"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -628,17 +656,39 @@
             "state": "translated",
             "value": "要捨棄未儲存的變更嗎？"
           }
+        }
+      }
+    },
+    "DiveSaveEd Help": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DiveSaveEd 帮助"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DiveSaveEd 說明"
+          }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "저장하지 않은 변경 사항을 버릴까요?"
+            "value": "DiveSaveEd 도움말"
           }
         }
       }
     },
     "Done": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "완료"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -650,17 +700,17 @@
             "state": "translated",
             "value": "完成"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "완료"
-          }
         }
       }
     },
     "Economy": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "재화"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -672,12 +722,6 @@
             "state": "translated",
             "value": "經濟"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "재화"
-          }
         }
       }
     },
@@ -687,6 +731,12 @@
           "stringUnit": {
             "state": "new",
             "value": "Failed to read %1$@: %2$@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 읽기 실패: %@"
           }
         },
         "zh-Hans": {
@@ -700,17 +750,17 @@
             "state": "translated",
             "value": "讀取 %@ 失敗：%@"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ 읽기 실패: %@"
-          }
         }
       }
     },
     "Fake Point": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "가짜 포인트"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -722,17 +772,17 @@
             "state": "translated",
             "value": "偽造點數"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "가짜 포인트"
-          }
         }
       }
     },
     "Fill and inject every DLC-owned ingredient (skips aberration fish).": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DLC 식재료를 모두 채워 넣습니다(돌연변이 물고기 제외)."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -744,17 +794,17 @@
             "state": "translated",
             "value": "補滿並注入所有 DLC 食材（略過突變魚）。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "DLC 식재료를 모두 채워 넣습니다(돌연변이 물고기 제외)."
-          }
         }
       }
     },
     "Fill every ingredient you already own (skips perishable aberration fish).": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보유 중인 식재료를 모두 채웁니다(사라지는 돌연변이 물고기 제외)."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -766,17 +816,17 @@
             "state": "translated",
             "value": "補滿所有已擁有的食材（略過易腐的突變魚）。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "보유 중인 식재료를 모두 채웁니다(사라지는 돌연변이 물고기 제외)."
-          }
         }
       }
     },
     "Fill every owned seed / produce stack in the home farm.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "농장의 보유 씨앗·작물을 모두 채웁니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -788,17 +838,17 @@
             "state": "translated",
             "value": "補滿農場中所有已擁有的種子／作物。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "농장의 보유 씨앗·작물을 모두 채웁니다."
-          }
         }
       }
     },
     "Fill the Sea People village inventory.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "어인족 마을 인벤토리를 채웁니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -810,17 +860,17 @@
             "state": "translated",
             "value": "補滿鮫人村的物品欄。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "어인족 마을 인벤토리를 채웁니다."
-          }
         }
       }
     },
     "FNGarvin/DaveSaveEd (MIT)": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "FNGarvin/DaveSaveEd (MIT)"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -832,17 +882,17 @@
             "state": "translated",
             "value": "FNGarvin/DaveSaveEd (MIT)"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "FNGarvin/DaveSaveEd (MIT)"
-          }
         }
       }
     },
     "Follower Count": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "팔로워 수"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -854,17 +904,17 @@
             "state": "translated",
             "value": "追蹤者數"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "팔로워 수"
-          }
         }
       }
     },
     "Found your latest save.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "최신 세이브를 찾았습니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -876,17 +926,17 @@
             "state": "translated",
             "value": "已找到最新的存檔。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "최신 세이브를 찾았습니다."
-          }
         }
       }
     },
     "Gold": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "골드"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -898,17 +948,17 @@
             "state": "translated",
             "value": "金幣"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "골드"
-          }
         }
       }
     },
     "Inventory": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "인벤토리"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -920,17 +970,17 @@
             "state": "translated",
             "value": "物品欄"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "인벤토리"
-          }
         }
       }
     },
     "item": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아이템"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -941,18 +991,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "物品"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "아이템"
           }
         }
       }
     },
     "item %@": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아이템 %@"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -964,17 +1014,17 @@
             "state": "translated",
             "value": "物品 %@"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "아이템 %@"
-          }
         }
       }
     },
     "Level every hired restaurant staff member to the cap (20).": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "고용한 식당 직원을 모두 최대 레벨(20)로 올립니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -986,17 +1036,17 @@
             "state": "translated",
             "value": "將所有已雇用的餐廳員工提升至等級上限（20）。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "고용한 식당 직원을 모두 최대 레벨(20)로 올립니다."
-          }
         }
       }
     },
     "Load Latest Save": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "최신 세이브 불러오기"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1008,17 +1058,17 @@
             "state": "translated",
             "value": "載入最新存檔"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "최신 세이브 불러오기"
-          }
         }
       }
     },
     "Main restaurant & shop currency": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "식당·상점 기본 재화"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1030,17 +1080,17 @@
             "state": "translated",
             "value": "餐廳與商店的主要貨幣"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "식당·상점 기본 재화"
-          }
         }
       }
     },
     "Max": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1052,17 +1102,17 @@
             "state": "translated",
             "value": "最大"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "최대"
-          }
         }
       }
     },
     "Max All": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "전체 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1074,17 +1124,17 @@
             "state": "translated",
             "value": "全部補滿"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "전체 최대"
-          }
         }
       }
     },
     "Max All Ingredients": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "모든 식재료 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1096,17 +1146,17 @@
             "state": "translated",
             "value": "所有食材補滿"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "모든 식재료 최대"
-          }
         }
       }
     },
     "Max Branch": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2호점 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1118,17 +1168,17 @@
             "state": "translated",
             "value": "分店補滿"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "2호점 최대"
-          }
         }
       }
     },
     "Max Branch Store": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2호점 식재료 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1140,17 +1190,17 @@
             "state": "translated",
             "value": "分店食材補滿"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "2호점 식재료 최대"
-          }
         }
       }
     },
     "Max Caught-Fish Grade": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "잡은 물고기 등급 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1162,17 +1212,17 @@
             "state": "translated",
             "value": "已捕魚類滿級"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "잡은 물고기 등급 최대"
-          }
         }
       }
     },
     "Max Craft": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "제작 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1184,17 +1234,17 @@
             "state": "translated",
             "value": "材料補滿"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "제작 최대"
-          }
         }
       }
     },
     "Max Craft Materials": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "제작 재료 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1206,17 +1256,17 @@
             "state": "translated",
             "value": "製作材料補滿"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "제작 재료 최대"
-          }
         }
       }
     },
     "Max Everything": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "전부 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1228,17 +1278,17 @@
             "state": "translated",
             "value": "一鍵全滿"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "전부 최대"
-          }
         }
       }
     },
     "Max Farm Seeds": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "농장 씨앗 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1250,17 +1300,17 @@
             "state": "translated",
             "value": "農場種子補滿"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "농장 씨앗 최대"
-          }
         }
       }
     },
     "Max Fish": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "물고기 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1272,17 +1322,17 @@
             "state": "translated",
             "value": "魚類滿級"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "물고기 최대"
-          }
         }
       }
     },
     "Max Inventory Items": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "인벤토리 아이템 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1294,17 +1344,17 @@
             "state": "translated",
             "value": "物品欄補滿"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "인벤토리 아이템 최대"
-          }
         }
       }
     },
     "Max Items": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아이템 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1316,17 +1366,17 @@
             "state": "translated",
             "value": "物品補滿"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "아이템 최대"
-          }
         }
       }
     },
     "Max Merman Village": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "어인족 마을 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1338,17 +1388,17 @@
             "state": "translated",
             "value": "鮫人村補滿"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "어인족 마을 최대"
-          }
         }
       }
     },
     "Max Own": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보유 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1360,17 +1410,17 @@
             "state": "translated",
             "value": "現有食材補滿"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "보유 최대"
-          }
         }
       }
     },
     "Max Owned Ingredients": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보유 식재료 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1382,17 +1432,17 @@
             "state": "translated",
             "value": "已擁有食材補滿"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "보유 식재료 최대"
-          }
         }
       }
     },
     "Max Seeds": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "씨앗 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1404,17 +1454,17 @@
             "state": "translated",
             "value": "種子補滿"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "씨앗 최대"
-          }
         }
       }
     },
     "Max Staff": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "직원 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1426,17 +1476,17 @@
             "state": "translated",
             "value": "員工滿等"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "직원 최대"
-          }
         }
       }
     },
     "Max Staff Levels": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "직원 레벨 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1448,17 +1498,17 @@
             "state": "translated",
             "value": "員工等級全滿"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "직원 레벨 최대"
-          }
         }
       }
     },
     "Max Village": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "마을 최대"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1470,17 +1520,17 @@
             "state": "translated",
             "value": "村莊補滿"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "마을 최대"
-          }
         }
       }
     },
     "Maxed %lld staff member(s) to level 20.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "직원 %lld명을 레벨 20으로 올렸습니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1492,17 +1542,17 @@
             "state": "translated",
             "value": "已將 %lld 名員工提升至 20 級。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "직원 %lld명을 레벨 20으로 올렸습니다."
-          }
         }
       }
     },
     "Maxed all ingredients (skips perishable aberration fish).": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "모든 식재료를 최대로 채웠습니다(사라지는 돌연변이 물고기 제외)."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1514,17 +1564,17 @@
             "state": "translated",
             "value": "已補滿所有食材（略過易腐的突變魚）。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "모든 식재료를 최대로 채웠습니다(사라지는 돌연변이 물고기 제외)."
-          }
         }
       }
     },
     "Maxed branch (2nd store) ingredients (skips aberration fish).": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2호점 식재료를 최대로 채웠습니다(돌연변이 물고기 제외)."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1536,17 +1586,17 @@
             "state": "translated",
             "value": "已補滿分店（二號店）食材（略過突變魚）。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "2호점 식재료를 최대로 채웠습니다(돌연변이 물고기 제외)."
-          }
         }
       }
     },
     "Maxed craft materials (%lld slots).": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "제작 재료를 최대로 채웠습니다(%lld칸)."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1558,17 +1608,17 @@
             "state": "translated",
             "value": "已補滿製作材料（%lld 格）。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "제작 재료를 최대로 채웠습니다(%lld칸)."
-          }
         }
       }
     },
     "Maxed farm seeds / produce (%lld stacks).": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "농장 씨앗·작물을 최대로 채웠습니다(%lld묶음)."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1580,17 +1630,17 @@
             "state": "translated",
             "value": "已補滿農場種子／作物（%lld 疊）。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "농장 씨앗·작물을 최대로 채웠습니다(%lld묶음)."
-          }
         }
       }
     },
     "Maxed inventory items (%lld slots).": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "인벤토리 아이템을 최대로 채웠습니다(%lld칸)."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1602,17 +1652,17 @@
             "state": "translated",
             "value": "已補滿物品欄（%lld 格）。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "인벤토리 아이템을 최대로 채웠습니다(%lld칸)."
-          }
         }
       }
     },
     "Maxed merman village inventory (%lld slots).": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "어인족 마을 인벤토리를 최대로 채웠습니다(%lld칸)."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1624,17 +1674,17 @@
             "state": "translated",
             "value": "已補滿鮫人村物品欄（%lld 格）。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "어인족 마을 인벤토리를 최대로 채웠습니다(%lld칸)."
-          }
         }
       }
     },
     "Maxed owned ingredients (skips perishable aberration fish).": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보유 식재료를 최대로 채웠습니다(사라지는 돌연변이 물고기 제외)."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1646,17 +1696,17 @@
             "state": "translated",
             "value": "已補滿已擁有的食材（略過易腐的突變魚）。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "보유 식재료를 최대로 채웠습니다(사라지는 돌연변이 물고기 제외)."
-          }
         }
       }
     },
     "More": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "더 보기"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1668,17 +1718,17 @@
             "state": "translated",
             "value": "更多"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "더 보기"
-          }
         }
       }
     },
     "No backups yet": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "백업 없음"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1690,17 +1740,17 @@
             "state": "translated",
             "value": "尚無備份"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "백업 없음"
-          }
         }
       }
     },
     "No changes to write.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장할 변경 사항이 없습니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1712,17 +1762,17 @@
             "state": "translated",
             "value": "沒有需要寫入的變更。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "저장할 변경 사항이 없습니다."
-          }
         }
       }
     },
     "No inventory items.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "인벤토리 아이템이 없습니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1734,17 +1784,17 @@
             "state": "translated",
             "value": "物品欄中沒有物品。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "인벤토리 아이템이 없습니다."
-          }
         }
       }
     },
     "No items match “%@”.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@”에 해당하는 아이템이 없습니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1756,17 +1806,17 @@
             "state": "translated",
             "value": "沒有符合「%@」的物品。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "“%@”에 해당하는 아이템이 없습니다."
-          }
         }
       }
     },
     "No matches for “%@”": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” 검색 결과 없음"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1778,17 +1828,17 @@
             "state": "translated",
             "value": "找不到符合「%@」的結果"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "“%@” 검색 결과 없음"
-          }
         }
       }
     },
     "No matches.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "검색 결과가 없습니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1800,17 +1850,17 @@
             "state": "translated",
             "value": "沒有符合的結果。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "검색 결과가 없습니다."
-          }
         }
       }
     },
     "No save loaded": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "불러온 세이브 없음"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1822,17 +1872,17 @@
             "state": "translated",
             "value": "尚未載入存檔"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "불러온 세이브 없음"
-          }
         }
       }
     },
     "No save slots detected": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "세이브 슬롯 없음"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1844,17 +1894,17 @@
             "state": "translated",
             "value": "未偵測到存檔欄位"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "세이브 슬롯 없음"
-          }
         }
       }
     },
     "Not affiliated with, endorsed by, or associated with MINTROCKET or NEXON. “Dave the Diver” and related marks belong to their respective owners.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MINTROCKET 및 NEXON과 제휴·후원 관계가 없으며 아무런 관련이 없습니다. “Dave the Diver”(데이브 더 다이버) 및 관련 상표는 각 소유자에게 있습니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1866,17 +1916,17 @@
             "state": "translated",
             "value": "本程式與 MINTROCKET 或 NEXON 無隸屬、背書或關聯關係。《潛水員戴夫》及相關商標為各自所有者所有。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "MINTROCKET 및 NEXON과 제휴·후원 관계가 없으며 아무런 관련이 없습니다. “Dave the Diver”(데이브 더 다이버) 및 관련 상표는 각 소유자에게 있습니다."
-          }
         }
       }
     },
     "Nothing loaded": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "불러온 항목 없음"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1888,17 +1938,17 @@
             "state": "translated",
             "value": "尚未載入任何內容"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "불러온 항목 없음"
-          }
         }
       }
     },
     "OK": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "확인"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1910,17 +1960,17 @@
             "state": "translated",
             "value": "好"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "확인"
-          }
         }
       }
     },
     "Open": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "열기"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1932,17 +1982,17 @@
             "state": "translated",
             "value": "開啟"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "열기"
-          }
         }
       }
     },
     "Open %@": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 열기"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1954,17 +2004,17 @@
             "state": "translated",
             "value": "開啟 %@"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ 열기"
-          }
         }
       }
     },
     "Open a Dave the Diver save file to begin.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "《데이브 더 다이버》 세이브 파일을 열어 시작하세요."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1976,17 +2026,17 @@
             "state": "translated",
             "value": "請開啟《潛水員戴夫》存檔以開始。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "《데이브 더 다이버》 세이브 파일을 열어 시작하세요."
-          }
         }
       }
     },
     "Open File…": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "파일 열기…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -1998,17 +2048,17 @@
             "state": "translated",
             "value": "開啟檔案…"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "파일 열기…"
-          }
         }
       }
     },
     "Open Save…": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "세이브 열기…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2020,17 +2070,17 @@
             "state": "translated",
             "value": "開啟存檔…"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "세이브 열기…"
-          }
         }
       }
     },
     "Original Windows save editor — feature set, save-path knowledge, and ingredient reference data.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "원조 Windows 세이브 편집기 — 기능 구성, 세이브 경로 정보, 식재료 참조 데이터."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2042,17 +2092,17 @@
             "state": "translated",
             "value": "原始的 Windows 存檔修改器 — 功能設計、存檔路徑資訊與食材參考資料。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "원조 Windows 세이브 편집기 — 기능 구성, 세이브 경로 정보, 식재료 참조 데이터."
-          }
         }
       }
     },
     "PlayerInfo.m_FakePoint — fake / counterfeit points": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PlayerInfo.m_FakePoint — 가짜 포인트"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2064,17 +2114,17 @@
             "state": "translated",
             "value": "PlayerInfo.m_FakePoint — 偽造／仿冒點數"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "PlayerInfo.m_FakePoint — 가짜 포인트"
-          }
         }
       }
     },
     "PlayerInfo.m_trustPoint — villager trust points": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PlayerInfo.m_trustPoint — 주민 신뢰도 포인트"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2086,17 +2136,17 @@
             "state": "translated",
             "value": "PlayerInfo.m_trustPoint — 村民信任點數"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "PlayerInfo.m_trustPoint — 주민 신뢰도 포인트"
-          }
         }
       }
     },
     "Raise general materials / crafting parts.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "일반 재료·제작 부품을 올립니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2108,17 +2158,17 @@
             "state": "translated",
             "value": "提升一般材料／製作零件。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "일반 재료·제작 부품을 올립니다."
-          }
         }
       }
     },
     "Raw JSON…": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "원본 JSON…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2130,17 +2180,17 @@
             "state": "translated",
             "value": "原始 JSON…"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "원본 JSON…"
-          }
         }
       }
     },
     "Raw Save · read-only": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "원본 세이브 · 읽기 전용"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2152,17 +2202,17 @@
             "state": "translated",
             "value": "原始存檔 · 唯讀"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "원본 세이브 · 읽기 전용"
-          }
         }
       }
     },
     "Record the top size (grade 5) for every fish already caught. Doesn't add uncaught fish.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이미 잡은 물고기의 크기를 최고 등급(5등급)으로 기록합니다. 잡지 않은 물고기는 추가되지 않습니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2174,17 +2224,17 @@
             "state": "translated",
             "value": "將所有已捕獲的魚類記錄為最大尺寸（等級 5）。不會新增未捕獲的魚。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "이미 잡은 물고기의 크기를 최고 등급(5등급)으로 기록합니다. 잡지 않은 물고기는 추가되지 않습니다."
-          }
         }
       }
     },
     "Reference Data Error": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "참조 데이터 오류"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2196,17 +2246,39 @@
             "state": "translated",
             "value": "參考資料錯誤"
           }
+        }
+      }
+    },
+    "Report a Problem…": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "报告问题…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "回報問題…"
+          }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "참조 데이터 오류"
+            "value": "문제 신고…"
           }
         }
       }
     },
     "Research Point": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "연구 포인트"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2218,17 +2290,17 @@
             "state": "translated",
             "value": "研究點數"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "연구 포인트"
-          }
         }
       }
     },
     "Reset": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "초기화"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2240,17 +2312,17 @@
             "state": "translated",
             "value": "重設"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "초기화"
-          }
         }
       }
     },
     "Reset %@": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 초기화"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2262,17 +2334,17 @@
             "state": "translated",
             "value": "重設 %@"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ 초기화"
-          }
         }
       }
     },
     "Restaurant": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "식당"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2284,17 +2356,17 @@
             "state": "translated",
             "value": "餐廳"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "식당"
-          }
         }
       }
     },
     "Restore": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "복구"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2306,17 +2378,17 @@
             "state": "translated",
             "value": "還原"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "복구"
-          }
         }
       }
     },
     "Restore & Overwrite": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "복구 후 덮어쓰기"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2328,17 +2400,17 @@
             "state": "translated",
             "value": "還原並覆寫"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "복구 후 덮어쓰기"
-          }
         }
       }
     },
     "Restore Failed": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "복구 실패"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2350,17 +2422,17 @@
             "state": "translated",
             "value": "還原失敗"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "복구 실패"
-          }
         }
       }
     },
     "Restore from Backup": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "백업에서 복구"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2372,17 +2444,17 @@
             "state": "translated",
             "value": "從備份還原"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "백업에서 복구"
-          }
         }
       }
     },
     "Restore from Backup…": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "백업에서 복구…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2394,17 +2466,17 @@
             "state": "translated",
             "value": "從備份還原…"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "백업에서 복구…"
-          }
         }
       }
     },
     "Restore this backup?": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 백업을 복구할까요?"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2416,12 +2488,6 @@
             "state": "translated",
             "value": "要還原這份備份嗎？"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "이 백업을 복구할까요?"
-          }
         }
       }
     },
@@ -2431,6 +2497,12 @@
           "stringUnit": {
             "state": "new",
             "value": "Restored %1$@. Your previous state was saved as %2$@ — reveal it to undo."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@을(를) 복구했습니다. 이전 상태는 %@(으)로 저장했으니, 되돌리려면 해당 파일을 확인하세요."
           }
         },
         "zh-Hans": {
@@ -2444,17 +2516,17 @@
             "state": "translated",
             "value": "已還原 %@。先前的狀態已備份為 %@ — 在 Finder 中顯示即可回復。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@을(를) 복구했습니다. 이전 상태는 %@(으)로 저장했으니, 되돌리려면 해당 파일을 확인하세요."
-          }
         }
       }
     },
     "Reveal Backup in Finder": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finder에서 백업 보기"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2466,17 +2538,17 @@
             "state": "translated",
             "value": "在 Finder 中顯示備份"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Finder에서 백업 보기"
-          }
         }
       }
     },
     "Review Changes": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "변경 사항 검토"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2488,17 +2560,17 @@
             "state": "translated",
             "value": "檢視變更"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "변경 사항 검토"
-          }
         }
       }
     },
     "Save": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2510,17 +2582,17 @@
             "state": "translated",
             "value": "儲存"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "저장"
-          }
         }
       }
     },
     "Save codec reverse-engineering (char-level UTF-16 XOR).": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "세이브 코덱 리버스 엔지니어링(문자 단위 UTF-16 XOR)."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2532,17 +2604,17 @@
             "state": "translated",
             "value": "存檔編解碼逆向工程（字元層級 UTF-16 XOR）。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "세이브 코덱 리버스 엔지니어링(문자 단위 UTF-16 XOR)."
-          }
         }
       }
     },
     "Save slots": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "세이브 슬롯"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2554,17 +2626,17 @@
             "state": "translated",
             "value": "存檔欄位"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "세이브 슬롯"
-          }
         }
       }
     },
     "Save Written": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "세이브 저장 완료"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2576,17 +2648,17 @@
             "state": "translated",
             "value": "存檔已寫入"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "세이브 저장 완료"
-          }
         }
       }
     },
     "Sea People (Merman Village) currency": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "어인족 마을 재화"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2598,17 +2670,17 @@
             "state": "translated",
             "value": "鮫人族（鮫人村）貨幣"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "어인족 마을 재화"
-          }
         }
       }
     },
     "Search an item by name (or a numeric ID), pick it, then set a count.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이름(또는 숫자 ID)으로 아이템을 검색해 선택한 뒤 개수를 지정하세요."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2620,17 +2692,17 @@
             "state": "translated",
             "value": "以名稱（或數字 ID）搜尋物品，選取後再設定數量。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "이름(또는 숫자 ID)으로 아이템을 검색해 선택한 뒤 개수를 지정하세요."
-          }
         }
       }
     },
     "Search item name or ID…": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아이템 이름 또는 ID 검색…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2642,17 +2714,17 @@
             "state": "translated",
             "value": "搜尋物品名稱或 ID…"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "아이템 이름 또는 ID 검색…"
-          }
         }
       }
     },
     "Search items by name…": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이름으로 아이템 검색…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2664,17 +2736,17 @@
             "state": "translated",
             "value": "以名稱搜尋物品…"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "이름으로 아이템 검색…"
-          }
         }
       }
     },
     "Search keys or values…": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "키 또는 값 검색…"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2686,17 +2758,17 @@
             "state": "translated",
             "value": "搜尋鍵或值…"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "키 또는 값 검색…"
-          }
         }
       }
     },
     "set": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "설정"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2708,17 +2780,17 @@
             "state": "translated",
             "value": "設定"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "설정"
-          }
         }
       }
     },
     "Set": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "설정"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2730,12 +2802,6 @@
             "state": "translated",
             "value": "設定"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "설정"
-          }
         }
       }
     },
@@ -2745,6 +2811,12 @@
           "stringUnit": {
             "state": "new",
             "value": "Set %1$@ (%2$@) → %3$lld."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@(%@)을(를) %lld(으)로 설정했습니다."
           }
         },
         "zh-Hans": {
@@ -2758,17 +2830,17 @@
             "state": "translated",
             "value": "已將 %@（%@）設為 %lld。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@(%@)을(를) %lld(으)로 설정했습니다."
-          }
         }
       }
     },
     "Set %@ count": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 개수 설정"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2780,17 +2852,17 @@
             "state": "translated",
             "value": "設定 %@ 數量"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ 개수 설정"
-          }
         }
       }
     },
     "Set %@ to an exact value": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@을(를) 원하는 값으로 설정"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2802,17 +2874,17 @@
             "state": "translated",
             "value": "將 %@ 設為指定數值"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@을(를) 원하는 값으로 설정"
-          }
         }
       }
     },
     "Set %@ to maximum": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@을(를) 최대로 설정"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2824,17 +2896,17 @@
             "state": "translated",
             "value": "將 %@ 設為最大值"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@을(를) 최대로 설정"
-          }
         }
       }
     },
     "Set %lld caught fish to top grade.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "잡은 물고기 %lld종을 최고 등급으로 설정했습니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2846,17 +2918,17 @@
             "state": "translated",
             "value": "已將 %lld 種已捕魚類設為最高等級。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "잡은 물고기 %lld종을 최고 등급으로 설정했습니다."
-          }
         }
       }
     },
     "Spent on research & recipes": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "연구·레시피에 사용"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2868,17 +2940,17 @@
             "state": "translated",
             "value": "用於研究與食譜"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "연구·레시피에 사용"
-          }
         }
       }
     },
     "Stock fish parts + DREDGE research parts/bones so weapon crafting is unblocked.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "무기 제작이 막히지 않도록 물고기 부위와 DREDGE 연구 부품·뼈를 채웁니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2890,17 +2962,17 @@
             "state": "translated",
             "value": "備齊魚類零件與 DREDGE 研究零件／骨頭，解除武器製作限制。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "무기 제작이 막히지 않도록 물고기 부위와 DREDGE 연구 부품·뼈를 채웁니다."
-          }
         }
       }
     },
     "Stock the second store's separate branch counts — run alongside Max Owned.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2호점의 별도 재고를 채웁니다 — 「보유 최대」와 함께 실행하세요."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2912,12 +2984,6 @@
             "state": "translated",
             "value": "補滿二號店獨立計算的分店數量 — 請搭配「已擁有食材補滿」一起執行。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "2호점의 별도 재고를 채웁니다 — 「보유 최대」와 함께 실행하세요."
-          }
         }
       }
     },
@@ -2927,6 +2993,12 @@
           "stringUnit": {
             "state": "new",
             "value": "Subtract %1$lld from %2$@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@에서 %1$lld 빼기"
           }
         },
         "zh-Hans": {
@@ -2940,17 +3012,17 @@
             "state": "translated",
             "value": "從 %2$@ 減去 %1$lld"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%2$@에서 %1$lld 빼기"
-          }
         }
       }
     },
     "This file isn't a readable Dave the Diver save.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 파일은 읽을 수 있는 《데이브 더 다이버》 세이브가 아닙니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2962,17 +3034,17 @@
             "state": "translated",
             "value": "此檔案不是可讀取的《潛水員戴夫》存檔。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "이 파일은 읽을 수 있는 《데이브 더 다이버》 세이브가 아닙니다."
-          }
         }
       }
     },
     "This overwrites the current save with the backup. Your current state is backed up first, so it's reversible.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "백업으로 현재 세이브를 덮어씁니다. 현재 상태를 먼저 백업하므로 언제든 되돌릴 수 있습니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -2984,17 +3056,17 @@
             "state": "translated",
             "value": "這會以備份覆寫目前的存檔。目前狀態會先行備份，因此可以回復。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "백업으로 현재 세이브를 덮어씁니다. 현재 상태를 먼저 백업하므로 언제든 되돌릴 수 있습니다."
-          }
         }
       }
     },
     "Trust Point": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "신뢰도 포인트"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3006,17 +3078,17 @@
             "state": "translated",
             "value": "信任點數"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "신뢰도 포인트"
-          }
         }
       }
     },
     "Undid last bulk action.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "마지막 일괄 작업을 되돌렸습니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3028,17 +3100,17 @@
             "state": "translated",
             "value": "已回復上一次批次操作。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "마지막 일괄 작업을 되돌렸습니다."
-          }
         }
       }
     },
     "Undo last edit": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "마지막 편집 되돌리기"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3050,17 +3122,17 @@
             "state": "translated",
             "value": "回復上一次修改"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "마지막 편집 되돌리기"
-          }
         }
       }
     },
     "Values": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "값"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3072,12 +3144,6 @@
             "state": "translated",
             "value": "數值"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "값"
-          }
         }
       }
     },
@@ -3087,6 +3153,12 @@
           "stringUnit": {
             "state": "new",
             "value": "Version %1$@ (build %2$@)"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "버전 %@(빌드 %@)"
           }
         },
         "zh-Hans": {
@@ -3100,17 +3172,17 @@
             "state": "translated",
             "value": "版本 %@（組建 %@）"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "버전 %@(빌드 %@)"
-          }
         }
       }
     },
     "Weapon-upgrade currency": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "무기 강화 재화"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3122,12 +3194,6 @@
             "state": "translated",
             "value": "武器升級貨幣"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "무기 강화 재화"
-          }
         }
       }
     },
@@ -3136,6 +3202,12 @@
     },
     "Write Failed": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장 실패"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3147,17 +3219,17 @@
             "state": "translated",
             "value": "寫入失敗"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "저장 실패"
-          }
         }
       }
     },
     "Write Save": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "세이브 저장"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3169,17 +3241,17 @@
             "state": "translated",
             "value": "寫入存檔"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "세이브 저장"
-          }
         }
       }
     },
     "Your changes were written to %@. A timestamped backup was saved first.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "변경 사항을 %@에 저장했습니다. 시각이 기록된 백업을 먼저 만들었습니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3191,17 +3263,17 @@
             "state": "translated",
             "value": "變更已寫入 %@。已先建立帶時間戳記的備份。"
           }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "변경 사항을 %@에 저장했습니다. 시각이 기록된 백업을 먼저 만들었습니다."
-          }
         }
       }
     },
     "Your edits to this save haven't been written. Opening another save will discard them.": {
       "localizations": {
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 세이브의 편집 내용이 아직 저장되지 않았습니다. 다른 세이브를 열면 변경 사항이 사라집니다."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -3212,12 +3284,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "此存檔的修改尚未寫入。開啟其他存檔將會捨棄這些修改。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "이 세이브의 편집 내용이 아직 저장되지 않았습니다. 다른 세이브를 열면 변경 사항이 사라집니다."
           }
         }
       }

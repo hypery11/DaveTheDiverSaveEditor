@@ -1,5 +1,14 @@
-blank_issues_enabled: true
+blank_issues_enabled: false
 contact_links:
+  - name: 中文 / 한국어 でも大丈夫 — report in your own language
+    url: https://github.com/hypery11/DaveTheDiverSaveEditor/issues/new?template=bug_report.yml
+    about: "请用中文回报 / 한국어로 신고해도 됩니다 — you do not have to write in English."
+  - name: My edit didn't work / 修改没有生效 / 수정이 적용되지 않음
+    url: https://hypery11.github.io/DaveTheDiverSaveEditor/faq/
+    about: Almost always Steam Cloud restoring its copy over your edit. Read this first.
+  - name: Where is my save file? / 存档位置 / 세이브 파일 위치
+    url: https://hypery11.github.io/DaveTheDiverSaveEditor/dave-the-diver-save-file-location-mac/
+    about: Both macOS save locations, and how to open the hidden Library folder.
   - name: Security issue
     url: https://github.com/hypery11/DaveTheDiverSaveEditor/security/advisories/new
     about: Please report vulnerabilities privately, not as a public issue.

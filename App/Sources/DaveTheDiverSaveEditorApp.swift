@@ -87,6 +87,22 @@ struct SaveEditorCommands: Commands {
             Divider()
         }
 
+        // Help ▸ … — the only support path most users will ever find. Copy Diagnostics
+        // exists because the audience largely isn't on GitHub and often isn't writing in
+        // English; a paste-able block works on Nexus, Bilibili or DC Inside just as well.
+        CommandGroup(replacing: .help) {
+            Button("DiveSaveEd Help") {
+                NSWorkspace.shared.open(URL(string: "https://hypery11.github.io/DaveTheDiverSaveEditor/faq/")!)
+            }
+            Button("Report a Problem…") {
+                NSWorkspace.shared.open(URL(string: "https://github.com/hypery11/DaveTheDiverSaveEditor/issues/new/choose")!)
+            }
+            Divider()
+            Button("Copy Diagnostics") {
+                Diagnostics.copyToPasteboard(for: model)
+            }
+        }
+
         // File ▸ Save (⌘S) → request preview+confirm sheet via model flag.
         // ContentView observes `model.requestWrite` and presents the sheet;
         // the actual write only happens after the user confirms in the preview.

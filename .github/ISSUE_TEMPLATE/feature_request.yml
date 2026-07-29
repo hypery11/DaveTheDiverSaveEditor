@@ -2,6 +2,14 @@ name: Feature request
 description: Suggest something the editor should be able to do
 labels: [enhancement]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        **Not planned** — these come up often, so to save you the trouble:
+        Nintendo Switch / PlayStation saves (encrypted console saves this tool can't read) ·
+        Windows or Linux builds · anything that attaches to the running game (trainers,
+        memory editing, overlays) · modifying the game's own code or assets ·
+        auto-update, telemetry or any network feature.
   - type: textarea
     id: what
     attributes:
@@ -12,8 +20,3 @@ body:
     attributes:
       label: What are you trying to achieve?
       description: The underlying goal — it often suggests a safer or simpler way to get there.
-  - type: markdown
-    attributes:
-      value: |
-        Out of scope: anything that attaches to the running game (trainers, memory editing,
-        overlays), and anything that modifies the game's own code or assets.
