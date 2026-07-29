@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>데이브 더 다이버 세이브 에디터 (Mac) — 무료 오픈소스 | DiveSaveEd</title>
+<meta name="description" content="DiveSaveEd는 무료 오픈소스 《데이브 더 다이버》 macOS 세이브 에디터입니다. 네이티브 Mac 앱으로 골드, 베이, 장인의 불꽃, 식재료, 인벤토리를 게임이 꺼진 상태에서 편집합니다. Wine도 Cheat Engine도 네트워크 연결도 없습니다. macOS 14 이상, Apple Silicon과 Intel 지원.">
+<link rel="canonical" href="https://hypery11.github.io/DaveTheDiverSaveEditor/ko/">
+    <link rel="alternate" hreflang="en" href="https://hypery11.github.io/DaveTheDiverSaveEditor/">
+    <link rel="alternate" hreflang="zh-Hans" href="https://hypery11.github.io/DaveTheDiverSaveEditor/zh/">
+    <link rel="alternate" hreflang="zh-Hant" href="https://hypery11.github.io/DaveTheDiverSaveEditor/zh-tw/">
+    <link rel="alternate" hreflang="ko" href="https://hypery11.github.io/DaveTheDiverSaveEditor/ko/">
+    <link rel="alternate" hreflang="x-default" href="https://hypery11.github.io/DaveTheDiverSaveEditor/">
+<meta name="theme-color" content="#FBF6EC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14181B" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../images/logo.png" type="image/png">
+<link rel="apple-touch-icon" href="../images/logo.png">
+<link rel="stylesheet" href="../style.css">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DiveSaveEd">
+<meta property="og:title" content="데이브 더 다이버 세이브 에디터 (Mac) — 무료 오픈소스">
+<meta property="og:description" content="《데이브 더 다이버》를 위한 네이티브 macOS 세이브 에디터. 골드, 베이, 장인의 불꽃, 식재료, 인벤토리를 오프라인에서 편집합니다. Wine도, Cheat Engine도, 네트워크 연결도 없습니다.">
+<meta property="og:url" content="https://hypery11.github.io/DaveTheDiverSaveEditor/ko/">
+<meta property="og:image" content="https://hypery11.github.io/DaveTheDiverSaveEditor/images/main-ko-dark.png">
+<meta property="og:image:alt" content="macOS에서 《데이브 더 다이버》 세이브 파일을 편집 중인 DiveSaveEd (한국어 인터페이스)">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="데이브 더 다이버 세이브 에디터 (Mac) — 무료 오픈소스">
+<meta name="twitter:description" content="《데이브 더 다이버》를 위한 네이티브 macOS 세이브 에디터. 골드, 베이, 장인의 불꽃, 식재료, 인벤토리를 오프라인에서 편집합니다.">
+<meta name="twitter:image" content="https://hypery11.github.io/DaveTheDiverSaveEditor/images/main-ko-dark.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "DiveSaveEd — macOS용 데이브 더 다이버 세이브 에디터",
+  "alternateName": "DiveSaveEd",
+  "url": "https://hypery11.github.io/DaveTheDiverSaveEditor/ko/",
+  "description": "《데이브 더 다이버》를 위한 무료 오픈소스 네이티브 macOS 세이브 에디터입니다. 게임이 꺼져 있는 동안 세이브 파일을 오프라인으로 편집합니다. 재화(골드, 베이, 장인의 불꽃, 연구 포인트), 식당 식재료, 인벤토리, 직원 레벨 등을 다룹니다. 저장할 때마다 시각이 기록된 백업을 자동으로 만들고, 앱 안에서 되돌릴 수 있으며, 읽기 전용 원본 JSON 뷰어를 제공합니다.",
+  "applicationCategory": "UtilitiesApplication",
+  "applicationSubCategory": "게임 세이브 에디터",
+  "operatingSystem": "macOS 14+",
+  "processorRequirements": "Apple Silicon 또는 Intel (유니버설 빌드)",
+  "softwareRequirements": "macOS 14 이상; macOS용 Steam 버전 《데이브 더 다이버》",
+  "downloadUrl": "https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest",
+  "installUrl": "https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest",
+  "softwareHelp": "https://github.com/hypery11/DaveTheDiverSaveEditor/blob/main/README.ko.md",
+  "license": "https://opensource.org/licenses/MIT",
+  "isAccessibleForFree": true,
+  "inLanguage": "ko",
+  "screenshot": "https://hypery11.github.io/DaveTheDiverSaveEditor/images/main-ko-dark.png",
+  "image": "https://hypery11.github.io/DaveTheDiverSaveEditor/images/logo.png",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  },
+  "featureList": [
+    "골드, 베이, 장인의 불꽃, 연구 포인트, Cooksta 팔로워 수, 신뢰도 포인트, 가짜 포인트 편집",
+    "식당 식재료, 인벤토리, 제작 재료, 농장 씨앗, 직원 레벨을 한 번에 채우는 일괄 채우기",
+    "내장 아이템 데이터베이스로 아이템을 이름으로 찾아 하나씩 편집",
+    "저장 전 시각이 기록된 백업을 자동 생성하고 복구 창에서 되돌리기",
+    "모든 일괄 작업에 대한 앱 내 되돌리기",
+    "읽기 전용 원본 JSON 세이브 뷰어",
+    "여러 세이브 슬롯 지원",
+    "English, 简体中文, 繁體中文, 한국어 인터페이스"
+  ],
+  "sameAs": ["https://github.com/hypery11/DaveTheDiverSaveEditor"],
+  "author": { "@type": "Organization", "name": "DiveSaveEd 기여자" }
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<nav class="nav" aria-label="주 메뉴">
+  <div class="wrap wrap-wide nav-inner">
+    <a class="nav-brand" href="./"><img src="../images/logo.png" alt="" width="26" height="26">DiveSaveEd</a>
+    <div class="nav-links">
+      <a href="save-file-location/">세이브 파일 위치</a>
+      <a href="https://github.com/hypery11/DaveTheDiverSaveEditor/blob/main/README.ko.md">자주 묻는 질문</a>
+      <a href="../">English</a>
+      <a class="cta" href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">다운로드</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+  <header class="hero wrap wrap-wide">
+    <img class="logo" src="../images/logo.png" alt="DiveSaveEd 앱 아이콘" width="104" height="104">
+    <h1>macOS용 데이브 더 다이버 세이브 에디터</h1>
+    <p class="tagline">
+      DiveSaveEd는 세이브를 백업하고, 망가진 세이브를 되살리고, 지겨운 노가다를 건너뛰기 위한 무료
+      오픈소스 <strong>네이티브 macOS 앱</strong>입니다. 게임이 꺼져 있는 동안 《데이브 더 다이버》 세이브
+      파일을 오프라인으로 편집합니다. Wine도, Cheat Engine도, 프로세스 인젝션도, 계정도, 네트워크 연결도
+      없습니다.
+    </p>
+    <p class="badges">
+      <span class="badge">무료 · MIT 라이선스</span>
+      <span class="badge">macOS 14 이상</span>
+      <span class="badge">Apple Silicon + Intel</span>
+      <span class="badge">서명 및 공증 완료</span>
+      <span class="badge">4개 언어</span>
+    </p>
+    <p class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">최신 버전 내려받기</a>
+      <a class="btn btn-ghost" href="https://github.com/hypery11/DaveTheDiverSaveEditor">GitHub에서 소스 보기</a>
+    </p>
+    <p class="btn-note"><code>.dmg</code>를 내려받아 앱을 응용 프로그램 폴더로 끌어다 놓으세요. Apple의 서명과 공증을 받은 앱입니다.</p>
+
+    <div class="shot">
+      <img class="only-light" src="../images/main-en-light.png" alt="macOS에서 《데이브 더 다이버》 세이브를 편집 중인 DiveSaveEd — 재화 입력란과 일괄 채우기 버튼" width="1960" height="1744">
+      <img class="only-dark" src="../images/main-ko-dark.png" alt="다크 모드에서 《데이브 더 다이버》 세이브를 편집 중인 DiveSaveEd 한국어 인터페이스" width="1960" height="1744">
+    </div>
+  </header>
+
+  <div class="wrap">
+
+    <h2>무엇을 하는 도구인가요</h2>
+    <p>
+      《데이브 더 다이버》는 진행 상황을 Mac 안의 세이브 파일 하나에 담아 둡니다. DiveSaveEd는 그 파일을
+      열어 디코딩하고, 원하는 값을 바꾸고, 다시 기록한 뒤 닫습니다. 이게 전부입니다. 게임 프로세스에 붙지
+      않고, 게임 메모리를 읽거나 쓰지 않으며, 게임 실행 파일도 건드리지 않습니다. 그래서 게임이 실행 중일
+      필요가 없고, 오히려 실행 중이면 저장을 거부합니다.
+    </p>
+    <p>
+      이 게임의 세이브 에디터는 대부분 Windows 전용이라 Mac에서는 Wine이나 CrossOver, 가상 머신이
+      필요합니다. 이 앱은 진짜 Mac 앱입니다.
+    </p>
+
+    <div class="note">
+      <strong>macOS Steam 버전 전용</strong>
+      Nintendo Switch와 PlayStation 세이브는 <strong>지원하지 않습니다</strong>. 콘솔 세이브라서 이
+      도구로는 읽을 수 없습니다. Xbox / Microsoft Store 버전은 애초에 Mac으로 나오지 않았습니다.
+    </div>
+
+    <h2>기능</h2>
+
+    <ul class="grid">
+      <li class="card">
+        <h3>재화</h3>
+        <p>골드, 베이, 장인의 불꽃, 연구 포인트, Cooksta(쿡스타) 팔로워 수, 신뢰도 포인트, 가짜 포인트.
+        ±10 / 100 / 1000씩 조정하거나, 정확한 값을 직접 입력하거나, 최대치로 설정할 수 있습니다.
+        「초기화」를 누르면 세이브를 열었을 때의 값으로 되돌아갑니다.</p>
+      </li>
+      <li class="card">
+        <h3>일괄 채우기</h3>
+        <p>항목마다 한 번씩 — 보유 식재료, 모든 식재료(DLC 반영), 2호점 재고, 직원 레벨, 일반 아이템,
+        제작 재료, 어인족 마을, 농장 씨앗, 잡은 물고기 등급 — 또는 <strong>「전부 최대」</strong>로
+        한꺼번에.</p>
+      </li>
+      <li class="card">
+        <h3>ID가 아니라 이름으로 검색</h3>
+        <p>앱에 아이템 데이터베이스가 들어 있어서, 표에서 숫자 ID를 뒤질 필요 없이 원하는 아이템을 실제
+        이름으로 찾아 하나씩 편집할 수 있습니다.</p>
+      </li>
+      <li class="card">
+        <h3>모든 작업은 되돌릴 수 있습니다</h3>
+        <p>일괄 작업은 앱 안에서 곧바로 되돌릴 수 있고, 저장할 때마다 시각이 기록된 백업이 먼저
+        만들어지며, 복구 창에서 원하는 시점으로 되돌아갈 수 있습니다.</p>
+      </li>
+      <li class="card">
+        <h3>읽기 전용 원본 뷰어</h3>
+        <p>디코딩한 세이브 전체를 정리된 JSON으로 검색할 수 있습니다. 일부러 읽기 전용으로 뒀습니다. 원본
+        값을 직접 손대면 진행도 플래그가 순서에 맞지 않게 켜져 게임 진행이 막힐 수 있기 때문입니다.</p>
+      </li>
+      <li class="card">
+        <h3>여러 세이브 슬롯</h3>
+        <p>게임이 만든 세이브를 모두 찾아내 어느 것을 편집할지 고를 수 있습니다. 위치를 따로 알려주지
+        않아도 알아서 찾습니다.</p>
+      </li>
+      <li class="card">
+        <h3>4개 언어</h3>
+        <p>English, 简体中文, 繁體中文, 한국어. ASCII가 아닌 문자가 들어간 세이브도 글자가 깨지지 않고
+        정확하게 읽고 씁니다.</p>
+      </li>
+      <li class="card">
+        <h3>DLC 지원</h3>
+        <p>“In the Jungle” DLC 식재료도 처리하며, 세이브에 설치된 것으로 기록된 DLC의 콘텐츠만 넣습니다.</p>
+      </li>
+    </ul>
+
+    <figure>
+      <div class="shot">
+        <img src="../images/main-zh-Hant-light.png" alt="繁體中文 인터페이스로 표시된 DiveSaveEd" width="1960" height="1744" loading="lazy">
+      </div>
+      <figcaption>繁體中文 인터페이스 — English, 简体中文, 한국어도 기본으로 들어 있습니다.</figcaption>
+    </figure>
+
+    <h2>안전한가요?</h2>
+    <p>안전성은 나중에 덧붙인 것이 아니라 설계 조건입니다:</p>
+    <ul>
+      <li><strong>《데이브 더 다이버》가 실행 중이거나</strong> 세이브 파일이 다른 곳에서 열려 있으면 <strong>저장을 거부합니다.</strong></li>
+      <li><strong>저장 전 시각이 기록된 백업을 자동으로 생성</strong>하고, 복구 화면을 제공합니다.</li>
+      <li>모든 일괄 작업에 대한 <strong>일괄 되돌리기</strong>.</li>
+      <li>기록하기 전에 확인하는 <strong>「변경 사항 검토」</strong> 화면.</li>
+      <li>일괄 채우기에서 <strong>사라지는 돌연변이 물고기(DREDGE 컬래버 어종)는 건너뜁니다.</strong> 게임이 세이브를 불러올 때 쌓아둔 돌연변이 물고기를 버리기 때문에, 채워 넣으면 실제로 잡아둔 물고기까지 날아갑니다.</li>
+      <li><strong>MIT 라이선스 오픈소스.</strong> 실행하기 전에 코드를 한 줄씩 확인할 수 있습니다.</li>
+    </ul>
+    <p>
+      그리고 계정이 정지되는 일은 없습니다. 《데이브 더 다이버》는 멀티플레이도, 리더보드도, 안티치트
+      프로그램도 없는 싱글 플레이 게임입니다. 이 도구는 여러분의 싱글 플레이 세이브를 백업하고, 망가진
+      세이브를 되살리고, 지겨운 노가다를 건너뛰기 위해 존재합니다.
+    </p>
+
+    <figure>
+      <div class="shot">
+        <img src="../images/sheet-backups-en-light.png" alt="세이브 파일의 시각이 기록된 백업 목록을 보여주는 「백업에서 복구」 창" width="1960" height="1744" loading="lazy">
+      </div>
+      <figcaption>저장할 때마다 시각이 기록된 백업이 먼저 만들어지고, 언제든 그 시점으로 되돌아갈 수 있습니다.</figcaption>
+    </figure>
+
+    <div class="warn">
+      <strong>⚠️ Steam Cloud가 편집 내용을 소리 없이 되돌립니다</strong>
+      "편집이 적용되지 않는다"는 문제의 가장 흔한 원인입니다. 게임을 완전히 종료하고, 《데이브 더
+      다이버》의 Steam Cloud를 <em>끈 다음</em> 편집하세요 —
+      <a href="save-file-location/#steam-cloud">네 단계 순서는 여기에 있습니다</a>.
+    </div>
+
+    <h2>다음으로 읽을 내용</h2>
+    <ul class="grid">
+      <li class="card">
+        <h3><a href="save-file-location/">macOS 세이브 파일은 어디에 있나요?</a></h3>
+        <p>알려진 두 경로, 숨겨진 <code>~/Library</code> 폴더를 여는 방법,
+        <code>GameSave_XX_GD.sav</code>라는 이름의 의미, 직접 백업하는 방법.</p>
+      </li>
+      <li class="card">
+        <h3><a href="https://github.com/hypery11/DaveTheDiverSaveEditor/blob/main/README.ko.md">한국어 사용 설명서</a></h3>
+        <p>GitHub의 한국어 README — 설치, 전체 기능 목록, 자주 묻는 질문, 소스에서 빌드하는 방법.</p>
+      </li>
+      <li class="card">
+        <h3><a href="../">English pages</a></h3>
+        <p>재화 최대치 만들기, Mac에서의 Cheat Engine 대안, 전체 FAQ 문서는 영어 페이지에서 볼 수
+        있습니다.</p>
+      </li>
+    </ul>
+
+    <h2>지원 환경</h2>
+    <div class="table-wrap">
+      <table>
+        <tbody>
+          <tr><th scope="row">운영체제</th><td>macOS 14 (Sonoma) 이상</td></tr>
+          <tr><th scope="row">하드웨어</th><td>Apple Silicon 또는 Intel — 유니버설 빌드</td></tr>
+          <tr><th scope="row">게임 버전</th><td>macOS용 Steam 버전 《데이브 더 다이버》</td></tr>
+          <tr><th scope="row">지원하지 않음</th><td>Nintendo Switch, PlayStation, Xbox / Microsoft Store</td></tr>
+          <tr><th scope="row">가격</th><td>무료. MIT 라이선스. 광고도, 통계 수집도, 네트워크 통신도 없습니다.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">DiveSaveEd 내려받기</a>
+      <a class="btn btn-ghost" href="https://github.com/hypery11/DaveTheDiverSaveEditor">소스 및 이슈</a>
+    </p>
+
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap wrap-wide">
+    <ul class="foot-links">
+      <li><a href="./">홈</a></li>
+      <li><a href="save-file-location/">세이브 파일 위치</a></li>
+      <li><a href="https://github.com/hypery11/DaveTheDiverSaveEditor/blob/main/README.ko.md">한국어 설명서</a></li>
+      <li><a href="../">English</a></li>
+      <li><a href="https://github.com/hypery11/DaveTheDiverSaveEditor">GitHub</a></li>
+      <li><a href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">릴리스</a></li>
+    </ul>
+    <p>
+      이 앱은 팬이 만든 비공식 도구입니다. MINTROCKET, Nexon Korea Corporation 및 그 계열사와
+      제휴·인가·후원 관계가 없으며, 이들로부터 보증을 받지도 않았습니다. “Dave the Diver”(데이브 더
+      다이버)를 비롯한 모든 관련 명칭·로고·캐릭터는 각 소유자의 상표이며, 여기서는 이 도구가 어떤 게임을
+      대상으로 하는지 밝히기 위해 설명 목적으로만 사용했습니다. 이 도구는 사용자 본인 컴퓨터에 있는 세이브
+      파일을 편집할 뿐, 게임의 어떤 부분도 수정·패치·재배포하지 않으며 게임 코드와 게임 에셋을 일절
+      포함하지 않습니다. 무료이고, 광고가 없으며, 판매하지 않습니다. 사용에 따른 책임은 사용자 본인에게
+      있으니 반드시 백업을 남겨 두세요.
+    </p>
+    <p>MIT 라이선스로 배포합니다.</p>
+  </div>
+</footer>
+
+</body>
+</html>
