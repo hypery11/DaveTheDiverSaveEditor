@@ -51,53 +51,61 @@ someone their progress.
 
 ## Translations
 
-The app ships English, Simplified Chinese, Traditional Chinese and Korean. More are welcome, as are
-corrections to the existing ones — if a string reads awkwardly to a native speaker, that's a bug.
+The app ships English, Simplified Chinese, Traditional Chinese and Korean. More are
+welcome, as are corrections — if a string reads awkwardly to a native speaker, that's a
+bug, and you don't need to be a programmer to fix it.
 
-All UI text lives in one file: **`App/Sources/Localizable.xcstrings`** (a String Catalog).
+Pick whichever of these suits you. Both end up in the same place.
 
-**The easy way** — open `App/DaveTheDiverSaveEditor.xcodeproj` in Xcode, select
-`Localizable.xcstrings`, pick your language, and fill in the empty rows. Xcode shows the English
-source beside each one.
+### With a translation tool (the lossless route)
 
-**Without Xcode** — the catalog is JSON. Each entry looks like this:
+This is Apple's own format, so nothing is lost in the round trip and you can use Poedit,
+Crowdin, Trados or any tool that reads XLIFF.
 
-```json
-"Max Everything" : {
-  "localizations" : {
-    "ko" : { "stringUnit" : { "state" : "translated", "value" : "전부 최대" } }
-  }
-}
+```bash
+cd App
+xcodebuild -exportLocalizations -project DaveTheDiverSaveEditor.xcodeproj \
+  -scheme DaveTheDiverSaveEditor -localizationPath ../loc -exportLanguage ko
+# translate ../loc/ko.xcloc, then:
+xcodebuild -importLocalizations -project DaveTheDiverSaveEditor.xcodeproj \
+  -scheme DaveTheDiverSaveEditor -localizationPath ../loc/ko.xcloc
 ```
 
-Adding a new language: use its standard code (`ja`, `de`, `fr`, …) as the key, and set
-`"state": "translated"`.
+### With a spreadsheet (no Xcode needed)
 
-**Two rules that matter more than style:**
+```bash
+Scripts/loc_csv.py export ko ko.csv     # open in Numbers, Excel or Google Sheets
+# fill in the `translation` column, save as CSV, then:
+Scripts/loc_csv.py import ko ko.csv
+```
 
-1. **Format specifiers must survive exactly.** If the English is `Maxed inventory items (%lld slots).`
-   your translation needs exactly one `%lld`. Same for `%@`. Getting this wrong crashes the app at
-   runtime, so it's the one thing to double-check.
+**You don't have to run the import yourself.** Send the filled-in CSV however suits you —
+attach it to a [translation issue](../../issues/new?template=translation.yml), or post it
+wherever you found the app — and it'll be merged for you. Tell us how you'd like to be
+credited.
 
-   If your language needs the values in a *different order* than English, you must switch to numbered
-   form so they still bind correctly — `Add %lld to %@` becomes `为 %2$@ 增加 %1$lld`, where `%1$`
-   is the first English value and `%2$` the second.
+### Two rules that matter more than style
 
-2. **Use the game's own words.** The game itself is officially localized into these languages, so
-   players expect the in-game terms for Bei, Artisan's Flame, Cooksta, the Sea People village, and so
-   on. A literal translation of the English will read wrong to them.
+1. **Format specifiers must survive exactly.** If the English says
+   `Maxed inventory items (%lld slots).` your translation needs exactly one `%lld`. Getting
+   this wrong crashes the app in your language only, so it's checked mechanically:
+
+   ```bash
+   python3 Scripts/check_catalog.py
+   ```
+
+   CI runs this on every push. If your language needs the values in a different order than
+   English, switch to numbered form so they still bind correctly — `Add %lld to %@` becomes
+   `為 %2$@ 增加 %1$lld`, where `%1$` is the first English value and `%2$` the second.
+
+2. **Use the game's own words.** The game itself is officially localized into these
+   languages, so players expect the in-game terms for Bei, Artisan's Flame, Cooksta, the Sea
+   People village and so on. A literal translation of the English will read wrong to them.
 
 Keep it short, too — most of these are buttons and table rows in a dense window.
 
-To check your work, run the app in your language:
-
-```bash
-xcodebuild -scheme DaveTheDiverSaveEditor \
-  -destination 'platform=macOS,arch=arm64' build
-open App/build/.../DiveSaveEd.app --args -AppleLanguages '(ko)'
-```
-
-The test suite is pinned to English on purpose, so translations can't break it.
+A brand-new language ships marked "community preview" until a second native speaker has
+looked it over. Corrections to an existing language only need one person.
 
 ## Scope
 
