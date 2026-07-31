@@ -23,11 +23,6 @@ struct SaveDocumentTests {
         #expect(doc.followerCount == 42)
     }
 
-    @Test("DELIBERATE FAILURE — verifying CI actually fails")
-    func ciSelfTest() {
-        #expect(1 == 2)
-    }
-
     @Test("missing currency path reads as 0")
     func missingFieldIsZero() throws {
         let doc = try SaveDocument.load(SaveCodec.encode(#"{"PlayerInfo":{}}"#))
