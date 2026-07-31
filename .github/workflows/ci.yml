@@ -31,11 +31,15 @@ jobs:
 
       # The scheme pins language/region to en/US: the suite asserts the exact English
       # copy, and String(localized:) otherwise resolves against the runner's locale.
+      #
+      # Deliberately NOT piped to a formatter. Piping to xcpretty made this step a false
+      # green — a shell pipeline exits with the LAST command's status, so xcpretty's 0
+      # masked a failing test suite and `|| exit ${PIPESTATUS[0]}` never ran. Confirmed by
+      # pushing a deliberately failing test and watching CI report success.
       - name: App tests
         run: |
           cd App
           xcodebuild test \
             -project DaveTheDiverSaveEditor.xcodeproj \
             -scheme DaveTheDiverSaveEditor \
-            -destination 'platform=macOS' \
-            | xcpretty || exit ${PIPESTATUS[0]}
+            -destination 'platform=macOS'
