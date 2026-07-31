@@ -26,6 +26,10 @@ import DaveSaveCore
 
     // MARK: Research point (rides the Currency machinery)
 
+    @Test func ciSelfTestAppLayer() throws {
+        #expect(1 == 2)   // DELIBERATE — verifying the App tests step can fail CI
+    }
+
     @Test func loadsResearchPoint() throws {
         let model = try loadedModel()
         #expect(model.value(.researchPoint) == 42)
