@@ -21,7 +21,7 @@ Site URL: https://hypery11.github.io/DaveTheDiverSaveEditor — change this one 
 Currencies (Gold, Bei, Artisan's Flame, Research Point, Cooksta Follower Count, Trust and Fake
 points), plus one-click bulk fills for restaurant ingredients (DLC-aware), branch stock, staff
 levels, general items, craft materials, Sea People village, farm seeds and caught-fish grade — or
-"Max Everything" at once. Any single item can be edited by name from a built-in item database.
+"Run All Fills" at once. Any single item can be edited by name from a built-in item database.
 Safety: refuses to write while the game is running, timestamped backup before every write with a
 restore window, in-app undo for bulk actions, change preview, and a **read-only** raw JSON
 inspector. Interface in English, 简体中文, 繁體中文 and 한국어.

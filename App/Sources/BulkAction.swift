@@ -3,7 +3,7 @@ import SwiftUI
 import DaveSaveCore
 
 /// One bulk "max/fill" operation, described as data. This is the single source the
-/// UI rows, "Max Everything", and the model's named entry points all derive from —
+/// UI rows, "Run All Fills", and the model's named entry points all derive from —
 /// so the op's definition can't drift across those three call sites.
 ///
 /// All user-facing text here goes through `String(localized:)`, so every title,
@@ -37,7 +37,7 @@ struct BulkAction: Identifiable, Sendable {
         BulkAction(id: "maxOwn", title: String(localized: "Max Owned Ingredients"), systemImage: "tray.full.fill",
                    description: String(localized: "Fill every ingredient you already own (skips perishable aberration fish)."),
                    buttonTitle: String(localized: "Max Own"), section: .restaurant,
-                   includeInRunAll: false) { doc, ref in           // superseded by Max All in Max Everything
+                   includeInRunAll: false) { doc, ref in           // superseded by Max All in Run All Fills
             guard let ref else { return nil }
             doc.maxOwnedIngredients(using: ref)
             return String(localized: "Maxed owned ingredients (skips perishable aberration fish).")

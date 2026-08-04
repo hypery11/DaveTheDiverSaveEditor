@@ -115,6 +115,7 @@ Mostly correct already, because it wasn't derived from another locale.
 | Bei | 贝币 | ~~贝~~ | `UIText/bei` |
 | Credit (village trust) | 信任度 | ~~信赖点数~~ | `UIText/trustPoint` |
 | aberration fish | 突变鱼 | ~~畸变鱼~~ — never appears in the game | `UI_TravellingMerchant_Title` |
+| branch restaurant | 分店 | ~~2 号店~~ — "2nd store" was our English, not the game's | `ContentsName_SushiBar_Branch` |
 | Cooksta | COOKSTA (all caps) | ~~Cooksta~~ | `ContentsName_SnsOpen` |
 | item | 道具 | ~~物品~~ | `item_40001` |
 | DREDGE | 《渔帆暗涌》 | ~~DREDGE~~ | Steam DLC title |

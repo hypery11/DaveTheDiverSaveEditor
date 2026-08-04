@@ -22,7 +22,7 @@ no process injection, no account, and no network access at any point.
   each row reverts individually to the value the save had when it was opened.
 - **Nine one-click bulk fills** — owned ingredients, all ingredients (DLC-aware), branch stock,
   staff levels, general inventory, crafting materials, Sea People Village storage, farm seeds
-  and caught-fish grade — plus **Max Everything**, which runs them in one action (owned
+  and caught-fish grade — plus **Run All Fills**, which runs them in one action (owned
   ingredients is folded into all ingredients there, since the latter supersedes it).
 - **Item search** — browse and edit any single item by name, from a bundled reference database,
   instead of hunting for numeric IDs.

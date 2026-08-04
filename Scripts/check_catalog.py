@@ -42,6 +42,7 @@ BANNED = {
         ("達人的火花", "匠人之火 (Owned_ChefFlame) — this locale takes the Simplified column"),
         ("畸变鱼", "突变鱼 (UI_TravellingMerchant_Title)"),
         ("信赖点数", "信任度 (UIText/trustPoint)"),
+        ("2号店", "分店 (ContentsName_SushiBar_Branch) — '2nd store' was ours, not the game's"),
     ],
     "ko": [
         ("신뢰도 포인트", "신뢰도 (UIText/trustPoint) — 신뢰도 already denotes the level"),

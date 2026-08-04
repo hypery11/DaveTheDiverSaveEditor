@@ -52,7 +52,7 @@ Two conventions worth knowing before you open a PR:
 
 - **An editable value is one row.** Adding a currency-like field means adding a row to
   `editableScalars` in `SaveDocument.swift` and a `Currency` case — not scattered getters and setters.
-- **A bulk operation is one entry.** Add it to `BulkAction.catalog`; the UI rows, "Max Everything" and
+- **A bulk operation is one entry.** Add it to `BulkAction.catalog`; the UI rows, "Run All Fills" and
   the model entry point all derive from that one definition.
 
 Please keep tests passing, and add one for anything that touches the save format — a bug there costs

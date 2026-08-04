@@ -125,7 +125,7 @@ struct SaveEditorCommands: Commands {
         }
 
         // Edit ▸ Undo / Redo. Without this group the Edit menu's Undo binds to the focused
-        // text field's own undo, so ⌘Z after Max Everything did nothing — on the platform
+        // text field's own undo, so ⌘Z after Run All Fills did nothing — on the platform
         // where ⌘Z is the most reflexive key there is. The model's stack covers currency
         // edits and bulk fills alike, so one pair of items serves both.
         CommandGroup(replacing: .undoRedo) {

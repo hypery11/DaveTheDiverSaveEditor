@@ -50,7 +50,7 @@ The app is signed and notarized by Apple, so it opens normally — macOS will sh
 points. Nudge by ±10/100/1000, type an exact value, or set the maximum. Reset restores the value the
 save had when you opened it.
 
-**Bulk fills** — one click each, or **Max Everything** for all of them at once:
+**Bulk fills** — one click each, or **Run All Fills** for all of them at once:
 
 | | |
 |---|---|
@@ -185,20 +185,43 @@ There's also `dtdcli`, a headless companion CLI over the same engine, for script
 
 ## Support the project
 
-DiveSaveEd is free and MIT-licensed — no ads, no paid version, nothing locked behind a
-payment. If it saved you a grind and you want to put something toward the research behind it
-(decoding the save format, keeping the item data current, checking terminology against the
-game's own localization files), there's a link:
+<p align="center">
+  <a href="https://fsd.fkey.id/"><img src="docs/images/support-banner-en.png" alt="DiveSaveEd — free forever, but not costless" width="880"></a>
+</p>
 
-**[fsd.fkey.id](https://fsd.fkey.id/)**
+<p align="center">
+  <a href="https://fsd.fkey.id/"><img src="docs/images/btn-support-en.png" alt="Support DiveSaveEd" height="48"></a>
+</p>
 
-It is **crypto only** — USDC on Base is the cheapest route — so if that isn't something you
-already use, don't go out of your way. A bug report, or a fix to one of the four
-translations, is genuinely worth more to this project than a few dollars.
+<p align="center">
+  <sub><b>Crypto only.</b> USDC on Base is the cheapest route — no card, no Apple Pay, no PayPal, no amount field.<br>
+  If crypto isn't something you already use, please don't go out of your way.<br>
+  The page is labelled <b>fsd</b> — just the handle on the payment page, not a company or a person you're meant to recognise.</sub>
+</p>
 
-> The only official donation link is this one and the one on the project site. Anywhere else
-> collecting "for DiveSaveEd" is not us — a crypto address in a fork or a re-hosted `.dmg`
-> can be swapped without anyone being able to tell.
+DiveSaveEd is free and MIT-licensed. No ads, no paid tier, nothing behind a paywall — and that
+isn't changing. But free to use is not the same as free to make:
+
+| | |
+|---|---|
+| **US$99 a year** | The Apple Developer membership — the only reason macOS opens the app normally instead of warning you about an unidentified developer. |
+| **Every game patch** | Re-deriving the item and fish database so the bulk fills stay correct. |
+| **Every locale** | Checking each in-game term against the game's own shipped localization data, instead of translating our English. |
+
+The most concrete gap, if you want to know exactly what money would buy: **the item database
+stops before *In the Jungle*, because I don't own that DLC.** Jungle-only items aren't listed
+by name and aren't included in the bulk fills. That is a hole money would actually close.
+
+**Worth more than money.** Genuinely — any of these helps this project more than a few dollars:
+
+- [Report a bug](../../issues/new/choose) — the app's Help menu fills in the details for you
+- [Fix a translation](CONTRIBUTING.md) — it ships in four languages and I only speak two of them well
+- Tell someone who plays on a Mac
+- Star the repo, so other people find it
+
+> **The only official donation link is the one above, and the one on the [project site](https://hypery11.github.io/DaveTheDiverSaveEditor/support/).**
+> Anywhere else collecting "for DiveSaveEd" is not us — a crypto address in a fork or a
+> re-hosted `.dmg` can be swapped without anyone being able to tell.
 
 ## Contributing
 
