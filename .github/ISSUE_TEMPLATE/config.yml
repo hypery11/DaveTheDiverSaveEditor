@@ -1,6 +1,6 @@
 blank_issues_enabled: false
 contact_links:
-  - name: 中文 / 한국어 でも大丈夫 — report in your own language
+  - name: 中文 / 한국어 / English — report in your own language
     url: https://github.com/hypery11/DaveTheDiverSaveEditor/issues/new?template=bug_report.yml
     about: "请用中文回报 / 한국어로 신고해도 됩니다 — you do not have to write in English."
   - name: My edit didn't work / 修改没有生效 / 수정이 적용되지 않음

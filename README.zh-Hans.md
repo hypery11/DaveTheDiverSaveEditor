@@ -18,6 +18,13 @@
   <img src="docs/images/main-en-light.png" alt="DiveSaveEd 正在 macOS 上修改《潜水员戴夫》存档" width="900">
 </p>
 
+> **经 Apple 签署与公证**，每个版本都会发布 SHA-256 与 GitHub build provenance 证明。打开前可以自己验证：
+>
+> ```bash
+> shasum -a 256 DiveSaveEd-macOS-v1.0.0.dmg     # 与 release 页面比对
+> spctl -a -t open --context context:primary-signature -v DiveSaveEd-macOS-v1.0.0.dmg
+> ```
+
 ## 系统要求
 
 macOS 14 或更高版本，Apple Silicon 与 Intel 均可。适用于 macOS 上的 **Steam** 版游戏。
@@ -55,7 +62,7 @@ macOS 14 或更高版本，Apple Silicon 与 Intel 均可。适用于 macOS 上�
 
 **多存档位** — 自动识别游戏里的每一个存档，让你自己挑。
 
-**四种语言** — English、简体中文、繁體中文、한국어。
+**四种语言** — English、简体中文、繁體中文、한국어。没有你的语言？补上一个语言靠的是一份表格，不是写代码——[见下方](#致谢)。
 
 <p align="center">
   <img src="docs/images/main-zh-Hant-light.png" alt="繁體中文介面" width="440">
@@ -178,6 +185,18 @@ DiveSaveEd 是免费的 MIT 许可项目——没有广告、没有付费版、�
 ## 参与贡献
 
 欢迎提交翻译、问题反馈与修复——详见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+## 致谢
+
+**翻译与修正** — 目前还没有。这里就是留给你的位置：
+[翻译 issue](../../issues/new?template=translation.yml) 会问你希望以什么名字被列出，问的就是这一段。
+你不需要会写代码，也不需要 Xcode——[CONTRIBUTING.md](CONTRIBUTING.md) 里有一条用表格就能走完的路。
+
+**这个项目站在谁的肩膀上** — [FNGarvin/DaveSaveEd](https://github.com/FNGarvin/DaveSaveEd)
+（MIT）：本项目的参考数据库由它生成，存档路径的知识与功能的雏形也来自它；以及
+[WhiteMinds/dave-diver-expansion](https://github.com/WhiteMinds/dave-diver-expansion)：
+它对字符级 XOR 编解码的理解，是这个编辑器不会弄坏中文、韩文、日文存档的原因。
+完整的出处声明见 [NOTICE](NOTICE)。
 
 ## 免责声明
 

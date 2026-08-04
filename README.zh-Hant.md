@@ -18,6 +18,13 @@ Cheat Engine、不注入遊戲程序、不需要帳號、不連網路。
   <img src="docs/images/main-en-light.png" alt="DiveSaveEd 在 macOS 上修改《潛水員戴夫》存檔" width="900">
 </p>
 
+> **經 Apple 簽署與公證**,每個版本都會發布 SHA-256 與 GitHub build provenance 證明。開啟前可以自己驗:
+>
+> ```bash
+> shasum -a 256 DiveSaveEd-macOS-v1.0.0.dmg     # 跟 release 頁面比對
+> spctl -a -t open --context context:primary-signature -v DiveSaveEd-macOS-v1.0.0.dmg
+> ```
+
 ## 系統需求
 
 macOS 14 或以上版本，支援 Apple Silicon 與 Intel。適用於 macOS 上的 **Steam** 版遊戲。
@@ -56,7 +63,7 @@ macOS 14 或以上版本，支援 Apple Silicon 與 Intel。適用於 macOS 上�
 
 **多重存檔格** — 自動抓出遊戲的每一份存檔，讓你自由選擇。
 
-**四種語言** — English、简体中文、繁體中文、한국어。
+**四種語言** — English、简体中文、繁體中文、한국어。沒有你的語言？補上一個語系靠的是一份試算表,不是寫程式 —— [見下方](#致謝)。
 
 <p align="center">
   <img src="docs/images/main-zh-Hant-light.png" alt="繁體中文介面" width="440">
@@ -180,6 +187,18 @@ bug,或修正四個語系翻譯裡的一處錯誤,對這個專案的價值都比
 ## 參與貢獻
 
 歡迎提供翻譯、回報問題與送出修正 — 請參閱 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+## 致謝
+
+**翻譯與修正** — 目前還沒有。這裡就是留給你的位置:
+[翻譯 issue](../../issues/new?template=translation.yml) 會問你希望以什麼名字被列出,問的就是這一段。
+你不需要會寫程式,也不需要 Xcode —— [CONTRIBUTING.md](CONTRIBUTING.md) 裡有一條用試算表就能走完的路。
+
+**這個專案站在誰的肩膀上** — [FNGarvin/DaveSaveEd](https://github.com/FNGarvin/DaveSaveEd)
+(MIT):本專案的參考資料庫由它產生,存檔路徑的知識與功能的雛形也來自它;以及
+[WhiteMinds/dave-diver-expansion](https://github.com/WhiteMinds/dave-diver-expansion):
+它的字元層級 XOR 編解碼理解,是這個編輯器不會弄壞中文、韓文、日文存檔的原因。
+完整的出處聲明請見 [NOTICE](NOTICE)。
 
 ## 免責聲明
 

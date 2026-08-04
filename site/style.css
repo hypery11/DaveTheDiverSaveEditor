@@ -569,6 +569,8 @@ ol.steps > li > :last-child { margin-bottom: 0; }
 .foot-links a:hover { color: var(--accent); text-decoration: underline; }
 .foot p { margin: 0 0 .8em; }
 .foot p:last-child { margin-bottom: 0; }
+.foot-credit a { color: var(--fg-muted); }
+.foot-credit a:hover { color: var(--accent); }
 
 @media (max-width: 480px) {
   body { font-size: 16px; }

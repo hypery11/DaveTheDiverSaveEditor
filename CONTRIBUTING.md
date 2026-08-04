@@ -2,6 +2,15 @@
 
 Thanks for helping out. Bug reports, fixes, and translations are all welcome.
 
+**Write in whatever language you think in.** Issues, pull requests and Discussions are fine in
+中文, 한국어 or English, and machine-translated messages are welcome in both directions. You
+will never be asked to rewrite something in English before it is taken seriously.
+
+**I read every issue, and you'll get a first reply within a few days.** That matters more than
+it sounds: the largest study of newcomer contributions found that what predicts whether a
+first-time contributor succeeds is not the issue's difficulty or its labels — it is whether
+the maintainer responded.
+
 ## Reporting a bug
 
 Please include: your macOS version, whether you're on Apple Silicon or Intel, the app version, and

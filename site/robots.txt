@@ -2,9 +2,14 @@
 #
 # 1. This file only takes effect at the ORIGIN ROOT. On a GitHub Pages *project* site it
 #    deploys to /DaveTheDiverSaveEditor/robots.txt, which no crawler reads (RFC 9309 scopes
-#    robots.txt to the origin). Until this site has its own domain, or a hypery11.github.io
-#    user-site repo serves a root robots.txt, every rule below is inert. Verified:
-#    https://hypery11.github.io/robots.txt returns 404.
+#    robots.txt to the origin). Verified: https://hypery11.github.io/robots.txt returns 404
+#    while /DaveTheDiverSaveEditor/robots.txt returns 200.
+#
+#    The practical cost is near zero, and worth stating so nobody "fixes" this at expense:
+#    every group below is Allow with no Disallow anywhere, and an absent robots.txt already
+#    means "crawl everything". The only thing actually lost is Sitemap: auto-discovery, which
+#    is covered by submitting sitemap.xml to Search Console and Bing directly. Revisit only if
+#    a Disallow is ever needed, which would then genuinely require a root-served file.
 #
 # 2. Naming a crawler in its own group makes it ignore `User-agent: *` ENTIRELY. So if a
 #    Disallow is ever added under `*`, it will silently not apply to any agent named below.

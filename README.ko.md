@@ -18,6 +18,14 @@ Windows 전용이지만, 이 앱은 진짜 Mac 앱입니다. 세이브를 열고
   <img src="docs/images/main-en-light.png" alt="DiveSaveEd editing a Dave the Diver save on macOS" width="900">
 </p>
 
+> **Apple 서명 및 공증 완료.** 릴리스마다 SHA-256과 GitHub 빌드 프로버넌스 증명을 공개합니다.
+> 열기 전에 직접 확인하실 수 있습니다:
+>
+> ```bash
+> shasum -a 256 DiveSaveEd-macOS-v1.0.0.dmg     # 릴리스 페이지와 비교
+> spctl -a -t open --context context:primary-signature -v DiveSaveEd-macOS-v1.0.0.dmg
+> ```
+
 ## 지원 환경
 
 macOS 14 이상, Apple Silicon 또는 Intel. macOS용 **Steam** 버전 게임에서 동작합니다.
@@ -60,7 +68,8 @@ Apple의 서명과 공증을 받은 앱이라 그냥 열립니다. 처음 실행
 
 **여러 세이브 슬롯** — 게임이 만든 세이브를 모두 찾아내 목록에서 고를 수 있습니다.
 
-**4개 언어 지원** — English, 简体中文, 繁體中文, 한국어.
+**4개 언어 지원** — English, 简体中文, 繁體中文, 한국어. 여기에 없는 언어를 쓰신다면, 하나 추가하는 건
+빌드가 아니라 스프레드시트 작업입니다 — [아래를 보세요](#감사의-말).
 
 <p align="center">
   <img src="docs/images/main-zh-Hant-light.png" alt="繁體中文介面" width="440">
@@ -195,6 +204,19 @@ DiveSaveEd는 무료이며 MIT 라이선스입니다. 광고도, 유료 버전�
 ## 기여하기
 
 번역, 버그 제보, 수정 모두 환영합니다 — [CONTRIBUTING.md](CONTRIBUTING.md)를 참고하세요.
+
+## 감사의 말
+
+**번역과 수정** — 아직 아무도 없습니다. 여기가 여러분의 이름이 들어갈 자리입니다.
+[번역 issue](../../issues/new?template=translation.yml)가 어떤 이름으로 표기되길 원하는지 묻는데,
+바로 이 항목을 위한 질문입니다. 프로그래머가 아니어도 되고 Xcode도 필요 없습니다 —
+[CONTRIBUTING.md](CONTRIBUTING.md)에 스프레드시트만으로 끝나는 경로가 있습니다.
+
+**이 프로젝트가 딛고 선 것들** — [FNGarvin/DaveSaveEd](https://github.com/FNGarvin/DaveSaveEd)
+(MIT). 이 프로젝트의 참조 데이터베이스가 여기서 생성되고, 세이브 경로 지식과 기능 구성도 여기서
+왔습니다. 그리고 [WhiteMinds/dave-diver-expansion](https://github.com/WhiteMinds/dave-diver-expansion) —
+문자 단위 XOR 코덱에 대한 이 저장소의 이해 덕분에 이 편집기가 한국어·중국어·일본어 세이브를
+망가뜨리지 않습니다. 전체 출처 표기는 [NOTICE](NOTICE)에 있습니다.
 
 ## 면책 조항
 

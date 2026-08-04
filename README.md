@@ -18,6 +18,14 @@ Cheat Engine, no process injection, no account, no network.
   <img src="docs/images/main-en-light.png" alt="DiveSaveEd editing a Dave the Diver save on macOS" width="900">
 </p>
 
+> **Signed and notarized by Apple**, with a published SHA-256 and a GitHub build-provenance
+> attestation for every release. Verify before you open it:
+>
+> ```bash
+> shasum -a 256 DiveSaveEd-macOS-v1.0.0.dmg     # compare with the release page
+> spctl -a -t open --context context:primary-signature -v DiveSaveEd-macOS-v1.0.0.dmg
+> ```
+
 ## Requirements
 
 macOS 14 or later, Apple Silicon or Intel. Works with the **Steam** version of the game on macOS.
@@ -60,7 +68,8 @@ hand-editing raw values can set progression flags out of order and soft-lock a r
 
 **Multiple save slots** — picks up every save the game has and lets you choose.
 
-**Four languages** — English, 简体中文, 繁體中文, 한국어.
+**Four languages** — English, 简体中文, 繁體中文, 한국어. Not yours? Adding one is a
+spreadsheet, not a build — [see below](#credits).
 
 <p align="center">
   <img src="docs/images/main-zh-Hant-light.png" alt="繁體中文介面" width="440">
@@ -194,6 +203,20 @@ translations, is genuinely worth more to this project than a few dollars.
 ## Contributing
 
 Translations, bug reports and fixes are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Credits
+
+**Translations and fixes** — nobody yet. This is where your name goes: the
+[translation issue](../../issues/new?template=translation.yml) asks how you'd like to be
+credited, and this section is what it asks for. You don't need to be a programmer, and you
+don't need Xcode — [CONTRIBUTING.md](CONTRIBUTING.md) has a spreadsheet route.
+
+**Prior work this stands on** — [FNGarvin/DaveSaveEd](https://github.com/FNGarvin/DaveSaveEd)
+(MIT), whose reference database this one is generated from, along with the save-path knowledge
+and the shape of the feature set; and
+[WhiteMinds/dave-diver-expansion](https://github.com/WhiteMinds/dave-diver-expansion), whose
+char-level XOR codec is why this editor doesn't corrupt Chinese, Korean or Japanese saves.
+Full attribution: [NOTICE](NOTICE).
 
 ## Disclaimer
 
