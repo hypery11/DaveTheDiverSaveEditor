@@ -195,12 +195,6 @@ xcodebuild -scheme DaveTheDiverSaveEditor test
   <a href="https://fsd.fkey.id/"><img src="docs/images/btn-support-ko.png" alt="DiveSaveEd 후원하기" height="48"></a>
 </p>
 
-<p align="center">
-  <sub><b>암호화폐만 받습니다.</b> Base의 USDC가 가장 저렴합니다 — 카드도, Apple Pay도, PayPal도, 금액 입력란도 없습니다.<br>
-  이미 쓰고 있는 게 아니라면 굳이 애쓰지 마세요.<br>
-  그 페이지에는 <b>fsd</b>라고 적혀 있습니다 — 결제 페이지의 핸들일 뿐, 알아봐야 할 회사나 사람이 아닙니다.</sub>
-</p>
-
 DiveSaveEd는 무료이며 MIT 라이선스입니다. 광고도, 유료 버전도, 결제로 막아둔 기능도 없고 앞으로도
 그렇습니다. 다만 쓰는 게 무료인 것과 만드는 게 무료인 것은 다릅니다.
 

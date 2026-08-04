@@ -193,12 +193,6 @@ There's also `dtdcli`, a headless companion CLI over the same engine, for script
   <a href="https://fsd.fkey.id/"><img src="docs/images/btn-support-en.png" alt="Support DiveSaveEd" height="48"></a>
 </p>
 
-<p align="center">
-  <sub><b>Crypto only.</b> USDC on Base is the cheapest route — no card, no Apple Pay, no PayPal, no amount field.<br>
-  If crypto isn't something you already use, please don't go out of your way.<br>
-  The page is labelled <b>fsd</b> — just the handle on the payment page, not a company or a person you're meant to recognise.</sub>
-</p>
-
 DiveSaveEd is free and MIT-licensed. No ads, no paid tier, nothing behind a paywall — and that
 isn't changing. But free to use is not the same as free to make:
 

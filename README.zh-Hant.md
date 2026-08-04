@@ -180,12 +180,6 @@ xcodebuild -scheme DaveTheDiverSaveEditor test
   <a href="https://fsd.fkey.id/"><img src="docs/images/btn-support-zh-Hant.png" alt="贊助 DiveSaveEd" height="48"></a>
 </p>
 
-<p align="center">
-  <sub><b>只收加密貨幣。</b>Base 上的 USDC 最便宜 —— 沒有信用卡、Apple Pay 或 PayPal，也沒有金額欄位。<br>
-  如果你本來就沒在用，真的不必特地去弄。<br>
-  那個頁面顯示的是 <b>fsd</b> —— 那只是付款頁上的代號，不是什麼你應該認得的公司或人。</sub>
-</p>
-
 DiveSaveEd 是免費的 MIT 授權專案。沒有廣告、沒有付費版、沒有任何功能被鎖起來 —— 而且不會改變。
 但「用起來免費」和「做起來免費」是兩回事：
 
