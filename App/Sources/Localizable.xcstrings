@@ -2114,24 +2114,24 @@
         }
       }
     },
-    "Not affiliated with, endorsed by, or associated with MINTROCKET or NEXON. “Dave the Diver” and related marks belong to their respective owners.": {
+    "Not affiliated with MINTROCKET or NEXON. “Dave the Diver” is their name, used here only to say which game this edits.": {
       "localizations": {
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "MINTROCKET 및 NEXON과 제휴·후원 관계가 없으며 아무런 관련이 없습니다. “Dave the Diver”(데이브 더 다이버) 및 관련 상표는 각 소유자에게 있습니다."
+            "value": "MINTROCKET, NEXON과 아무 관계가 없습니다. “Dave the Diver”(데이브 더 다이버)는 그들의 이름이고, 여기서는 어떤 게임을 편집하는지 밝히려고 썼을 뿐입니다."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "本软件与 MINTROCKET、NEXON 无任何隶属、认可或关联关系。“Dave the Diver”（《潜水员戴夫》）及相关商标归各自权利人所有。"
+            "value": "与 MINTROCKET、NEXON 没有任何关系。“Dave the Diver”（《潜水员戴夫》）是他们的名字，这里只是用来说明本程序编辑的是哪款游戏。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "本程式與 MINTROCKET 或 NEXON 無隸屬、背書或關聯關係。《潛水員戴夫》及相關商標為各自所有者所有。"
+            "value": "與 MINTROCKET、NEXON 沒有任何關係。「Dave the Diver」（《潛水員戴夫》）是他們的名字，這裡只是用來說明本程式是編輯哪一款遊戲。"
           }
         }
       }

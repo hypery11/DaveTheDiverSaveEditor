@@ -219,17 +219,15 @@ DiveSaveEd 是免费的 MIT 许可项目。没有广告、没有付费版、没�
 （MIT）：本项目的参考数据库由它生成，存档路径的知识与功能的雏形也来自它；以及
 [WhiteMinds/dave-diver-expansion](https://github.com/WhiteMinds/dave-diver-expansion)：
 它对字符级 XOR 编解码的理解，是这个编辑器不会弄坏中文、韩文、日文存档的原因。
-完整的出处声明见 [NOTICE](NOTICE)。
+完整的出处声明见 [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md)。
 
 ## 免责声明
 
-> 本工具为非官方的粉丝作品，与 MINTROCKET、Nexon Korea Corporation 及其任何关联公司均无隶属关系，也未获得
-> 它们的授权、认可或赞助。“Dave the Diver”（《潜水员戴夫》）及所有相关名称、标志与角色均为其各自权利人的
-> 商标，此处仅作描述性使用，用于说明本工具适用于哪款游戏。本工具修改的是你自己电脑上的存档文件，不会修改、
-> 破解或再分发游戏的任何部分，并且**不含任何游戏代码与游戏素材**。本工具免费、无广告、不出售。使用风险自负
-> ——请务必保留备份。
+非官方的粉丝作品，与 MINTROCKET、NEXON 没有任何关系。“Dave the Diver”（《潜水员戴夫》）
+是他们的名字，这里只是用来说明本工具适用于哪款游戏。它读写的是你自己电脑上的存档文件，
+不含任何游戏代码与游戏素材。
 
 ## 许可协议
 
-MIT — 见 [LICENSE](LICENSE)。第三方声明：[NOTICE](NOTICE) 与
+MIT — 见 [LICENSE](LICENSE)。第三方声明：
 [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md)。

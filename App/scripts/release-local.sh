@@ -61,7 +61,7 @@ ln -s /Applications "$STAGE/Applications"
 # MIT requires the copyright and permission notices in "all copies or substantial portions"
 # — and a .dmg is a copy. The repo was compliant; the thing users actually download was not,
 # because it bundles the reference database derived from the upstream MIT-licensed project.
-cp "$REPO/LICENSE" "$REPO/NOTICE" "$REPO/THIRD-PARTY-LICENSES.md" "$STAGE/"
+cp "$REPO/LICENSE" "$REPO/THIRD-PARTY-LICENSES.md" "$STAGE/"
 hdiutil create -volname DiveSaveEd -srcfolder "$STAGE" -ov -format UDZO "$OUT/$NAME.dmg" >/dev/null
 # Sign the DMG too, not just the app inside it. Gatekeeper only enforces the app, so this is
 # not required — but an unsigned DMG makes `spctl` report "rejected / no usable signature",

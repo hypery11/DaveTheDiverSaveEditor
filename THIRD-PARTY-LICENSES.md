@@ -51,3 +51,9 @@ not copyrightable (17 U.S.C. § 102(b)); this credit is offered as a courtesy.
 
 On macOS the system `libsqlite3` is linked via the SDK's `import SQLite3` module.
 No SQLite source is vendored in this repository.
+
+## Trademarks
+
+The MIT license covers software, not names. "DAVE THE DIVER" and "MINTROCKET" are
+trademarks of Nexon Korea Corporation, used here only to identify the game this tool
+works with. This project is not affiliated with them.

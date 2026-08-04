@@ -237,18 +237,15 @@ DiveSaveEd는 무료이며 MIT 라이선스입니다. 광고도, 유료 버전�
 (MIT). 이 프로젝트의 참조 데이터베이스가 여기서 생성되고, 세이브 경로 지식과 기능 구성도 여기서
 왔습니다. 그리고 [WhiteMinds/dave-diver-expansion](https://github.com/WhiteMinds/dave-diver-expansion) —
 문자 단위 XOR 코덱에 대한 이 저장소의 이해 덕분에 이 편집기가 한국어·중국어·일본어 세이브를
-망가뜨리지 않습니다. 전체 출처 표기는 [NOTICE](NOTICE)에 있습니다.
+망가뜨리지 않습니다. 전체 출처 표기는 [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md)에 있습니다.
 
 ## 면책 조항
 
-> 이 앱은 팬이 만든 비공식 도구입니다. MINTROCKET, Nexon Korea Corporation 및 그 계열사와 제휴·인가·후원
-> 관계가 없으며, 이들로부터 보증을 받지도 않았습니다. "Dave the Diver"(데이브 더 다이버)를 비롯한 모든
-> 관련 명칭·로고·캐릭터는 각 소유자의 상표이며, 여기서는 이 도구가 어떤 게임을 대상으로 하는지 밝히기
-> 위해 설명 목적으로만 사용했습니다. 이 도구는 사용자 본인 컴퓨터에 있는 세이브 파일을 편집할 뿐, 게임의
-> 어떤 부분도 수정·패치·재배포하지 않으며 **게임 코드와 게임 에셋을 일절 포함하지 않습니다**. 무료이고,
-> 광고가 없으며, 판매하지 않습니다. 사용에 따른 책임은 사용자 본인에게 있으니 반드시 백업을 남겨 두세요.
+팬이 만든 비공식 도구입니다. MINTROCKET, NEXON과 아무 관계가 없습니다. "Dave the Diver"(데이브 더
+다이버)는 그들의 이름이고, 여기서는 어떤 게임을 편집하는 도구인지 밝히려고 썼을 뿐입니다. 사용자
+본인 컴퓨터의 세이브 파일을 읽고 쓰며, 게임 코드와 게임 에셋은 전혀 들어 있지 않습니다.
 
 ## 라이선스
 
-MIT — [LICENSE](LICENSE)를 참고하세요. 서드파티 고지: [NOTICE](NOTICE),
+MIT — [LICENSE](LICENSE)를 참고하세요. 서드파티 고지:
 [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md).

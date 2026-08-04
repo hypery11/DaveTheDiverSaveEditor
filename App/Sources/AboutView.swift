@@ -77,7 +77,7 @@ struct AboutView: View {
 
             Divider()
 
-            Text("Not affiliated with, endorsed by, or associated with MINTROCKET or NEXON. \u{201C}Dave the Diver\u{201D} and related marks belong to their respective owners.")
+            Text("Not affiliated with MINTROCKET or NEXON. \u{201C}Dave the Diver\u{201D} is their name, used here only to say which game this edits.")
                 .font(.caption2)
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, alignment: .leading)

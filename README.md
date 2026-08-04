@@ -237,19 +237,15 @@ don't need Xcode — [CONTRIBUTING.md](CONTRIBUTING.md) has a spreadsheet route.
 and the shape of the feature set; and
 [WhiteMinds/dave-diver-expansion](https://github.com/WhiteMinds/dave-diver-expansion), whose
 char-level XOR codec is why this editor doesn't corrupt Chinese, Korean or Japanese saves.
-Full attribution: [NOTICE](NOTICE).
+Full attribution: [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md).
 
 ## Disclaimer
 
-> This is an unofficial, fan-made tool. It is not affiliated with, authorized by, endorsed by, or
-> sponsored by MINTROCKET, Nexon Korea Corporation, or any of their affiliates. "Dave the Diver" and
-> all related names, logos, and characters are trademarks of their respective owners and are used here
-> only descriptively, to identify the game this tool works with. This tool edits save files on your own
-> computer; it does not modify, patch, or redistribute any part of the game, and it **contains no game
-> code and no game assets**. It is free, contains no advertising, and is not sold. Use at your own risk
-> — always keep backups.
+Unofficial and fan-made. Not affiliated with MINTROCKET or NEXON — "Dave the Diver" is their
+name, used here only to say which game this edits. It reads and writes the save file on your
+own computer and contains no game code and no game assets.
 
 ## License
 
-MIT — see [LICENSE](LICENSE). Third-party notices: [NOTICE](NOTICE) and
+MIT — see [LICENSE](LICENSE). Third-party notices:
 [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md).
