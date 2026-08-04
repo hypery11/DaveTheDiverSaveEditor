@@ -186,6 +186,9 @@ DiveSaveEd 是免费的 MIT 许可项目——没有广告、没有付费版、�
 
 欢迎提交翻译、问题反馈与修复——详见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
+不确定算不算 bug，或者只是想问点什么？请到 [讨论区](https://github.com/hypery11/DaveTheDiverSaveEditor/discussions)。用中文、한국어 或 English 都行，
+在 issue 和讨论区一样受欢迎，几天内一定会收到第一次回复。
+
 ## 致谢
 
 **翻译与修正** — 目前还没有。这里就是留给你的位置：

@@ -188,6 +188,9 @@ bug,或修正四個語系翻譯裡的一處錯誤,對這個專案的價值都比
 
 歡迎提供翻譯、回報問題與送出修正 — 請參閱 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
+不確定算不算 bug,或只是想問個問題?請到 [討論區](https://github.com/hypery11/DaveTheDiverSaveEditor/discussions)。用中文、한국어 或 English 都可以,
+在 issue 和討論區一樣受歡迎,幾天內一定會收到第一次回覆。
+
 ## 致謝
 
 **翻譯與修正** — 目前還沒有。這裡就是留給你的位置:

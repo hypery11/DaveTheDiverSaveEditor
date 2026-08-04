@@ -205,6 +205,9 @@ DiveSaveEd는 무료이며 MIT 라이선스입니다. 광고도, 유료 버전�
 
 번역, 버그 제보, 수정 모두 환영합니다 — [CONTRIBUTING.md](CONTRIBUTING.md)를 참고하세요.
 
+버그인지 확실하지 않거나 그냥 물어보고 싶을 때는 [Discussions](https://github.com/hypery11/DaveTheDiverSaveEditor/discussions)를 이용하세요. 한국어,
+中文, English 모두 똑같이 환영하며 — issue에서도 마찬가지입니다 — 며칠 안에 첫 답변을 드립니다.
+
 ## 감사의 말
 
 **번역과 수정** — 아직 아무도 없습니다. 여기가 여러분의 이름이 들어갈 자리입니다.

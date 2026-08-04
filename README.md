@@ -204,6 +204,10 @@ translations, is genuinely worth more to this project than a few dollars.
 
 Translations, bug reports and fixes are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
+Not sure something is a bug, or just want to ask? [Discussions](https://github.com/hypery11/DaveTheDiverSaveEditor/discussions) is the place. Write in
+中文, 한국어 or English — all three are equally welcome, in issues and discussions alike, and
+you'll get a first reply within a few days.
+
 ## Credits
 
 **Translations and fixes** — nobody yet. This is where your name goes: the
