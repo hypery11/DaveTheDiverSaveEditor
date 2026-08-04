@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>《潜水员戴夫》Mac 存档位置在哪里 — 以及怎么修改</title>
+<meta name="description" content="《潜水员戴夫》在 macOS 上的两个存档路径：~/Library/Application Support/com.nexon.dave/SteamSData/ 与 ~/Library/Application Support/nexon/DAVE THE DIVER/SteamSData/。教你打开隐藏的资源库文件夹、看懂 GameSave_XX_GD.sav、手动备份存档，避开 Steam Cloud 覆盖的坑，并用一款免费 Mac 存档修改器自动找到这两个路径。">
+<link rel="canonical" href="https://hypery11.github.io/DaveTheDiverSaveEditor/zh/save-file-location/">
+    <link rel="alternate" hreflang="en" href="https://hypery11.github.io/DaveTheDiverSaveEditor/dave-the-diver-save-file-location-mac/">
+    <link rel="alternate" hreflang="zh-Hans" href="https://hypery11.github.io/DaveTheDiverSaveEditor/zh/save-file-location/">
+    <link rel="alternate" hreflang="zh-Hant" href="https://hypery11.github.io/DaveTheDiverSaveEditor/zh-tw/save-file-location/">
+    <link rel="alternate" hreflang="ko" href="https://hypery11.github.io/DaveTheDiverSaveEditor/ko/save-file-location/">
+    <link rel="alternate" hreflang="x-default" href="https://hypery11.github.io/DaveTheDiverSaveEditor/dave-the-diver-save-file-location-mac/">
+<meta name="theme-color" content="#FBF6EC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14181B" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../images/logo.png" type="image/png">
+<link rel="apple-touch-icon" href="../../images/logo.png">
+<link rel="stylesheet" href="../../style.css">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="DiveSaveEd">
+<meta property="og:title" content="《潜水员戴夫》Mac 存档位置在哪里 — 以及怎么修改">
+<meta property="og:description" content="macOS 上的两个存档路径、如何打开隐藏的 ~/Library 文件夹、GameSave_XX_GD.sav 是什么意思、怎么备份，以及会悄悄还原你修改的 Steam Cloud 陷阱。">
+<meta property="og:url" content="https://hypery11.github.io/DaveTheDiverSaveEditor/zh/save-file-location/">
+<meta property="og:image" content="https://hypery11.github.io/DaveTheDiverSaveEditor/images/main-en-light.png">
+<meta property="og:image:alt" content="DiveSaveEd 在 macOS 上载入了一份《潜水员戴夫》存档">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="《潜水员戴夫》Mac 存档位置在哪里 — 以及怎么修改">
+<meta name="twitter:description" content="macOS 上的两个存档路径、如何打开隐藏的 ~/Library 文件夹、GameSave_XX_GD.sav 是什么意思、怎么备份，以及 Steam Cloud 陷阱。">
+<meta name="twitter:image" content="https://hypery11.github.io/DaveTheDiverSaveEditor/images/main-en-light.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "inLanguage": "zh-Hans",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Mac 版《潜水员戴夫》存档修改器",
+      "item": "https://hypery11.github.io/DaveTheDiverSaveEditor/zh/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "macOS 上的存档文件位置",
+      "item": "https://hypery11.github.io/DaveTheDiverSaveEditor/zh/save-file-location/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+
+<nav class="nav" aria-label="主导航">
+  <div class="wrap wrap-wide nav-inner">
+    <a class="nav-brand" href="../"><img src="../../images/logo.png" alt="" width="26" height="26">DiveSaveEd</a>
+    <div class="nav-links">
+      <a href="../">首页</a>
+      <a href="../../max-gold-bei-artisans-flame/" hreflang="en">拉满货币</a>
+      <a href="../../cheat-engine-alternative-mac/" hreflang="en">Mac 上的 Cheat Engine</a>
+      <a href="../../faq/" hreflang="en">常见问题</a>
+      <a class="cta" href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">下载</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+  <div class="wrap">
+
+    <nav class="crumbs" aria-label="面包屑导航">
+      <a href="../">DiveSaveEd</a> › <span aria-current="page">macOS 上的存档文件位置</span>
+    </nav>
+
+    <h1>《潜水员戴夫》Mac 存档位置在哪里——以及怎么修改</h1>
+    <p class="lede">
+      Mac 上有两个路径在用，取决于你这份游戏是怎么装的。下面两个都给你，还有怎么真正打开它们所在的隐藏文件夹、
+      存档文件叫什么名字、怎么备份一份，以及那个会悄无声息丢掉你修改的 Steam 设置。
+    </p>
+
+    <div class="answer">
+      <h2 id="short-answer">简短回答</h2>
+      <p>在 macOS 上，<em>《潜水员戴夫》</em>把存档放在下面两个文件夹之一：</p>
+<pre><code>~/Library/Application Support/com.nexon.dave/SteamSData/&lt;steam-id&gt;/</code></pre>
+<pre><code>~/Library/Application Support/nexon/DAVE THE DIVER/SteamSData/</code></pre>
+      <p>
+        里面的存档文件名形如 <code>GameSave_XX_GD.sav</code>，其中 <code>XX</code> 是存档位编号。
+        <code>~/Library</code> 默认是隐藏的——用
+        <strong>Finder（访达）▸ 前往 ▸ 前往文件夹…</strong>（<kbd>⇧</kbd><kbd>⌘</kbd><kbd>G</kbd>）打开它，
+        粘贴路径后回车。
+      </p>
+    </div>
+
+    <nav class="toc" aria-label="本页目录">
+      <p>本页目录</p>
+      <ol>
+        <li><a href="#both-paths">macOS 上的两个存档路径</a></li>
+        <li><a href="#open-library">如何打开隐藏的 <code>~/Library</code> 文件夹</a></li>
+        <li><a href="#file-names"><code>GameSave_XX_GD.sav</code> 是什么意思</a></li>
+        <li><a href="#backup">如何手动备份存档</a></li>
+        <li><a href="#steam-cloud">Steam Cloud 会悄悄还原你的修改</a></li>
+        <li><a href="#edit">在 Mac 上到底要怎么改存档</a></li>
+        <li><a href="#switch">Nintendo Switch 与 PlayStation 存档</a></li>
+        <li><a href="#troubleshooting">找不到这个文件夹怎么办</a></li>
+      </ol>
+    </nav>
+
+    <h2 id="both-paths">macOS 上的两个存档路径</h2>
+    <p>
+      这里没有唯一答案，很多人就卡在这一步：Steam macOS 版的不同安装会写到不同的地方。两个都查一遍。
+    </p>
+
+    <h3>路径 1 —— 以 Bundle ID 命名的文件夹（最常见）</h3>
+<pre><code>~/Library/Application Support/com.nexon.dave/SteamSData/&lt;steam-id&gt;/</code></pre>
+    <p>
+      <code>&lt;steam-id&gt;</code> 是你的 Steam 账号数字 ID——一长串数字，例如
+      <code>76561198000000000</code>。如果你在同一台 Mac 上登录过不止一个 Steam 账号，这里就会有多个这样的
+      文件夹，每个账号一个。你要找的是修改日期最新的那个。
+    </p>
+
+    <h3>路径 2 —— 以发行商／产品命名的文件夹</h3>
+<pre><code>~/Library/Application Support/nexon/DAVE THE DIVER/SteamSData/</code></pre>
+    <p>
+      注意其中的空格和大小写——这个文件夹真的就叫全大写的 <code>DAVE THE DIVER</code>。这种布局下没有按账号
+      划分的子文件夹，<code>.sav</code> 文件直接躺在 <code>SteamSData</code> 里。
+    </p>
+
+    <div class="note">
+      <strong>其实不用你猜</strong>
+      <a href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">DiveSaveEd</a>
+      会自动检查<em>两个</em>位置，并列出它找到的每一个存档位，所以你既不用输入路径，也不用去分辨自己这份安装
+      属于哪种布局。
+    </div>
+
+    <p>
+      关于开头的 <code>~</code>：它是你个人主目录的简写，所以完整路径其实是
+      <code>/Users/你的用户名/Library/Application Support/…</code>。这是主目录里的<em>用户</em>资源库，
+      <strong>不是</strong>磁盘根目录下的 <code>/Library</code>——那是完全不同的文件夹，里面没有游戏存档。
+    </p>
+
+    <h2 id="open-library">如何打开隐藏的 <code>~/Library</code> 文件夹</h2>
+    <p>
+      Apple 默认在 Finder 里隐藏 <code>~/Library</code>，所以很多教程只丢给你一个路径，然后你就卡住了。
+      四种进入方式，由易到难：
+    </p>
+
+    <ol class="steps">
+      <li>
+        <p><strong>前往文件夹（最快）。</strong>在 Finder 里从菜单栏选择<strong>前往 ▸ 前往文件夹…</strong>，
+        或者按 <kbd>⇧</kbd><kbd>⌘</kbd><kbd>G</kbd>。粘贴上面任意一个路径，然后按 <kbd>回车</kbd>。
+        Finder 会边输入边自动补全，这本身也能顺便验证该文件夹是否存在。</p>
+      </li>
+      <li>
+        <p><strong>在“前往”菜单里按住 Option。</strong>点击菜单栏的<strong>前往</strong>，然后按住
+        <kbd>⌥</kbd>（Option）。按住期间，<strong>资源库</strong>就会出现在列表里。</p>
+      </li>
+      <li>
+        <p><strong>永久显示它。</strong>在 Finder 里打开个人主目录
+        （<kbd>⇧</kbd><kbd>⌘</kbd><kbd>H</kbd>），按 <kbd>⌘</kbd><kbd>J</kbd> 打开“显示设置”，
+        勾选<strong>显示“资源库”文件夹</strong>。此后它就一直可见。</p>
+      </li>
+      <li>
+        <p><strong>用终端。</strong>如果你不想点来点去：</p>
+<pre><code>open ~/Library/Application\ Support/com.nexon.dave/SteamSData/
+open ~/Library/Application\ Support/nexon/DAVE\ THE\ DIVER/SteamSData/</code></pre>
+        <p>反斜杠是用来转义空格的。哪个路径存在，哪个就会在 Finder 里打开；另一个会提示
+        “No such file or directory”，这本身也是个有用的答案。</p>
+      </li>
+    </ol>
+
+    <p>
+      小提示：进去之后，把 <code>SteamSData</code> 文件夹拖到 Finder 侧边栏。你还会再来的。
+    </p>
+
+    <h2 id="file-names"><code>GameSave_XX_GD.sav</code> 是什么意思</h2>
+    <p>
+      在 <code>SteamSData</code> 里，你会看到 <code>GameSave_00_GD.sav</code>、
+      <code>GameSave_01_GD.sav</code> 这样的文件。那两位数字就是存档位编号。如果你只玩过一个周目，
+      多半只会看到一个——再加上游戏自己放在旁边的一些记录文件。
+    </p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th scope="col">你看到的</th><th scope="col">它是什么</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>GameSave_00_GD.sav</code></td><td>0 号存档位——真正的游戏数据。</td></tr>
+          <tr><td><code>GameSave_01_GD.sav</code></td><td>1 号存档位，后面的存档位以此类推。</td></tr>
+          <tr><td>一个全是数字的文件夹，例如 <code>76561198…</code></td><td>你的 Steam 账号 ID，出现在路径 1 的布局里。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      <code>.sav</code> 文件不是纯文本，也不是给人看的——用“文本编辑”打开只会看到一堆二进制乱码，
+      而且从文本编辑器保存会直接把它弄坏。要有意义地修改它，必须先解码，而这正是存档修改器在做的事。
+    </p>
+
+    <h2 id="backup">如何手动备份存档</h2>
+    <p>
+      动手改任何东西之前先做这一步，哪怕你用的工具自己也会备份。总共花不了十秒。
+    </p>
+    <ol class="steps">
+      <li><p><strong>彻底退出《潜水员戴夫》</strong>——不是关掉窗口，而是退出应用，免得它正写到一半。</p></li>
+      <li><p><strong>用上面任意一种方法打开存档文件夹。</strong></p></li>
+      <li><p><strong>选中那些 <code>.sav</code> 文件</strong>，按 <kbd>⌘</kbd><kbd>D</kbd> 复制一份，或者按 <kbd>⌘</kbd><kbd>C</kbd> 再粘贴到该文件夹之外的地方——桌面、“文稿”里的某个子文件夹，或者一块外接硬盘。</p></li>
+      <li>
+        <p>也可以在终端里，把整个文件夹按日期复制一份：</p>
+<pre><code>cp -R ~/Library/Application\ Support/com.nexon.dave/SteamSData \
+      ~/Desktop/DaveTheDiver-save-backup-$(date +%Y%m%d)</code></pre>
+      </li>
+    </ol>
+    <p>
+      日后要恢复，就退出游戏，把备份的 <code>.sav</code> 文件复制回 <code>SteamSData</code> 覆盖原文件，
+      文件名保持完全一致。
+    </p>
+    <div class="note">
+      <strong>自动备份</strong>
+      DiveSaveEd 在每一次写入之前都会生成一份带时间戳的备份，并且内置<strong>从备份恢复</strong>窗口，
+      可以回滚到其中任意一份。不过手动复制的备份仍然值得保留——多一道保险总没错。
+    </div>
+
+    <figure>
+      <div class="shot">
+        <img src="../../images/sheet-backups-en-light.png" alt="DiveSaveEd 的“从备份恢复”窗口，列出《潜水员戴夫》存档的多份带时间戳备份" width="1960" height="1744" loading="lazy">
+      </div>
+      <figcaption>每次写入一份带时间戳的备份，都可以在应用内恢复。</figcaption>
+    </figure>
+
+    <h2 id="steam-cloud">⚠️ Steam Cloud 会悄悄还原你的修改</h2>
+    <p>
+      这是“改了没生效”最常见的原因，而且跟存档修改器本身没有任何关系。Steam 启动时发现本地存档和云端副本不一致，
+      会在游戏加载之前就<strong>用旧的云端版本覆盖掉你的修改</strong>。你的改动其实写入成功了，
+      只是被 Steam 换掉了。
+    </p>
+    <p>请按这个顺序操作：</p>
+    <ol class="steps">
+      <li><p><strong>彻底退出《潜水员戴夫》。</strong>好的存档修改器在游戏运行期间会拒绝写入——写到一半的存档正是文件损坏的由来。</p></li>
+      <li><p><strong>关闭这款游戏的 Steam Cloud。</strong>Steam 库 → 右键点击<strong>《潜水员戴夫》</strong> → <strong>属性</strong> → <strong>通用</strong> → 取消勾选<strong>将游戏存档保存至 Steam 云</strong>。</p></li>
+      <li><p><strong>修改并保存。</strong>应用会自动先写一份带时间戳的备份。</p></li>
+      <li><p><strong>启动游戏。</strong>这时加载的就是你改过的版本了。</p></li>
+    </ol>
+    <div class="warn">
+      <strong>如果修改已经被云端弄丢了</strong>
+      别慌，也别在 Steam Cloud 还开着的时候重改一遍——那只会把同样的循环再走一次。先关掉 Steam Cloud，
+      再从备份恢复（或者重新改一次），然后再启动游戏。
+    </div>
+
+    <h2 id="edit">在 Mac 上到底要怎么改存档</h2>
+    <p>
+      找到文件只是简单的那一半。<code>.sav</code> 是编码过的，文本编辑器根本不行，
+      而那些流行的 Windows 存档修改器要在 macOS 上跑起来，得靠 Wine、CrossOver 或虚拟机。
+    </p>
+    <p>
+      <a href="../">DiveSaveEd</a> 就是为此而生的免费开源 Mac 原生应用：它自己就能找到两个存档路径、
+      列出每一个存档位，让你修改各种货币
+      （<a href="../../max-gold-bei-artisans-flame/" hreflang="en">金币、贝币、匠人之火</a>、研究点数、
+      COOKSTA 粉丝数、信任度与伪造点数）、批量填充餐厅食材与背包道具，或者按名称修改任意单个物品。
+      所有批量操作都能在应用内撤销，每次写入前都会先备份，如果你只想看看，还有一个只读的原始 JSON 检视器。
+    </p>
+
+    <figure>
+      <div class="shot">
+        <img class="only-light" src="../../images/main-en-light.png" alt="DiveSaveEd 从 macOS 存档文件夹载入了一份《潜水员戴夫》存档" width="1960" height="1744" loading="lazy">
+        <img class="only-dark" src="../../images/main-en-dark.png" alt="DiveSaveEd 深色模式，已载入一份《潜水员戴夫》存档" width="1960" height="1744" loading="lazy">
+      </div>
+      <figcaption>两个存档路径都会被自动检测——不用输路径，也不用猜存档位。</figcaption>
+    </figure>
+
+    <p class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">免费下载 DiveSaveEd</a>
+      <a class="btn btn-ghost" href="https://github.com/hypery11/DaveTheDiverSaveEditor">阅读源码</a>
+    </p>
+    <p class="btn-note">macOS 14 或更高版本，Apple Silicon 与 Intel 均可。已经过 Apple 签名与公证。MIT 协议。</p>
+
+    <h2 id="switch">Nintendo Switch 与 PlayStation 存档</h2>
+    <p>
+      <strong>Switch 与 PlayStation 的存档没法用这种方式修改。</strong>主机存档存放在主机自己的加密存储里，
+      永远不会出现在 <code>~/Library/Application Support</code>，文件格式也不一样。把 Switch 存档拷到 Mac 上，
+      需要在主机本身刷自制固件或破解——那是另一个问题，风险也不同，本页所讲的一切都不适用。
+      上面那些路径只针对 <strong>macOS 上的 Steam 版</strong>。
+    </p>
+    <p>
+      Xbox / Microsoft Store 版同样不在讨论范围内：它根本没有 Mac 版，而且存档采用的是 Windows 那边的另一种格式。
+    </p>
+
+    <h2 id="troubleshooting">找不到这个文件夹怎么办</h2>
+    <ul>
+      <li><strong>你找错资源库了。</strong>必须是 <code>~/Library</code>——个人主目录里的那个——而不是磁盘顶层的 <code>/Library</code>。</li>
+      <li><strong>你还没启动过游戏。</strong>这个文件夹是首次运行时才创建的。先把游戏启动一次、进到有存档的状态、退出，然后再找。</li>
+      <li><strong>你的 Finder 把“Application Support”显示成了中文名。</strong>在部分语言下 macOS 会用翻译后的名称显示这个文件夹（简体中文里显示为“应用程序支持”），但磁盘上的真实路径永远是英文的 <code>Application Support</code>——把英文路径粘贴到<strong>前往文件夹</strong>里就能用。</li>
+      <li><strong>你用的是另一种布局。</strong>如果路径 1 不存在，就试路径 2，反过来也一样。</li>
+      <li><strong>还是什么都没有？</strong>在终端里搜索整个资源库：
+<pre><code>find ~/Library/Application\ Support -name "GameSave_*_GD.sav" 2&gt;/dev/null</code></pre>
+      不管你的安装用的是哪种布局，它都会把这台 Mac 上每一份《潜水员戴夫》存档的完整路径打印出来。</li>
+    </ul>
+
+    <hr>
+
+    <h2>相关内容</h2>
+    <ul class="grid">
+      <li class="card">
+        <h3><a href="../../max-gold-bei-artisans-flame/" hreflang="en">拉满金币、贝币与匠人之火</a></h3>
+        <p>每种货币各有什么用、怎么精确设定，以及怎么撤销。（英文页面）</p>
+      </li>
+      <li class="card">
+        <h3><a href="../../cheat-engine-alternative-mac/" hreflang="en">Mac 上的 Cheat Engine 替代方案</a></h3>
+        <p>为什么 Cheat Engine 无法在 macOS 上运行，以及存档修改器换成了什么做法。（英文页面）</p>
+      </li>
+      <li class="card">
+        <h3><a href="../../faq/" hreflang="en">常见问题</a></h3>
+        <p>封号、修改消失、Intel 芯片的 Mac、非英文存档、DLC 与撤销。（英文页面）</p>
+      </li>
+    </ul>
+
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap wrap-wide">
+    <ul class="foot-links">
+      <li><a href="../">首页</a></li>
+      <li><a href="./">存档文件位置</a></li>
+      <li><a href="../../max-gold-bei-artisans-flame/" hreflang="en">拉满货币</a></li>
+      <li><a href="../../cheat-engine-alternative-mac/" hreflang="en">Cheat Engine 替代方案</a></li>
+      <li><a href="../../faq/" hreflang="en">常见问题</a></li>
+      <li><a href="https://github.com/hypery11/DaveTheDiverSaveEditor">GitHub</a></li>
+      <li><a href="../support/">赞助</a></li>
+      <li><a href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">版本发布</a></li>
+    </ul>
+    <p>
+      本工具为非官方的粉丝作品，与 MINTROCKET、Nexon Korea Corporation 及其任何关联公司均无隶属关系，
+      也未获得它们的授权、认可或赞助。“Dave the Diver”（《潜水员戴夫》）及所有相关名称、标志与角色均为其
+      各自权利人的商标，此处仅作描述性使用，用于说明本工具适用于哪款游戏。本工具修改的是你自己电脑上的存档
+      文件，不会修改、破解或再分发游戏的任何部分，并且不含任何游戏代码与游戏素材。本工具免费、无广告、
+      不出售。使用风险自负——请务必保留备份。
+    </p>
+    <p>基于 MIT 协议发布。</p>
+  </div>
+</footer>
+
+</body>
+</html>

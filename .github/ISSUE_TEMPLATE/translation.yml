@@ -1,0 +1,40 @@
+name: Translation
+description: Fix a translation, or add a new language
+labels: [translation]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        You don't need Xcode, Git, or any programming — see
+        [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md#translations).
+        Export a spreadsheet with `Scripts/loc_csv.py export <lang> out.csv`, fill in the
+        `translation` column, and paste it below. Or just describe the fix in words.
+  - type: input
+    id: language
+    attributes:
+      label: Language
+      placeholder: "e.g. 日本語 / Deutsch / 繁體中文"
+    validations: { required: true }
+  - type: textarea
+    id: detail
+    attributes:
+      label: What's wrong, or what are you adding?
+      description: For a fix, quote the current text and your replacement.
+    validations: { required: true }
+  - type: textarea
+    id: csv
+    attributes:
+      label: Filled-in CSV (optional)
+      description: Paste the whole file. It'll be merged for you — you don't have to open a PR.
+      render: csv
+  - type: input
+    id: credit
+    attributes:
+      label: How would you like to be credited?
+      description: A name or handle, or say "no credit" if you'd rather not be listed.
+  - type: checkboxes
+    id: specifiers
+    attributes:
+      label: Before submitting
+      options:
+        - label: I kept every %@ and %lld exactly as they appear in the English

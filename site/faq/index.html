@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dave the Diver Save Editor — FAQ | DiveSaveEd for macOS</title>
+<meta name="description" content="Answers about the Dave the Diver save editor for macOS: will I get banned, why did my edits disappear, Intel Macs, Chinese/Korean/Japanese saves, the In the Jungle DLC, undo and backups, and the Xbox / Microsoft Store version.">
+<link rel="canonical" href="https://hypery11.github.io/DaveTheDiverSaveEditor/faq/">
+<meta name="theme-color" content="#FBF6EC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14181B" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../images/logo.png" type="image/png">
+<link rel="apple-touch-icon" href="../images/logo.png">
+<link rel="stylesheet" href="../style.css">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="DiveSaveEd">
+<meta property="og:title" content="Dave the Diver Save Editor — FAQ">
+<meta property="og:description" content="Bans, disappearing edits, Intel Macs, non-English saves, the In the Jungle DLC, undo and backups, and the Xbox / Microsoft Store version.">
+<meta property="og:url" content="https://hypery11.github.io/DaveTheDiverSaveEditor/faq/">
+<meta property="og:image" content="https://hypery11.github.io/DaveTheDiverSaveEditor/images/main-en-light.png">
+<meta property="og:image:alt" content="DiveSaveEd, a native macOS save editor for Dave the Diver">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dave the Diver Save Editor — FAQ">
+<meta name="twitter:description" content="Bans, disappearing edits, Intel Macs, non-English saves, the In the Jungle DLC, undo and backups, and the Xbox / Microsoft Store version.">
+<meta name="twitter:image" content="https://hypery11.github.io/DaveTheDiverSaveEditor/images/main-en-light.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Dave the Diver Save Editor for Mac",
+      "item": "https://hypery11.github.io/DaveTheDiverSaveEditor/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "FAQ",
+      "item": "https://hypery11.github.io/DaveTheDiverSaveEditor/faq/"
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "url": "https://hypery11.github.io/DaveTheDiverSaveEditor/faq/",
+  "name": "Dave the Diver Save Editor — FAQ",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Will I get banned for using this?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Dave the Diver is a single-player game with no multiplayer, no leaderboards, and no anti-cheat software. This tool edits a file on your own computer while the game is closed. It never attaches to the game process, never reads or writes game memory, and never touches the game executable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why did my edits disappear after launching the game?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Almost always Steam Cloud. When Steam launches, it sees your local save differs from the cloud copy and restores the old cloud version over your edit before the game even loads. Quit Dave the Diver completely, turn off Steam Cloud for this game (Steam Library, right-click Dave the Diver, Properties, General, uncheck Keep game saves in the Steam Cloud), then edit and save, then launch the game. The other cause is the opening tutorial: a few values are hard-scripted during it and the game overwrites them. Edits stick reliably once you're past that point."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work with Chinese, Korean, or Japanese saves?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Saves containing non-ASCII text are read and written correctly, with no corrupted characters. The app's own interface is available in English, 简体中文, 繁體中文 and 한국어."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this work on Intel Macs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — the app is a universal build for Apple Silicon and Intel. It requires macOS 14 or later."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it support the “In the Jungle” DLC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Partly. A save from a game with the DLC installed loads and writes correctly — anything the app doesn't recognise is preserved untouched — and bulk fills only inject content your save reports as installed. But the bundled item database predates In the Jungle, so Jungle-only items aren't listed by name and aren't included in the bulk fills. Earlier DLC content, including the DREDGE collab, is covered."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I undo something I didn't mean to do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, twice over: Undo last edit reverses a bulk action in-app before you ever write, and every write makes a timestamped backup you can restore from the Restore from Backup window. Individual currency fields also have a Reset that restores the value the save had when you opened it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work with the Xbox / Microsoft Store version?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not on macOS — that version isn't available for Mac. This tool targets the macOS Steam save location."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where is the Dave the Diver save file on Mac?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dave the Diver stores its macOS saves in ~/Library/Application Support/com.nexon.dave/SteamSData/<steam-id>/ — and some installs use ~/Library/Application Support/nexon/DAVE THE DIVER/SteamSData/ instead. Both are checked automatically, so the app finds your saves without being told where they are. The files are named GameSave_XX_GD.sav. ~/Library is hidden in Finder; to open it yourself use Finder, Go, Go to Folder… (Shift-Command-G), paste the path, press Return."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work with Nintendo Switch or PlayStation saves?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Nintendo Switch and PlayStation saves are not supported — those are console saves and this tool cannot read them. It works with the Steam version of the game on macOS."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this safe?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Safety is a design constraint, not an afterthought. The app refuses to write while Dave the Diver is running, or while the save file is open elsewhere. It makes an automatic timestamped backup before every write, with a restore UI. There is bulk undo for every bulk operation and a change preview before anything is written. Bulk fills skip perishable aberration fish (the DREDGE collab catch), because the game discards stockpiled aberrations on load and filling them would wipe your real catch. It is open source under MIT, so you can read every line before you run it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does it cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nothing. It is free, open source under the MIT License, contains no advertising, and is not sold. It makes no network calls of any kind — no account, no telemetry."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does macOS block it as an unidentified developer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The app is signed and notarized by Apple, so it opens normally — macOS will show the usual “downloaded from the Internet” confirmation the first time. Download the latest .dmg from the GitHub Releases page and drag the app to Applications."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I edit raw values in the save?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can search the entire decoded save as formatted JSON in the raw inspector, but it is deliberately read-only: hand-editing raw values can set progression flags out of order and soft-lock a run. Editing goes through the fields that are known to be safe."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Primary">
+  <div class="wrap wrap-wide nav-inner">
+    <a class="nav-brand" href="../"><img src="../images/logo.png" alt="" width="26" height="26">DiveSaveEd</a>
+    <div class="nav-links">
+      <a href="../">Home</a>
+      <a href="../dave-the-diver-save-file-location-mac/">Save location</a>
+      <a href="../max-gold-bei-artisans-flame/">Max currencies</a>
+      <a href="../cheat-engine-alternative-mac/">Cheat Engine on Mac</a>
+      <a class="cta" href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">Download</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+  <div class="wrap">
+
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="../">DiveSaveEd</a> › <span aria-current="page">FAQ</span>
+    </nav>
+
+    <h1>Dave the Diver Save Editor — FAQ</h1>
+    <p class="lede">
+      Everything people ask about DiveSaveEd, the free and open-source
+      <a href="../">Dave the Diver save editor for macOS</a> — answered directly.
+    </p>
+
+    <section class="qa">
+      <h2 id="banned">Will I get banned for using this?</h2>
+      <p>
+        No. <em>Dave the Diver</em> is a single-player game with no multiplayer, no leaderboards, and
+        no anti-cheat software. This tool edits a file on your own computer while the game is closed.
+        It never attaches to the game process, never reads or writes game memory, and never touches
+        the game executable.
+      </p>
+    </section>
+
+    <section class="qa">
+      <h2 id="disappeared">Why did my edits disappear after launching the game?</h2>
+      <p>
+        Almost always <strong>Steam Cloud</strong>. When Steam launches, it sees your local save
+        differs from the cloud copy and <strong>restores the old cloud version over your edit</strong>
+        before the game even loads. Do it in this order:
+      </p>
+      <ol class="steps">
+        <li><p><strong>Quit Dave the Diver completely.</strong> The app refuses to write while the game is running.</p></li>
+        <li><p><strong>Turn off Steam Cloud for this game</strong> — Steam Library → right-click <strong>Dave the Diver</strong> → <strong>Properties</strong> → <strong>General</strong> → uncheck <strong>Keep game saves in the Steam Cloud</strong>.</p></li>
+        <li><p><strong>Edit and save.</strong> A timestamped backup is written first, automatically.</p></li>
+        <li><p><strong>Launch the game.</strong> Your edit is now the version that loads.</p></li>
+      </ol>
+      <p>
+        The other cause is the opening tutorial: a few values are hard-scripted during it and the game
+        overwrites them. Edits stick reliably once you're past that point.
+      </p>
+    </section>
+
+    <section class="qa">
+      <h2 id="languages">Does it work with Chinese, Korean, or Japanese saves?</h2>
+      <p>
+        Yes. Saves containing non-ASCII text are read and written correctly, with no corrupted
+        characters. The app's own interface is available in English, 简体中文, 繁體中文 and 한국어.
+      </p>
+      <figure>
+        <div class="shot">
+          <img src="../images/main-ko-dark.png" alt="DiveSaveEd with the interface in Korean, dark mode" width="1960" height="1744" loading="lazy">
+        </div>
+        <figcaption>한국어 인터페이스 — one of four built-in languages.</figcaption>
+      </figure>
+    </section>
+
+    <section class="qa">
+      <h2 id="intel">Does this work on Intel Macs?</h2>
+      <p>
+        Yes — the app is a universal build for Apple Silicon and Intel. It requires macOS 14 or later.
+      </p>
+    </section>
+
+    <section class="qa">
+      <h2 id="dlc">Does it support the “In the Jungle” DLC?</h2>
+      <p>
+        Partly, and the limit is worth knowing before you rely on it. A save from a game with the DLC
+        installed loads and writes correctly — anything the app doesn&rsquo;t recognise is preserved
+        untouched — and bulk fills only inject content your save reports as installed. But the bundled
+        item database predates <em>In the Jungle</em>, so Jungle-only items aren&rsquo;t listed by name
+        and aren&rsquo;t included in the bulk fills. Earlier DLC content, including the DREDGE collab,
+        is covered.
+      </p>
+    </section>
+
+    <section class="qa">
+      <h2 id="undo">Can I undo something I didn't mean to do?</h2>
+      <p>
+        Yes, twice over: <strong>Undo last edit</strong> reverses a bulk action in-app before you ever
+        write, and every write makes a timestamped backup you can restore from the
+        <strong>Restore from Backup</strong> window. Individual currency fields also have a
+        <strong>Reset</strong> that restores the value the save had when you opened it.
+      </p>
+    </section>
+
+    <section class="qa">
+      <h2 id="xbox">Does it work with the Xbox / Microsoft Store version?</h2>
+      <p>
+        Not on macOS — that version isn't available for Mac. This tool targets the macOS Steam save
+        location.
+      </p>
+    </section>
+
+    <section class="qa">
+      <h2 id="location">Where is the Dave the Diver save file on Mac?</h2>
+      <p><em>Dave the Diver</em> stores its macOS saves here:</p>
+<pre><code>~/Library/Application Support/com.nexon.dave/SteamSData/&lt;steam-id&gt;/</code></pre>
+      <p>Some installs use this path instead:</p>
+<pre><code>~/Library/Application Support/nexon/DAVE THE DIVER/SteamSData/</code></pre>
+      <p>
+        Both are checked automatically — the app finds your saves without being told where they are.
+        The files are named <code>GameSave_XX_GD.sav</code>. <code>~/Library</code> is hidden in
+        Finder. To open it yourself: <strong>Finder → Go → Go to Folder…</strong>
+        (<kbd>⇧</kbd><kbd>⌘</kbd><kbd>G</kbd>), paste the path, press Return.
+      </p>
+      <p><a href="../dave-the-diver-save-file-location-mac/">Full guide to the save file location on macOS →</a></p>
+    </section>
+
+    <section class="qa">
+      <h2 id="console">Does it work with Nintendo Switch or PlayStation saves?</h2>
+      <p>
+        No. Nintendo Switch and PlayStation saves are <strong>not</strong> supported — those are
+        console saves and this tool cannot read them. It works with the <strong>Steam</strong> version
+        of the game on macOS.
+      </p>
+    </section>
+
+    <section class="qa">
+      <h2 id="safe">Is this safe?</h2>
+      <p>Safety is a design constraint, not an afterthought:</p>
+      <ul>
+        <li><strong>Refuses to write while Dave the Diver is running</strong>, or while the save file is open elsewhere.</li>
+        <li><strong>Automatic timestamped backup before every write</strong>, with a restore UI.</li>
+        <li><strong>Bulk undo</strong> for every bulk operation.</li>
+        <li><strong>A change preview</strong> before anything is written.</li>
+        <li><strong>Skips perishable aberration fish</strong> (the DREDGE collab catch) in bulk fills — the game discards stockpiled aberrations on load, so filling them would wipe your real catch.</li>
+        <li><strong>Open source under MIT.</strong> Read every line before you run it.</li>
+      </ul>
+    </section>
+
+    <section class="qa">
+      <h2 id="cost">What does it cost?</h2>
+      <p>
+        Nothing. It is free, open source under the MIT License, contains no advertising, and is not
+        sold. It makes no network calls of any kind — no account, no telemetry.
+      </p>
+    </section>
+
+    <section class="qa">
+      <h2 id="gatekeeper">Does macOS block it as an unidentified developer?</h2>
+      <p>
+        No. The app is signed and notarized by Apple, so it opens normally — macOS will show the usual
+        “downloaded from the Internet” confirmation the first time. Download the latest
+        <code>.dmg</code> from
+        <a href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">Releases</a> and
+        drag the app to Applications.
+      </p>
+    </section>
+
+    <section class="qa">
+      <h2 id="raw">Can I edit raw values in the save?</h2>
+      <p>
+        You can search the entire decoded save as formatted JSON in the raw inspector, but it is
+        deliberately <strong>read-only</strong>: hand-editing raw values can set progression flags out
+        of order and soft-lock a run. Editing goes through the fields that are known to be safe.
+      </p>
+      <figure>
+        <div class="shot">
+          <img src="../images/sheet-raw-en-light.png" alt="The read-only raw JSON inspector showing a decoded Dave the Diver save" width="1960" height="1744" loading="lazy">
+        </div>
+        <figcaption>The raw inspector — searchable, formatted, and read-only on purpose.</figcaption>
+      </figure>
+    </section>
+
+    <hr>
+
+    <p class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">Download DiveSaveEd — free</a>
+      <a class="btn btn-ghost" href="https://github.com/hypery11/DaveTheDiverSaveEditor/issues">Ask a question on GitHub</a>
+    </p>
+    <p class="btn-note">macOS 14+, Apple Silicon and Intel. Steam version on macOS. MIT licensed.</p>
+
+    <h2>Related</h2>
+    <ul class="grid">
+      <li class="card">
+        <h3><a href="../dave-the-diver-save-file-location-mac/">Where is the save file on macOS?</a></h3>
+        <p>Both paths, the hidden <code>~/Library</code> folder, backups and Steam Cloud.</p>
+      </li>
+      <li class="card">
+        <h3><a href="../max-gold-bei-artisans-flame/">Max Gold, Bei &amp; Artisan's Flame</a></h3>
+        <p>The practical walkthrough, with undo and backups.</p>
+      </li>
+      <li class="card">
+        <h3><a href="../cheat-engine-alternative-mac/">Cheat Engine alternative for Mac</a></h3>
+        <p>Memory trainer vs. save editor, honestly compared.</p>
+      </li>
+    </ul>
+
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap wrap-wide">
+    <ul class="foot-links">
+      <li><a href="../">Home</a></li>
+      <li><a href="../dave-the-diver-save-file-location-mac/">Save file location</a></li>
+      <li><a href="../max-gold-bei-artisans-flame/">Max currencies</a></li>
+      <li><a href="../cheat-engine-alternative-mac/">Cheat Engine alternative</a></li>
+      <li><a href="../faq/">FAQ</a></li>
+      <li><a href="https://github.com/hypery11/DaveTheDiverSaveEditor">GitHub</a></li>
+      <li><a href="../support/">Support</a></li>
+      <li><a href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">Releases</a></li>
+    </ul>
+    <p>
+      This is an unofficial, fan-made tool. It is not affiliated with, authorized by, endorsed by, or
+      sponsored by MINTROCKET, Nexon Korea Corporation, or any of their affiliates. “Dave the Diver”
+      and all related names, logos, and characters are trademarks of their respective owners and are
+      used here only descriptively, to identify the game this tool works with. This tool edits save
+      files on your own computer; it does not modify, patch, or redistribute any part of the game, and
+      it contains no game code and no game assets. It is free, contains no advertising, and is not
+      sold. Use at your own risk — always keep backups.
+    </p>
+    <p>Released under the MIT License.</p>
+  </div>
+</footer>
+
+</body>
+</html>

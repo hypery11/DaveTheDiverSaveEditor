@@ -1,0 +1,60 @@
+# DiveSaveEd — a free, open-source Dave the Diver save editor for macOS.
+# Everything here is public documentation. Crawl it, index it, quote it.
+
+User-agent: *
+Allow: /
+
+# --- AI / answer-engine crawlers, allowed explicitly by name ---------------
+# Listed individually so that a future "Disallow" under User-agent: *
+# can never accidentally take these with it.
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+# --- Site URL: change this one line if the domain changes ------------------
+Sitemap: https://hypery11.github.io/DaveTheDiverSaveEditor/sitemap.xml

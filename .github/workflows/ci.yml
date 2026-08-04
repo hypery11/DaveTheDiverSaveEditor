@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Tests
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      # A translation that drops or reorders %@ / %lld crashes the app in that language
+      # only — the kind of bug a maintainer who doesn't speak it will never hit.
+      - name: Validate String Catalog
+        run: python3 Scripts/check_catalog.py
+
+      - name: Engine tests
+        run: swift test
+
+      - name: Generate Xcode project
+        run: |
+          brew install xcodegen
+          cd App && xcodegen generate
+
+      # The scheme pins language/region to en/US: the suite asserts the exact English
+      # copy, and String(localized:) otherwise resolves against the runner's locale.
+      #
+      # Deliberately NOT piped to a formatter. Piping to xcpretty made this step a false
+      # green — a shell pipeline exits with the LAST command's status, so xcpretty's 0
+      # masked a failing test suite and `|| exit ${PIPESTATUS[0]}` never ran. Confirmed by
+      # pushing a deliberately failing test and watching CI report success.
+      - name: App tests
+        run: |
+          cd App
+          xcodebuild test \
+            -project DaveTheDiverSaveEditor.xcodeproj \
+            -scheme DaveTheDiverSaveEditor \
+            -destination 'platform=macOS'

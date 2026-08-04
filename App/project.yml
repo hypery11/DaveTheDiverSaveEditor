@@ -1,0 +1,89 @@
+name: DaveTheDiverSaveEditor
+
+options:
+  bundleIdPrefix: app.davethediver
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    # Emit .stringsdata for String(localized:) / LocalizedStringResource so the String
+    # Catalog picks up model-layer strings, not just SwiftUI Text/Button literals.
+    SWIFT_EMIT_LOC_STRINGS: "YES"
+    # Universal. The README and the site have always claimed Apple Silicon AND Intel, and
+    # with ARCHS: arm64 that was false — an Intel Mac could not run the shipped .dmg at all.
+    # ONLY_ACTIVE_ARCH stays YES for Debug (fast local builds); Release below overrides it so
+    # the artifact users download is actually universal.
+    ARCHS: "$(ARCHS_STANDARD)"
+    ONLY_ACTIVE_ARCH: "YES"
+    CODE_SIGN_STYLE: Manual
+    CODE_SIGN_IDENTITY: "-"
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGNING_REQUIRED: "YES"
+    CODE_SIGNING_ALLOWED: "YES"
+  configs:
+    Release:
+      # Without this a Release build still produces a single-arch binary on an Apple Silicon
+      # machine, which is exactly how the shipped .dmg came to be arm64-only.
+      ONLY_ACTIVE_ARCH: "NO"
+
+packages:
+  DaveSaveCore:
+    path: ..
+
+targets:
+  DaveTheDiverSaveEditor:
+    type: application
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: Sources
+    dependencies:
+      - package: DaveSaveCore
+        product: DaveSaveCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.davethediver.saveeditor
+        PRODUCT_NAME: DaveTheDiverSaveEditor
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: "YES"
+        # Shown in the About window AND in every Help ▸ Copy Diagnostics block, so a stale
+        # value here makes every bug report wrong about which build it came from.
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1"
+        CODE_SIGN_ENTITLEMENTS: DaveTheDiverSaveEditor.entitlements
+        ENABLE_HARDENED_RUNTIME: "NO"
+        # The product is branded DiveSaveEd everywhere else — README, site, Help menu — so the
+        # bundle says so too. There is no INFOPLIST_KEY_ for CFBundleName (Xcode generates it
+        # from PRODUCT_NAME), and PRODUCT_NAME must stay as-is because it is the .app filename
+        # the signing and notarization scripts reference — so `AppInfo.name` reads
+        # CFBundleDisplayName in preference.
+        INFOPLIST_KEY_CFBundleDisplayName: DiveSaveEd
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
+        INFOPLIST_KEY_NSHumanReadableCopyright: "MIT License."
+    scheme:
+      testTargets:
+        - DaveTheDiverSaveEditorTests
+      # Pin the test run to English. The suite asserts the exact English copy, and
+      # String(localized:) resolves against the *host machine's* language — without this
+      # the same commit passes on an English CI box and fails on a localized desktop.
+      language: en
+      region: US
+
+  DaveTheDiverSaveEditorTests:
+    type: bundle.unit-test
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: Tests
+    dependencies:
+      - target: DaveTheDiverSaveEditor
+      - package: DaveSaveCore
+        product: DaveSaveCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.davethediver.saveeditor.tests
+        GENERATE_INFOPLIST_FILE: "YES"

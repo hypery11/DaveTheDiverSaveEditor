@@ -1,0 +1,59 @@
+name: Bug report
+description: Something went wrong
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Please don't attach a save file here** — it contains your progress and Steam ID.
+        If one is needed to reproduce the problem we'll arrange it privately.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, what you got. Paste any message the app showed.
+    validations: { required: true }
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      description: DiveSaveEd ▸ About, or the release you downloaded.
+    validations: { required: true }
+  - type: dropdown
+    id: mac
+    attributes:
+      label: Mac
+      options: [Apple Silicon, Intel]
+    validations: { required: true }
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version
+      placeholder: "e.g. 15.2"
+    validations: { required: true }
+  - type: dropdown
+    id: language
+    attributes:
+      label: App language
+      options: [English, 简体中文, 繁體中文, 한국어, Other]
+  - type: checkboxes
+    id: cloud
+    attributes:
+      label: Before reporting an edit that "didn't work"
+      options:
+        - label: The game was fully quit while I edited
+        - label: Steam Cloud is turned off for Dave the Diver
+
+  # Prefilled by the app: Help ▸ Report a Problem… opens this form with the block already
+  # pasted in (and also puts it on the clipboard, so the report still works if GitHub's
+  # prefill ever changes). Contains no save contents and no full paths.
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics
+      description: >
+        Leave as-is if the app filled this in. Otherwise use Help ▸ Copy Diagnostics in the
+        app and paste here — it is version, macOS, Mac type, language and last action only.
+      render: text
+    validations:
+      required: false

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>潛水員戴夫存檔修改器 Mac 版 — 免費開源 | DiveSaveEd</title>
+<meta name="description" content="DiveSaveEd 是免費開源的《潛水員戴夫》(Dave the Diver) macOS 存檔修改器。原生 Mac 軟體，離線修改金幣、貝伊、達人的火花、食材與背包。不需要 Wine、不用 Cheat Engine、不連網路。支援 macOS 14 以上，Apple Silicon 與 Intel。">
+<link rel="canonical" href="https://hypery11.github.io/DaveTheDiverSaveEditor/zh-tw/">
+    <link rel="alternate" hreflang="en" href="https://hypery11.github.io/DaveTheDiverSaveEditor/">
+    <link rel="alternate" hreflang="zh-Hans" href="https://hypery11.github.io/DaveTheDiverSaveEditor/zh/">
+    <link rel="alternate" hreflang="zh-Hant" href="https://hypery11.github.io/DaveTheDiverSaveEditor/zh-tw/">
+    <link rel="alternate" hreflang="ko" href="https://hypery11.github.io/DaveTheDiverSaveEditor/ko/">
+    <link rel="alternate" hreflang="x-default" href="https://hypery11.github.io/DaveTheDiverSaveEditor/">
+<meta name="theme-color" content="#FBF6EC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14181B" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../images/logo.png" type="image/png">
+<link rel="apple-touch-icon" href="../images/logo.png">
+<link rel="stylesheet" href="../style.css">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DiveSaveEd">
+<meta property="og:title" content="潛水員戴夫存檔修改器 Mac 版 — 免費開源">
+<meta property="og:description" content="專為《潛水員戴夫》打造的原生 macOS 存檔修改器。離線修改金幣、貝伊、達人的火花、食材與背包。不需要 Wine、不用 Cheat Engine、不連網路。">
+<meta property="og:url" content="https://hypery11.github.io/DaveTheDiverSaveEditor/zh-tw/">
+<meta property="og:image" content="https://hypery11.github.io/DaveTheDiverSaveEditor/images/main-zh-Hant-light.png">
+<meta property="og:image:alt" content="DiveSaveEd 在 macOS 上修改《潛水員戴夫》存檔">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="潛水員戴夫存檔修改器 Mac 版 — 免費開源">
+<meta name="twitter:description" content="專為《潛水員戴夫》打造的原生 macOS 存檔修改器。離線修改金幣、貝伊、達人的火花、食材與背包。不需要 Wine、不用 Cheat Engine、不連網路。">
+<meta name="twitter:image" content="https://hypery11.github.io/DaveTheDiverSaveEditor/images/main-zh-Hant-light.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "DiveSaveEd — macOS 版《潛水員戴夫》存檔修改器",
+  "alternateName": "DiveSaveEd",
+  "url": "https://hypery11.github.io/DaveTheDiverSaveEditor/zh-tw/",
+  "description": "免費、開放原始碼的原生 macOS《潛水員戴夫》存檔修改器。在遊戲關閉時離線修改存檔：貨幣（金幣、貝伊、達人的火花、研究點數）、餐廳食材、背包、員工等級等等。每次寫入前自動建立帶時間戳記的備份，程式內可還原，並附唯讀的原始 JSON 檢視器。",
+  "applicationCategory": "UtilitiesApplication",
+  "applicationSubCategory": "遊戲存檔修改器",
+  "operatingSystem": "macOS 14 以上",
+  "processorRequirements": "Apple Silicon 或 Intel（通用版本）",
+  "softwareRequirements": "macOS 14 或以上版本；macOS 上的 Steam 版《潛水員戴夫》",
+  "downloadUrl": "https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest",
+  "installUrl": "https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest",
+  "softwareHelp": "https://github.com/hypery11/DaveTheDiverSaveEditor/blob/main/README.zh-Hant.md",
+  "license": "https://opensource.org/licenses/MIT",
+  "isAccessibleForFree": true,
+  "inLanguage": "zh-Hant",
+  "screenshot": "https://hypery11.github.io/DaveTheDiverSaveEditor/images/main-zh-Hant-light.png",
+  "image": "https://hypery11.github.io/DaveTheDiverSaveEditor/images/logo.png",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "TWD",
+    "availability": "https://schema.org/InStock"
+  },
+  "featureList": [
+    "修改金幣、貝伊、達人的火花、研究點數、COOKSTA 追蹤人數、信賴度與偽造點數",
+    "一鍵批次補滿餐廳食材、背包、製作材料、農場種子與員工等級",
+    "透過內建物品資料庫，依名稱瀏覽並修改任何單一物品",
+    "每次寫入前自動建立帶時間戳記的備份，並提供回復視窗",
+    "每一項批次操作都可以在程式內還原",
+    "唯讀的原始 JSON 存檔檢視器",
+    "支援多重存檔欄位",
+    "介面提供 English、简体中文、繁體中文、한국어"
+  ],
+  "sameAs": ["https://github.com/hypery11/DaveTheDiverSaveEditor"],
+  "author": { "@type": "Organization", "name": "DiveSaveEd 貢獻者" }
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">跳至主要內容</a>
+
+<nav class="nav" aria-label="主要導覽">
+  <div class="wrap wrap-wide nav-inner">
+    <a class="nav-brand" href="./"><img src="../images/logo.png" alt="" width="26" height="26">DiveSaveEd</a>
+    <div class="nav-links">
+      <a href="save-file-location/">存檔位置</a>
+      <a href="../max-gold-bei-artisans-flame/" hreflang="en">最大化貨幣（英文）</a>
+      <a href="../faq/" hreflang="en">常見問題（英文）</a>
+      <a href="../" hreflang="en">English</a>
+      <a class="cta" href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">下載</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+  <header class="hero wrap wrap-wide">
+    <img class="logo" src="../images/logo.png" alt="DiveSaveEd 程式圖示" width="104" height="104">
+    <h1>Mac 版《潛水員戴夫》存檔修改器</h1>
+    <p class="tagline">
+      DiveSaveEd 是免費、開放原始碼的<strong>原生 macOS 軟體</strong>，在遊戲關閉時離線修改你的
+      <em>潛水員戴夫</em>（Dave the Diver）存檔。不需要 Wine、不用 Cheat Engine、不注入遊戲程序、
+      不需要帳號、不連網路。
+    </p>
+    <p class="badges">
+      <span class="badge">免費，MIT 授權</span>
+      <span class="badge">macOS 14 以上</span>
+      <span class="badge">Apple Silicon + Intel</span>
+      <span class="badge">已簽署與公證</span>
+      <span class="badge">四種語言</span>
+    </p>
+    <p class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">下載最新版本</a>
+      <a class="btn btn-ghost" href="https://github.com/hypery11/DaveTheDiverSaveEditor">到 GitHub 看原始碼</a>
+    </p>
+    <p class="btn-note">下載 <code>.dmg</code>，把程式拖進「應用程式」資料夾即可。本程式已經過 Apple 簽署與公證。</p>
+
+    <div class="shot">
+      <img class="only-light" src="../images/main-zh-Hant-light.png" alt="DiveSaveEd 以繁體中文介面在 macOS 上修改《潛水員戴夫》存檔，顯示貨幣欄位與批次補滿按鈕" width="1960" height="1744">
+      <img class="only-dark" src="../images/main-en-dark.png" alt="DiveSaveEd 的深色模式，正在 macOS 上修改《潛水員戴夫》存檔" width="1960" height="1744">
+    </div>
+  </header>
+
+  <div class="wrap">
+
+    <h2>這個程式做什麼</h2>
+    <p>
+      《潛水員戴夫》會把遊戲進度存在 Mac 上的一個存檔檔案裡。DiveSaveEd 開啟那個檔案、解碼、
+      讓你修改在意的數值，再寫回去、關閉。整個工具就只做這件事。它不會附加到遊戲程序，不會讀寫遊戲
+      記憶體，也不會動到遊戲執行檔 — 這也是為什麼它完全不需要遊戲執行中，而且在遊戲執行中時會拒絕
+      寫入。
+    </p>
+    <p>
+      這款遊戲的其他存檔修改器幾乎清一色只支援 Windows，在 Mac 上就代表要靠 Wine、CrossOver 或
+      虛擬機。這一款是真正的 Mac 軟體。
+    </p>
+
+    <div class="note">
+      <strong>僅支援 macOS 上的 Steam 版</strong>
+      <strong>不支援</strong> Nintendo Switch 與 PlayStation 的存檔 — 那些是主機端存檔，本工具無法
+      讀取。Xbox／Microsoft Store 版本則根本沒有 Mac 版。
+    </div>
+
+    <h2>功能</h2>
+
+    <ul class="grid">
+      <li class="card">
+        <h3>貨幣</h3>
+        <p>金幣、貝伊、達人的火花、研究點數、COOKSTA 追蹤人數、信賴度與偽造點數。可以 ±10／100／1000
+        增減、直接輸入指定數值，或設為最大值。「重設」會把數值還原成你開啟存檔時的狀態。</p>
+      </li>
+      <li class="card">
+        <h3>批次補滿</h3>
+        <p>每一項各按一下 — 已擁有食材、所有食材（自動判斷 DLC）、分店庫存、員工等級、一般
+        道具、製作材料、魚人村、農場種子、已捕魚類等級 — 或用<strong>一鍵全滿</strong>一次搞定。</p>
+      </li>
+      <li class="card">
+        <h3>依名稱搜尋，不必找 ID</h3>
+        <p>程式內建物品資料庫，你可以直接用真正的物品名稱瀏覽與修改任何單一物品，不必翻試算表去猜
+        數字 ID。</p>
+      </li>
+      <li class="card">
+        <h3>所有操作都能還原</h3>
+        <p>每個批次操作都可以在程式內還原，每次寫入前都會先建立帶時間戳記的備份，並提供回復視窗讓你
+        回到其中任何一份。</p>
+      </li>
+      <li class="card">
+        <h3>唯讀的原始存檔檢視器</h3>
+        <p>以格式化 JSON 搜尋整份解碼後的存檔。這裡刻意設計成唯讀：手動修改原始數值可能讓進度旗標的
+        順序錯亂，導致該周目卡死無法繼續。</p>
+      </li>
+      <li class="card">
+        <h3>多重存檔欄位</h3>
+        <p>自動抓出遊戲的每一份存檔，讓你自由選擇要修改哪一份 — 而且不必告訴它存檔放在哪裡。</p>
+      </li>
+      <li class="card">
+        <h3>四種語言</h3>
+        <p>English、简体中文、繁體中文、한국어。含有非 ASCII 文字的存檔都能正確讀取與寫入，不會出現
+        亂碼。</p>
+      </li>
+      <li class="card">
+        <h3>支援 DLC</h3>
+        <p>「In the Jungle」DLC 的食材都有處理，而且程式只會為存檔中回報為已安裝的 DLC 注入內容。</p>
+      </li>
+    </ul>
+
+    <figure>
+      <div class="shot">
+        <img src="../images/main-ko-dark.png" alt="DiveSaveEd 的 한국어 介面，深色模式" width="1960" height="1744" loading="lazy">
+      </div>
+      <figcaption>介面語言可切換 — 圖為 한국어 深色模式，另外還內建 English、简体中文 與繁體中文。</figcaption>
+    </figure>
+
+    <h2>這樣安全嗎？</h2>
+    <p>安全性是設計時就定下的前提，不是事後才補的：</p>
+    <ul>
+      <li><strong>《潛水員戴夫》執行中時拒絕寫入</strong>，存檔檔案正被其他程式開啟時也一樣。</li>
+      <li><strong>每次寫入前自動建立帶時間戳記的備份</strong>，並提供回復介面。</li>
+      <li><strong>每一項批次操作都可以還原</strong>。</li>
+      <li><strong>寫入前會先顯示變更預覽</strong>。</li>
+      <li><strong>批次補滿會略過易腐的突變魚</strong>（《漁帆暗湧》聯名的捕獲物）— 遊戲載入時會丟棄囤積的突變魚，補滿反而會清掉你真正的漁獲。</li>
+      <li><strong>以 MIT 授權開放原始碼。</strong>執行之前，歡迎逐行檢視。</li>
+    </ul>
+    <p>
+      至於封鎖帳號：不會。《潛水員戴夫》是單人遊戲，沒有多人連線、沒有排行榜，也沒有任何反作弊
+      軟體。這個程式的存在，是為了讓你能備份、修復自己的單人存檔，並省下重複刷取的時間。
+    </p>
+
+    <figure>
+      <div class="shot">
+        <img src="../images/sheet-backups-en-light.png" alt="「從備份回復」視窗，列出存檔的各份帶時間戳記備份" width="1960" height="1744" loading="lazy">
+      </div>
+      <figcaption>每次寫入前都會先建立帶時間戳記的備份 — 而且你隨時可以回復到其中任何一份。</figcaption>
+    </figure>
+
+    <div class="warn">
+      <strong>⚠️ Steam Cloud 會默默還原你的修改</strong>
+      這是修改「沒有生效」最常見的原因。請先完全關閉遊戲，把《潛水員戴夫》的 Steam Cloud
+      <em>關掉</em>，再進行修改 —
+      <a href="save-file-location/#steam-cloud">完整的四個步驟看這裡</a>。
+    </div>
+
+    <h2>延伸閱讀</h2>
+    <ul class="grid">
+      <li class="card">
+        <h3><a href="save-file-location/">macOS 上的存檔位置在哪裡？</a></h3>
+        <p>兩個已知路徑、如何打開隱藏的 <code>~/Library</code> 資料夾、<code>GameSave_XX_GD.sav</code>
+        的命名規則，以及怎麼手動備份。</p>
+      </li>
+      <li class="card">
+        <h3><a href="../max-gold-bei-artisans-flame/" hreflang="en">最大化金幣、貝伊與達人的火花（英文）</a></h3>
+        <p>實用操作指南 — 每種貨幣的用途、怎麼設定，以及設過頭時怎麼還原。</p>
+      </li>
+      <li class="card">
+        <h3><a href="../cheat-engine-alternative-mac/" hreflang="en">Mac 上的 Cheat Engine 替代方案（英文）</a></h3>
+        <p>Cheat Engine 不能在 macOS 上執行。這裡老實說明記憶體修改工具與存檔修改器的差別，以及本程式
+        改用什麼做法。</p>
+      </li>
+      <li class="card">
+        <h3><a href="../faq/" hreflang="en">常見問題（英文）</a></h3>
+        <p>封鎖帳號、修改消失、Intel 版 Mac、非英文存檔、DLC、還原，以及 Xbox／Microsoft Store 版本。</p>
+      </li>
+    </ul>
+
+    <h2>系統需求</h2>
+    <div class="table-wrap">
+      <table>
+        <tbody>
+          <tr><th scope="row">作業系統</th><td>macOS 14 (Sonoma) 或以上版本</td></tr>
+          <tr><th scope="row">硬體</th><td>Apple Silicon 或 Intel — 通用版本</td></tr>
+          <tr><th scope="row">遊戲版本</th><td>macOS 上的 Steam 版《潛水員戴夫》</td></tr>
+          <tr><th scope="row">不支援</th><td>Nintendo Switch、PlayStation、Xbox／Microsoft Store</td></tr>
+          <tr><th scope="row">價格</th><td>免費，MIT 授權。無廣告、無遙測、不進行任何網路連線。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">下載 DiveSaveEd</a>
+      <a class="btn btn-ghost" href="https://github.com/hypery11/DaveTheDiverSaveEditor">原始碼與問題回報</a>
+    </p>
+
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap wrap-wide">
+    <ul class="foot-links">
+      <li><a href="./">首頁</a></li>
+      <li><a href="save-file-location/">存檔位置</a></li>
+      <li><a href="../max-gold-bei-artisans-flame/" hreflang="en">最大化貨幣（英文）</a></li>
+      <li><a href="../cheat-engine-alternative-mac/" hreflang="en">Cheat Engine 替代方案（英文）</a></li>
+      <li><a href="../faq/" hreflang="en">常見問題（英文）</a></li>
+      <li><a href="../" hreflang="en">English</a></li>
+      <li><a href="https://github.com/hypery11/DaveTheDiverSaveEditor">GitHub</a></li>
+      <li><a href="support/">贊助</a></li>
+      <li><a href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">版本發布</a></li>
+    </ul>
+    <p>
+      本程式為非官方的玩家自製工具，與 MINTROCKET、Nexon Korea Corporation 或其任何關係企業並無隸屬、
+      授權、背書或贊助關係。「Dave the Diver」（《潛水員戴夫》）及所有相關名稱、標誌與角色，皆為其
+      各自所有者的商標，在此僅作描述性使用，用以指明本工具所搭配的遊戲。本工具只修改你自己電腦上的
+      存檔檔案，不會修改、修補或散布遊戲的任何部分，且不含任何遊戲程式碼與遊戲資源。本程式免費、
+      不含廣告，也不對外販售。使用風險請自行承擔 — 請務必保留備份。
+    </p>
+    <p>本程式以 MIT 授權條款發布。</p>
+  </div>
+</footer>
+
+</body>
+</html>

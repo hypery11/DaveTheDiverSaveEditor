@@ -1,0 +1,133 @@
+name: Release
+
+# Releases are currently cut locally with App/scripts/release-local.sh, which keeps the
+# Developer ID private key on the maintainer's Mac instead of copying it into secrets.
+# This workflow is therefore manual-only. To go back to tag-triggered releases, set the
+# signing secrets listed in docs/RELEASING.md and restore the `push: tags` trigger below.
+#
+#  push:
+#    tags: ["v*"]
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to build (e.g. v1.0.0)"
+        required: true
+
+permissions:
+  contents: write
+  id-token: write      # build provenance attestation
+  attestations: write
+
+jobs:
+  release:
+    name: Build, sign, notarize
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Version from tag
+        id: v
+        run: |
+          TAG="${{ inputs.tag || github.ref_name }}"
+          echo "version=${TAG#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Require signing secrets
+        run: |
+          test -n "${{ secrets.BUILD_CERTIFICATE_BASE64 }}" || {
+            echo "::error::Signing secrets are not configured — see docs/RELEASING.md." >&2
+            exit 1; }
+
+      # Developer ID cert lives in a throwaway keychain that dies with the runner.
+      - name: Import signing certificate
+        env:
+          CERT_B64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          CERT_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          CERT=$RUNNER_TEMP/cert.p12
+          KEYCHAIN=$RUNNER_TEMP/build.keychain-db
+          echo -n "$CERT_B64" | base64 --decode -o "$CERT"
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security import "$CERT" -P "$CERT_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN"
+          security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security list-keychain -d user -s "$KEYCHAIN" login.keychain-db
+
+      - name: Build
+        env:
+          TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          brew install xcodegen
+          cd App && xcodegen generate
+          xcodebuild -project DaveTheDiverSaveEditor.xcodeproj \
+            -scheme DaveTheDiverSaveEditor \
+            -configuration Release \
+            -destination 'generic/platform=macOS' \
+            -derivedDataPath build \
+            MARKETING_VERSION=${{ steps.v.outputs.version }} \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="Developer ID Application" \
+            DEVELOPMENT_TEAM="$TEAM_ID" \
+            ENABLE_HARDENED_RUNTIME=YES \
+            OTHER_CODE_SIGN_FLAGS="--timestamp" \
+            build
+
+      - name: Package DMG
+        id: pkg
+        run: |
+          APP=App/build/Build/Products/Release/DaveTheDiverSaveEditor.app
+          NAME=DiveSaveEd-macOS-v${{ steps.v.outputs.version }}
+          STAGE=$RUNNER_TEMP/dmg && mkdir -p "$STAGE"
+          cp -R "$APP" "$STAGE/DiveSaveEd.app"
+          ln -s /Applications "$STAGE/Applications"
+          hdiutil create -volname DiveSaveEd -srcfolder "$STAGE" -ov -format UDZO "$NAME.dmg"
+          echo "dmg=$NAME.dmg" >> "$GITHUB_OUTPUT"
+
+      - name: Notarize and staple
+        env:
+          KEY_B64: ${{ secrets.AC_API_KEY_BASE64 }}
+          KEY_ID: ${{ secrets.AC_API_KEY_ID }}
+          ISSUER_ID: ${{ secrets.AC_API_ISSUER_ID }}
+        run: |
+          KEY=$RUNNER_TEMP/ac_key.p8
+          echo -n "$KEY_B64" | base64 --decode -o "$KEY"
+          xcrun notarytool submit "${{ steps.pkg.outputs.dmg }}" \
+            --key "$KEY" --key-id "$KEY_ID" --issuer "$ISSUER_ID" --wait
+          xcrun stapler staple "${{ steps.pkg.outputs.dmg }}"
+          # Prove to ourselves (and the release notes) that Gatekeeper accepts it.
+          spctl -a -vvv -t install "${{ steps.pkg.outputs.dmg }}" || true
+
+      - name: Checksum
+        id: sum
+        run: |
+          SHA=$(shasum -a 256 "${{ steps.pkg.outputs.dmg }}" | awk '{print $1}')
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: ${{ steps.pkg.outputs.dmg }}
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.pkg.outputs.dmg }}
+          generate_release_notes: true
+          body: |
+            Signed and notarized by Apple — it opens without a Gatekeeper workaround.
+
+            **Requires** macOS 14+, Apple Silicon or Intel. Steam version of the game on macOS.
+            Nintendo Switch and PlayStation saves are not supported.
+
+            Verify before running:
+
+            ```
+            shasum -a 256 ${{ steps.pkg.outputs.dmg }}
+            # ${{ steps.sum.outputs.sha }}
+
+            spctl -a -vvv -t install ${{ steps.pkg.outputs.dmg }}
+            ```
+
+            ⚠️ Turn off Steam Cloud for Dave the Diver before editing, or Steam restores the
+            old cloud save over your edit. See the README.

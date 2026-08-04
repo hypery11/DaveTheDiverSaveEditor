@@ -1,0 +1,8 @@
+# No `github:` key: GitHub Sponsors does not support payouts to Taiwan, and Taiwan is
+# absent from Stripe's country list too — so the Sponsors route is blocked twice over.
+#
+# This is a crypto link (Fluidkey private ENS). Two things to know about that choice:
+# it is 0% to receive and self-custodial, but a donor needs an existing funded wallet —
+# there is no card, Apple Pay or bank option — so treat it as available, not as the
+# path most people will take. A bug report or translation fix is worth more.
+custom: ["https://fsd.fkey.id/"]
