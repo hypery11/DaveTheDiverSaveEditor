@@ -42,7 +42,7 @@ struct SupportPromptView: View {
                 Button("Not now") { dismiss() }
                     .keyboardShortcut(.cancelAction)
                 Button("Support the project") {
-                    NSWorkspace.shared.open(SupportLinks.donate)
+                    NSWorkspace.shared.open(SupportLinks.support)
                     dismiss()
                 }
                 .keyboardShortcut(.defaultAction)

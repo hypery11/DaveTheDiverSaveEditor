@@ -16,7 +16,8 @@ enum SupportLinks {
     static let source = URL(string: repo)!
     static let issues = URL(string: "\(repo)/issues/new/choose")!
 
-    /// The project's own support page, which then links out to the donation page.
+    /// The project's own support page, in the reader's language, which then links out to the
+    /// donation page.
     ///
     /// The indirection is the load-bearing part, for two reasons. Wikimedia's banner tests are
     /// the one measured finding in this area: identical click-through, roughly twice the
@@ -28,16 +29,19 @@ enum SupportLinks {
     ///
     /// It also keeps every URL in the binary on a project host, so `strings` on the app — how a
     /// suspicious user actually checks the zero-network claim — comes out clean.
-    static let support = URL(string: "\(site)/support/")!
+    static var support: URL { support(for: Bundle.main.preferredLocalizations.first) }
 
-    /// Where the in-app surfaces actually send people, for now.
-    ///
-    /// It should be `support` above — the project page closes the identity gap and keeps the
-    /// binary free of third-party hosts. But GitHub Pages is not enabled on this repo yet
-    /// (private repos need a paid plan), so `/support/` is currently a 404, and a donation
-    /// prompt whose button leads nowhere is worse than the host concern. Flip this back to
-    /// `support` the moment Pages is live.
-    static let donate = URL(string: "https://fsd.fkey.id/")!
+    /// Split out from `support` so the locale mapping can be tested without depending on
+    /// whichever language the test host happens to run in.
+    static func support(for localization: String?) -> URL {
+        let path = switch localization {
+        case "zh-Hant": "zh-tw/support"
+        case "zh-Hans": "zh/support"
+        case "ko":      "ko/support"
+        default:        "support"          // English, and any language we don't ship
+        }
+        return URL(string: "\(site)/\(path)/")!
+    }
 }
 
 /// Builds a GitHub "new issue" URL with the diagnostics block already in the body.

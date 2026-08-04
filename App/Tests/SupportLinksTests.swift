@@ -42,21 +42,38 @@ struct SupportLinksTests {
     /// `strings` on the binary is how a suspicious user checks the zero-network claim, so every
     /// host in the app has to be accounted for.
     ///
-    /// This test previously iterated only the project-hosted links while `donate` — the one
-    /// third-party host — sat outside the loop. It passed, under a name claiming every link was
-    /// on a project host, which was no longer true. A test that quietly stops covering the thing
-    /// it is named after is worse than no test, so both halves are pinned explicitly now.
-    @Test("project links are own-host, and the donation link is the one accounted-for exception")
+    /// There used to be an exception here: while Pages was off and `/support/` 404'd, the
+    /// in-app prompt pointed straight at the wallet host. Pages is live, so every link is back
+    /// on a project host and the loop covers all of them — which is what this test's name
+    /// claimed even while one link sat outside it.
+    @Test("every link in the binary is on a project host")
     func hostsAreAccountedFor() {
         let own = ["github.com", "hypery11.github.io"]
         for url in [SupportLinks.faq, SupportLinks.source, SupportLinks.issues, SupportLinks.support] {
             #expect(own.contains(url.host ?? ""), "\(url) is not a project host")
             #expect(url.scheme == "https")
         }
-        // Temporary: in-app surfaces point straight at the wallet only while GitHub Pages is
-        // off and /support/ 404s. When Pages is live this becomes SupportLinks.support and the
-        // exception disappears.
-        #expect(SupportLinks.donate.host == "fsd.fkey.id")
-        #expect(SupportLinks.donate.scheme == "https")
+    }
+
+    /// The app ships four languages but the site's support page is four separate URLs, so
+    /// sending everyone to the English one silently undoes the reason for pointing at the
+    /// project page at all: that it explains who `fsd` is *in the reader's own language*
+    /// before they reach a wallet.
+    @Test("the support page follows the app's language", arguments: [
+        ("en", "support/"),
+        ("zh-Hant", "zh-tw/support/"),
+        ("zh-Hans", "zh/support/"),
+        ("ko", "ko/support/"),
+        ("de", "support/"),                                  // a language we don't ship
+    ])
+    func supportPageIsLocalized(localization: String, path: String) {
+        #expect(SupportLinks.support(for: localization).absoluteString
+                == "https://hypery11.github.io/DaveTheDiverSaveEditor/\(path)")
+    }
+
+    @Test("a bundle with no preferred localization still yields a usable URL")
+    func supportPageWithoutLocalization() {
+        #expect(SupportLinks.support(for: nil).absoluteString
+                == "https://hypery11.github.io/DaveTheDiverSaveEditor/support/")
     }
 }
