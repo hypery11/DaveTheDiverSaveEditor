@@ -22,6 +22,9 @@
 
 macOS 14 或更高版本，Apple Silicon 与 Intel 均可。适用于 macOS 上的 **Steam** 版游戏。
 
+> **DiveSaveEd 不是 DaveSaveEd。** 两者名称只差一个字母，也都在改这款游戏的存档，但 DiveSaveEd 是
+> 用 Swift 写的 macOS 应用，DaveSaveEd 是 Windows 工具。这个在 Windows 上无法运行。
+
 > **不支持** Nintendo Switch 与 PlayStation 存档——那些是主机存档，本工具无法读取。
 
 ## 安装

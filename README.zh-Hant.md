@@ -22,6 +22,9 @@ Cheat Engine、不注入遊戲程序、不需要帳號、不連網路。
 
 macOS 14 或以上版本，支援 Apple Silicon 與 Intel。適用於 macOS 上的 **Steam** 版遊戲。
 
+> **DiveSaveEd 不是 DaveSaveEd。** 兩者名稱只差一個字母,也都在改這款遊戲的存檔,但 DiveSaveEd 是
+> 用 Swift 寫的 macOS 程式,DaveSaveEd 是 Windows 工具。這個在 Windows 上不能執行。
+
 > **不支援** Nintendo Switch 與 PlayStation 的存檔 — 那些是主機端存檔，本工具無法讀取。
 
 ## 安裝

@@ -22,6 +22,10 @@ Cheat Engine, no process injection, no account, no network.
 
 macOS 14 or later, Apple Silicon or Intel. Works with the **Steam** version of the game on macOS.
 
+> **DiveSaveEd is not DaveSaveEd.** The names differ by one letter and both edit this game's
+> saves, but DiveSaveEd is a macOS app written in Swift, and DaveSaveEd is a Windows tool.
+> This one will not run on Windows.
+
 > Nintendo Switch and PlayStation saves are **not** supported — those are console saves and this tool
 > cannot read them.
 

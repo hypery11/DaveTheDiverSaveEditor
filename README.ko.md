@@ -22,6 +22,10 @@ Windows 전용이지만, 이 앱은 진짜 Mac 앱입니다. 세이브를 열고
 
 macOS 14 이상, Apple Silicon 또는 Intel. macOS용 **Steam** 버전 게임에서 동작합니다.
 
+> **DiveSaveEd는 DaveSaveEd가 아닙니다.** 이름이 한 글자 차이이고 둘 다 같은 게임의 세이브를
+> 편집하지만, DiveSaveEd는 Swift로 만든 macOS 앱이고 DaveSaveEd는 Windows 도구입니다. 이 앱은
+> Windows에서는 실행되지 않습니다.
+
 > Nintendo Switch와 PlayStation 세이브는 **지원하지 않습니다**. 콘솔 세이브라서 이 도구로는 읽을 수
 > 없습니다.
 
