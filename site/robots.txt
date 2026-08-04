@@ -1,3 +1,19 @@
+# NOTE — two things that are easy to get wrong here:
+#
+# 1. This file only takes effect at the ORIGIN ROOT. On a GitHub Pages *project* site it
+#    deploys to /DaveTheDiverSaveEditor/robots.txt, which no crawler reads (RFC 9309 scopes
+#    robots.txt to the origin). Until this site has its own domain, or a hypery11.github.io
+#    user-site repo serves a root robots.txt, every rule below is inert. Verified:
+#    https://hypery11.github.io/robots.txt returns 404.
+#
+# 2. Naming a crawler in its own group makes it ignore `User-agent: *` ENTIRELY. So if a
+#    Disallow is ever added under `*`, it will silently not apply to any agent named below.
+#    Add such rules to every group, or not at all.
+#
+# Of the agents here, only OAI-SearchBot and PerplexityBot affect whether we can be CITED;
+# GPTBot, ClaudeBot and Google-Extended govern training, and blocking them costs no
+# visibility. All are allowed.
+
 # DiveSaveEd — a free, open-source Dave the Diver save editor for macOS.
 # Everything here is public documentation. Crawl it, index it, quote it.
 
