@@ -364,6 +364,38 @@ figcaption {
   border-color: var(--accent);
   color: var(--accent);
 }
+/* The donation CTA. It was written as `class="cta"` but the only rule for that class was
+   `.nav-links a.cta`, so the one button the support page exists to present rendered as a plain
+   text link. It gets its own class rather than reusing `.cta`, which already means "the primary
+   nav action" on the Download link. Coral rather than the site's teal accent, matching the app's
+   own Support button. */
+.cta-donate {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .7rem 1.4rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #FF8E6C, var(--coral-deep));
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(216, 83, 47, .3), 0 8px 20px -10px rgba(216, 83, 47, .6);
+}
+.cta-donate::before { content: "\2665"; font-size: 1.05em; line-height: 1; }
+.cta-donate:hover { background: linear-gradient(180deg, #FF9A7C, #C2481F); color: #fff; }
+.cta-donate:active { transform: translateY(1px); }
+
+/* The support-page banner. Full-bleed within the measure, and it carries its own dark palette,
+   so it needs no light/dark variants. */
+.support-hero {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 0 1.8rem;
+  border-radius: 18px;
+  font-family: var(--sans);
+}
+
 .btn-note {
   text-align: center;
   font-size: .85rem;
