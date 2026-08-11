@@ -87,7 +87,7 @@
 <pre><code>~/Library/Application Support/com.nexon.dave/SteamSData/&lt;steam-id&gt;/</code></pre>
 <pre><code>~/Library/Application Support/nexon/DAVE THE DIVER/SteamSData/</code></pre>
       <p>
-        裡面的存檔檔案名稱是 <code>GameSave_XX_GD.sav</code>，其中 <code>XX</code> 是存檔欄位編號。
+        裡面的存檔檔案名稱是 <code>GameSave_XX_GD.sav</code>，其中 <code>XX</code> 是存檔格編號。
         <code>~/Library</code> 預設是隱藏的 — 請用
         <strong>Finder ▸ 前往 ▸ 前往檔案夾…</strong>（<kbd>⇧</kbd><kbd>⌘</kbd><kbd>G</kbd>）貼上路徑，
         再按 Return 鍵打開。
@@ -132,7 +132,7 @@
     <div class="note">
       <strong>其實你不必自己猜</strong>
       <a href="https://github.com/hypery11/DaveTheDiverSaveEditor/releases/latest">DiveSaveEd</a>
-      會自動檢查<em>兩個</em>位置，並列出找到的每一個存檔欄位，所以你完全不必輸入路徑，也不必去搞懂
+      會自動檢查<em>兩個</em>位置，並列出找到的每一個存檔格，所以你完全不必輸入路徑，也不必去搞懂
       自己這份安裝屬於哪一種配置。
     </div>
 
@@ -180,7 +180,7 @@ open ~/Library/Application\ Support/nexon/DAVE\ THE\ DIVER/SteamSData/</code></p
     <h2 id="file-names"><code>GameSave_XX_GD.sav</code> 是什麼意思</h2>
     <p>
       在 <code>SteamSData</code> 裡面，你會看到 <code>GameSave_00_GD.sav</code>、
-      <code>GameSave_01_GD.sav</code> 這樣的檔案。中間那兩位數就是存檔欄位編號。如果你只玩過一個周目，
+      <code>GameSave_01_GD.sav</code> 這樣的檔案。中間那兩位數就是存檔格編號。如果你只玩過一個周目，
       通常就只會看到一個 — 另外還有遊戲自己記錄用的一些檔案。
     </p>
     <div class="table-wrap">
@@ -189,8 +189,8 @@ open ~/Library/Application\ Support/nexon/DAVE\ THE\ DIVER/SteamSData/</code></p
           <tr><th scope="col">你看到的東西</th><th scope="col">那是什麼</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>GameSave_00_GD.sav</code></td><td>存檔欄位 0 — 真正的遊戲資料。</td></tr>
-          <tr><td><code>GameSave_01_GD.sav</code></td><td>存檔欄位 1，後面的欄位依此類推。</td></tr>
+          <tr><td><code>GameSave_00_GD.sav</code></td><td>存檔格 0 — 真正的遊戲資料。</td></tr>
+          <tr><td><code>GameSave_01_GD.sav</code></td><td>存檔格 1，後面的存檔格依此類推。</td></tr>
           <tr><td>一串數字組成的資料夾，例如 <code>76561198…</code></td><td>你的 Steam 帳號 ID，屬於路徑一的配置。</td></tr>
         </tbody>
       </table>
@@ -269,7 +269,7 @@ open ~/Library/Application\ Support/nexon/DAVE\ THE\ DIVER/SteamSData/</code></p
         <img class="only-light" src="../../images/main-zh-Hant-light.png" alt="DiveSaveEd 從 macOS 存檔資料夾載入《潛水員戴夫》存檔，介面為繁體中文" width="1960" height="1744" loading="lazy">
         <img class="only-dark" src="../../images/main-en-dark.png" alt="DiveSaveEd 的深色模式，已載入《潛水員戴夫》存檔" width="1960" height="1744" loading="lazy">
       </div>
-      <figcaption>兩個存檔路徑都會自動偵測 — 不必輸入路徑，也不必猜存檔欄位。</figcaption>
+      <figcaption>兩個存檔路徑都會自動偵測 — 不必輸入路徑，也不必猜存檔格。</figcaption>
     </figure>
 
     <p class="btn-row">

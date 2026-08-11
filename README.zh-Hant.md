@@ -18,7 +18,7 @@ Cheat Engine、不注入遊戲程序、不需要帳號、不連網路。
   <img src="docs/images/main-en-light.png" alt="DiveSaveEd 在 macOS 上修改《潛水員戴夫》存檔" width="900">
 </p>
 
-> **經 Apple 簽署與公證**,每個版本都會發布 SHA-256 與 GitHub build provenance 證明。開啟前可以自己驗:
+> **經 Apple 簽署與公證**，每個版本都會發布 SHA-256 與 GitHub build provenance 證明。開啟前可以自己驗:
 >
 > ```bash
 > shasum -a 256 DiveSaveEd-macOS-v1.0.0.dmg     # 跟 release 頁面比對
@@ -29,8 +29,8 @@ Cheat Engine、不注入遊戲程序、不需要帳號、不連網路。
 
 macOS 14 或以上版本，支援 Apple Silicon 與 Intel。適用於 macOS 上的 **Steam** 版遊戲。
 
-> **DiveSaveEd 不是 DaveSaveEd。** 兩者名稱只差一個字母,也都在改這款遊戲的存檔,但 DiveSaveEd 是
-> 用 Swift 寫的 macOS 程式,DaveSaveEd 是 Windows 工具。這個在 Windows 上不能執行。
+> **DiveSaveEd 不是 DaveSaveEd。** 兩者名稱只差一個字母，也都在改這款遊戲的存檔，但 DiveSaveEd 是
+> 用 Swift 寫的 macOS 程式，DaveSaveEd 是 Windows 工具。這個在 Windows 上不能執行。
 
 > **不支援** Nintendo Switch 與 PlayStation 的存檔 — 那些是主機端存檔，本工具無法讀取。
 
@@ -53,7 +53,7 @@ macOS 14 或以上版本，支援 Apple Silicon 與 Intel。適用於 macOS 上�
 | 餐廳 | 已擁有食材 · 所有食材（自動判斷 DLC） · 分店庫存 · 員工等級 |
 | 背包 | 一般道具 · 製作材料（魚類零件＋《漁帆暗湧》研究零件／骨頭） · 魚人村 · 農場種子 · 已捕魚類等級 |
 
-**依名稱瀏覽並修改任何單一物品** — 程式內建物品資料庫，你可以直接搜尋真正想要的東西，不必去猜數字 ID。
+**依名稱瀏覽並修改任何單一道具** — 程式內建道具資料庫，你可以直接搜尋真正想要的東西，不必去猜數字 ID。
 
 **所有操作都能還原** — 每個批次操作都可以在程式內還原，每次寫入前都會先建立帶時間戳記的備份，並提供
 回復介面讓你回到其中任何一份。
@@ -63,7 +63,7 @@ macOS 14 或以上版本，支援 Apple Silicon 與 Intel。適用於 macOS 上�
 
 **多重存檔格** — 自動抓出遊戲的每一份存檔，讓你自由選擇。
 
-**四種語言** — English、简体中文、繁體中文、한국어。沒有你的語言？補上一個語系靠的是一份試算表,不是寫程式 —— [見下方](#致謝)。
+**四種語言** — English、简体中文、繁體中文、한국어。沒有你的語言？補上一個語系靠的是一份試算表，不是寫程式 —— [見下方](#致謝)。
 
 <p align="center">
   <img src="docs/images/main-zh-Hant-light.png" alt="繁體中文介面" width="440">
@@ -122,9 +122,9 @@ macOS 14 或以上版本，支援 Apple Silicon 與 Intel。適用於 macOS 上�
 
 ### 支援《叢林》DLC 嗎？
 
-部分支援,這個限制值得先知道。裝了 DLC 的存檔可以正常讀取與寫入 —— 程式不認識的內容會原封不動
-保留 —— 而批次補滿也只會注入存檔中回報為已安裝的 DLC 內容。但內建的物品資料庫早於《叢林》,
-所以《叢林》專屬的物品不會列出名稱,也不在批次補滿的範圍內。更早的 DLC(包含《漁帆暗湧》聯名)
+部分支援，這個限制值得先知道。裝了 DLC 的存檔可以正常讀取與寫入 —— 程式不認識的內容會原封不動
+保留 —— 而批次補滿也只會注入存檔中回報為已安裝的 DLC 內容。但內建的道具資料庫早於《叢林》,
+所以《叢林》專屬的道具不會列出名稱，也不在批次補滿的範圍內。更早的 DLC(包含《漁帆暗湧》聯名)
 都有涵蓋。
 
 ### 不小心做錯了，可以還原嗎？
@@ -186,11 +186,11 @@ DiveSaveEd 是免費的 MIT 授權專案。沒有廣告、沒有付費版、沒�
 | | |
 |---|---|
 | **每年 99 美金** | Apple 開發者會員費。macOS 之所以能正常打開這個 App，而不是跳出「無法辨識的開發者」警告，就只是因為這筆錢。 |
-| **每次遊戲更新** | 重新產生物品與魚類資料庫，批次補滿才不會補錯。 |
+| **每次遊戲更新** | 重新產生道具與魚類資料庫，批次補滿才不會補錯。 |
 | **每個語系** | 拿遊戲自己出貨的在地化資料去核對每一個遊戲內名詞，而不是把我們的英文翻過去。 |
 
-如果你想知道這筆錢具體會補上什麼洞，最直接的例子是：**物品資料庫停在《叢林》DLC 之前，因為我沒有
-買那個 DLC。**《叢林》才有的物品既查不到名字，也不在批次補滿的範圍裡。這是錢真的解得掉的問題。
+如果你想知道這筆錢具體會補上什麼洞，最直接的例子是：**道具資料庫停在《叢林》DLC 之前，因為我沒有
+買那個 DLC。**《叢林》才有的道具既查不到名字，也不在批次補滿的範圍裡。這是錢真的解得掉的問題。
 
 **比錢更有價值的事**。這是真心話 —— 下面任何一件，對這個專案的幫助都大於幾塊美金：
 
@@ -207,19 +207,19 @@ DiveSaveEd 是免費的 MIT 授權專案。沒有廣告、沒有付費版、沒�
 
 歡迎提供翻譯、回報問題與送出修正 — 請參閱 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
-不確定算不算 bug,或只是想問個問題?請到 [討論區](https://github.com/hypery11/DaveTheDiverSaveEditor/discussions)。用中文、한국어 或 English 都可以,
-在 issue 和討論區一樣受歡迎,幾天內一定會收到第一次回覆。
+不確定算不算 bug，或只是想問個問題？請到 [討論區](https://github.com/hypery11/DaveTheDiverSaveEditor/discussions)。用中文、한국어 或 English 都可以，
+在 issue 和討論區一樣受歡迎，幾天內一定會收到第一次回覆。
 
 ## 致謝
 
 **翻譯與修正** — 目前還沒有。這裡就是留給你的位置:
-[翻譯 issue](../../issues/new?template=translation.yml) 會問你希望以什麼名字被列出,問的就是這一段。
-你不需要會寫程式,也不需要 Xcode —— [CONTRIBUTING.md](CONTRIBUTING.md) 裡有一條用試算表就能走完的路。
+[翻譯 issue](../../issues/new?template=translation.yml) 會問你希望以什麼名字被列出，問的就是這一段。
+你不需要會寫程式，也不需要 Xcode —— [CONTRIBUTING.md](CONTRIBUTING.md) 裡有一條用試算表就能走完的路。
 
 **這個專案站在誰的肩膀上** — [FNGarvin/DaveSaveEd](https://github.com/FNGarvin/DaveSaveEd)
-(MIT):本專案的參考資料庫由它產生,存檔路徑的知識與功能的雛形也來自它;以及
+(MIT)：本專案的參考資料庫由它產生，存檔路徑的知識與功能的雛形也來自它；以及
 [WhiteMinds/dave-diver-expansion](https://github.com/WhiteMinds/dave-diver-expansion):
-它的字元層級 XOR 編解碼理解,是這個編輯器不會弄壞中文、韓文、日文存檔的原因。
+它的字元層級 XOR 編解碼理解，是這個編輯器不會弄壞中文、韓文、日文存檔的原因。
 完整的出處聲明請見 [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md)。
 
 ## 免責聲明
