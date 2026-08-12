@@ -84,7 +84,11 @@ capture() {   # capture <name> <lang> <appearance> [sheet]
   else defaults delete "$BUNDLE_ID" SnapshotSheet 2>/dev/null || true; fi
 
   if (( ACTIVE )); then open -a "$APP" >/dev/null 2>&1; else open -j -a "$APP" >/dev/null 2>&1; fi
-  sleep 1.2                                  # let the fixture load and the strings resolve
+  # A sheet needs longer than the main window. The raw-JSON sheet renders the entire decoded
+  # save as formatted text, and at 1.2s it was still laying out — the helper then measured a
+  # half-built sheet and ScreenCaptureKit rejected the rect with -3812 "invalid parameter".
+  # It looked like a flaky capture; it was just too short a wait for the heaviest view here.
+  if [[ -n "$sheet" ]]; then sleep 3.5; else sleep 1.2; fi
 
   "$HELPER" "$BUNDLE_ID" "$OUT/$name.png" $W $WIN_H ${sheet:+--sheet}
 }
@@ -105,8 +109,8 @@ for loc in "en:en" "zh-Hans:zh-Hans" "zh-Hant:zh-Hant" "ko:ko"; do
       || capture "main-${loc%%:*}-$appearance" "${loc##*:}" "$appearance" || true
   done
 done
-capture "sheet-raw-en-light"     en light raw      || true
-capture "sheet-backups-en-light" en light backups  || true
+capture "sheet-raw-en-light"     en light raw      || capture "sheet-raw-en-light"     en light raw      || true
+capture "sheet-backups-en-light" en light backups  || capture "sheet-backups-en-light" en light backups  || true
 
 # The docs site serves from site/, so it cannot reach docs/images and keeps its own copies.
 # They silently went a whole release out of date — the Korean shot on the live site still showed

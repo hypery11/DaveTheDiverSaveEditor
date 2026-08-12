@@ -144,11 +144,24 @@ struct ContentView: View {
                         .disabled(!model.isLoaded || !model.hasChanges)
                         .help("Review the changes, then write them to the save")
 
-                    Button("Support", systemImage: "heart.fill") {
+                    // `.tint` does nothing to a plain toolbar button's label — verified by
+                    // sampling the captured screenshot, where the heart came out #4F4E4A, the
+                    // ordinary label colour, indistinguishable from Save and More beside it.
+                    // Colouring the glyph directly is what actually reads as a separate action.
+                    // Only the icon: coral body text next to black toolbar text looks broken,
+                    // and this button is never disabled, so an explicit foreground style can't
+                    // swallow a dimmed state the way it did on the currency steppers.
+                    Button {
                         model.supportPrompt = .launch
+                    } label: {
+                        Label {
+                            Text("Support")
+                        } icon: {
+                            Image(systemName: "heart.fill")
+                                .foregroundStyle(Theme.Color.coral)
+                        }
                     }
                     .labelStyle(.titleAndIcon)
-                    .tint(Theme.Color.coral)
                     .help("DiveSaveEd is free — please consider supporting it")
                 }
             }
