@@ -36,7 +36,9 @@ doesn't expire when the account password changes, and it can be scoped and revok
 ## Checklist
 
 1. `swift test` and the app tests pass locally (CI also gates this).
-2. Regenerate screenshots if the UI changed: `./App/scripts/screenshots.sh`.
+2. Regenerate screenshots if the UI changed: `./App/scripts/screenshots.sh`. It writes
+   `docs/images/` and syncs the subset `site/images/` uses, so both stay current; CI
+   fails if they diverge.
 3. Bump `MARKETING_VERSION` — the workflow sets it from the tag, so just tag correctly.
 4. Tag, push, then confirm the release page shows the SHA-256 and the attestation.
 

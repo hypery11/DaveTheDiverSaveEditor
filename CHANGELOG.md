@@ -8,7 +8,19 @@ the part of a release worth reading before you upgrade.
 
 ## [Unreleased]
 
-Nothing yet.
+Not in any released build yet — v1.0.0's `.dmg` predates all of it.
+
+### Fixed
+
+- The in-app donation prompt sent people straight to the crypto wallet page, which is titled
+  "Send to fsd" over a bare address and names neither this app nor its author. It now opens the
+  project's own support page, **in the app's language**, which explains who `fsd` is and
+  discloses crypto-only first. The About window and the Help menu already did this; the prompt
+  that opens at launch and after every third save — the one nearly everybody sees — did not.
+- Chinese: the donation prompt said 物品 where the game ships 道具, and six Traditional Chinese
+  strings, including the Steam Cloud warning, used ASCII commas between Han characters where
+  every other string uses full-width punctuation.
+- The About window's non-affiliation line stacked three synonyms; it now says it once.
 
 ## [1.0.0] — 2026-08-03
 

@@ -108,4 +108,18 @@ done
 capture "sheet-raw-en-light"     en light raw      || true
 capture "sheet-backups-en-light" en light backups  || true
 
+# The docs site serves from site/, so it cannot reach docs/images and keeps its own copies.
+# They silently went a whole release out of date — the Korean shot on the live site still showed
+# 신뢰도 포인트 and 연구 포인트 long after the terminology was fixed, because RELEASING.md said
+# "run screenshots.sh" and this script only ever wrote to docs/images. Syncing here means the
+# two can't drift again; CI asserts it too, in case someone regenerates by hand.
+SITE="$REPO/site/images"
+if [[ -d "$SITE" && "$OUT" == "$REPO/docs/images" ]]; then
+  for f in "$SITE"/*.png; do
+    name="${f:t}"
+    [[ "$name" == "logo.png" ]] && continue        # genuinely a 512px web variant, not a capture
+    [[ -f "$OUT/$name" ]] && cp "$OUT/$name" "$f" && echo "  ↳ site/images/$name"
+  done
+fi
+
 echo "Done: $(ls "$OUT"/*.png 2>/dev/null | wc -l | tr -d ' ') images in $OUT"
