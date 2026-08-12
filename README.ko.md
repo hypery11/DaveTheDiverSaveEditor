@@ -22,8 +22,8 @@ Windows 전용이지만, 이 앱은 진짜 Mac 앱입니다. 세이브를 열고
 > 열기 전에 직접 확인하실 수 있습니다:
 >
 > ```bash
-> shasum -a 256 DiveSaveEd-macOS-v1.0.0.dmg     # 릴리스 페이지와 비교
-> spctl -a -t open --context context:primary-signature -v DiveSaveEd-macOS-v1.0.0.dmg
+> shasum -a 256 DiveSaveEd-macOS-v1.0.1.dmg     # 릴리스 페이지와 비교
+> spctl -a -t open --context context:primary-signature -v DiveSaveEd-macOS-v1.0.1.dmg
 > ```
 
 ## 지원 환경

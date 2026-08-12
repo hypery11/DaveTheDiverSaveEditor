@@ -1,11 +1,20 @@
 # Releasing
 
-Tag and push — `.github/workflows/release.yml` does the rest: build, sign, notarize,
-staple, DMG, checksum, build-provenance attestation, and a GitHub Release.
+**Today releases are built on this Mac.** `.github/workflows/release.yml` can do the whole
+job — build, sign, notarize, staple, DMG, checksum, build-provenance attestation and the
+GitHub Release — but it is `workflow_dispatch`-only and the repository currently has **no
+signing secrets set**, so triggering it produces a failed run rather than a release. Until
+the secrets below exist, use the local script:
 
 ```bash
-git tag v1.0.0 && git push origin v1.0.0
+App/scripts/release-local.sh 1.0.1        # signs, notarizes, staples, verifies, prints the SHA-256
+git tag v1.0.1 && git push origin v1.0.1
+gh release create v1.0.1 dist/DiveSaveEd-macOS-v1.0.1.dmg
 ```
+
+The script needs a Developer ID Application certificate in the login keychain and a
+notarytool keychain profile (`AC_PASSWORD` by default — see the header of the script). It
+writes nothing secret into the repo.
 
 ## One-time setup: repository secrets
 

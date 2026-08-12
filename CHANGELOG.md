@@ -8,7 +8,13 @@ the part of a release worth reading before you upgrade.
 
 ## [Unreleased]
 
-Not in any released build yet — v1.0.0's `.dmg` predates all of it.
+Nothing yet.
+
+## [1.0.1] — 2026-08-12
+
+A text-and-behaviour release: no save-format change, so nothing here can affect what gets
+written to a save file. Worth taking if you read the app in Chinese, or if you ever pressed
+the support button.
 
 ### Fixed
 
@@ -63,5 +69,6 @@ no process injection, no account, and no network access at any point.
 - Signed and notarized by Apple; universal binary for Apple Silicon and Intel.
 - Published SHA-256 and a GitHub build-provenance attestation for every release artifact.
 
-[Unreleased]: https://github.com/hypery11/DaveTheDiverSaveEditor/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/hypery11/DaveTheDiverSaveEditor/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/hypery11/DaveTheDiverSaveEditor/releases/tag/v1.0.1
 [1.0.0]: https://github.com/hypery11/DaveTheDiverSaveEditor/releases/tag/v1.0.0

@@ -21,8 +21,8 @@
 > **经 Apple 签署与公证**，每个版本都会发布 SHA-256 与 GitHub build provenance 证明。打开前可以自己验证：
 >
 > ```bash
-> shasum -a 256 DiveSaveEd-macOS-v1.0.0.dmg     # 与 release 页面比对
-> spctl -a -t open --context context:primary-signature -v DiveSaveEd-macOS-v1.0.0.dmg
+> shasum -a 256 DiveSaveEd-macOS-v1.0.1.dmg     # 与 release 页面比对
+> spctl -a -t open --context context:primary-signature -v DiveSaveEd-macOS-v1.0.1.dmg
 > ```
 
 ## 系统要求

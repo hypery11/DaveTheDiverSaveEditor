@@ -22,8 +22,8 @@ Cheat Engine, no process injection, no account, no network.
 > attestation for every release. Verify before you open it:
 >
 > ```bash
-> shasum -a 256 DiveSaveEd-macOS-v1.0.0.dmg     # compare with the release page
-> spctl -a -t open --context context:primary-signature -v DiveSaveEd-macOS-v1.0.0.dmg
+> shasum -a 256 DiveSaveEd-macOS-v1.0.1.dmg     # compare with the release page
+> spctl -a -t open --context context:primary-signature -v DiveSaveEd-macOS-v1.0.1.dmg
 > ```
 
 ## Requirements

@@ -21,8 +21,8 @@ Cheat Engine、不注入遊戲程序、不需要帳號、不連網路。
 > **經 Apple 簽署與公證**，每個版本都會發布 SHA-256 與 GitHub build provenance 證明。開啟前可以自己驗:
 >
 > ```bash
-> shasum -a 256 DiveSaveEd-macOS-v1.0.0.dmg     # 跟 release 頁面比對
-> spctl -a -t open --context context:primary-signature -v DiveSaveEd-macOS-v1.0.0.dmg
+> shasum -a 256 DiveSaveEd-macOS-v1.0.1.dmg     # 跟 release 頁面比對
+> spctl -a -t open --context context:primary-signature -v DiveSaveEd-macOS-v1.0.1.dmg
 > ```
 
 ## 系統需求
